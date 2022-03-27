@@ -8,9 +8,7 @@ import Box from "@mui/material/Box";
 import findDescriptions, { marks } from "./data/slider_data";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-
+import BackgroundInfo from "./components/BackgroundInfo";
 const About: NextPage = () => {
   const [value, setValue] = React.useState<number | number[]>(100);
 
@@ -66,38 +64,7 @@ const About: NextPage = () => {
 
       <div className={styles.main}>
         <h1 className={styles.title}>Education and Career</h1>
-        <p className={styles.description}>
-          After graduated highschool in Vietnam, I studied English and began
-          applying for colleges in the United States. In 2016, I got accepted
-          and started my studying as an International Student at{" "}
-          <a href="">Montgomery College</a> from 2016-2019.
-          This is where I had GED courses and first learned programming.
-        </p>
-        <hr style={{ width: "100%" }}></hr>
-        <p className={styles.description}>
-          From 2019-2021, at <a href="">UMBC</a>, I
-          continued my computer science hike. I studied and improved my
-          understanding in Data Structure, OOP, Algorithm. I chose data-science
-          track which focused on advanced python libraries, RDBMS, data
-          visualization principles and tools. Finally, in December 2021, I
-          proudly graduated.
-        </p>
-        <hr style={{ width: "100%" }}></hr>
-        <p className={styles.description}>
-          Around May 2021, I applied for an internship offer at{" "}
-          <a href="https://www.mediacy.com/">Media Cybernetics</a>. Here, I
-          pursuited first hand-on experience as a software developer.
-          Ultimately, after graduated I received a full-time offer at the
-          company where I continued my learning experience. My work surrounds
-          microscopy cameras and image analysis. Specifically, I mostly involve
-          in maintain and develop capture interfaces connecting microscopy
-          camera drivers and the company main application.
-        </p>
-        <hr style={{ width: "100%" }}></hr>
-        <p className={styles.description}>
-          Outside my work, I also follow my hobby as a full-stack web-app
-          developer which I find joy in.
-        </p>
+        <BackgroundInfo></BackgroundInfo>
       </div>
 
       <div className={styles.main}>

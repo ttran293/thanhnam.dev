@@ -14,17 +14,17 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.welcome}>
+        {/* <h1 className={styles.welcome}>
           Welcome to{" "}
           <a href="https://www.linkedin.com/in/thanh-nam-tran/">Nam</a>{" "}
           portfolio !
-        </h1>
+        </h1> */}
         <div className={styles.wrapper}>
           <div className={styles.card}>
             <Link href="/about">
               <div>
-                <h2>About &rarr;</h2>
-                <p>background, education, and projects</p>
+                <h2>About</h2>
+                {/* <p>background, education, and projects</p> */}
               </div>
             </Link>
           </div>
@@ -32,8 +32,8 @@ const Home: NextPage = () => {
           <div className={styles.card}>
             <Link href="/now">
               <div>
-                <h2>Now &rarr;</h2>
-                <p>what I focus on at the moment</p>
+                <h2>Now</h2>
+                {/* <p>what I focus on at the moment</p> */}
               </div>
             </Link>
           </div>
