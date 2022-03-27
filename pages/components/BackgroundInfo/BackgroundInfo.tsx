@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import timeline from "../data/timeline";
-import styles from "../components/BackgroundInfo.module.css";
+import React from "react";
+import timeline from "../../data/timeline";
+import styles from "./BackgroundInfo.module.css"
 
 export default function BackgroundInfo(props :any){
     return (
