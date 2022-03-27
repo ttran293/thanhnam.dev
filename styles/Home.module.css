@@ -16,9 +16,6 @@
   margin-bottom: 5rem;
 }
 
-.welcome{
-  text-align: center;
-}
 .footer {
   display: flex;
   flex: 1;
@@ -79,11 +76,18 @@
   grid-template-columns: repeat(2, 1fr);
 
 }
-
+.welcomeText{
+  display: flex;
+  justify-content: center;
+}
+.imageHello{
+  display: flex;
+  justify-content: center;
+}
 
 .card {
   margin: 1rem;
-  padding: 1.5rem;
+ 
   text-align: center;
   color: inherit;
   text-decoration: none;
@@ -102,7 +106,6 @@
 }
 
 .card h2 {
-  margin: 0 0 1rem 0;
   font-size: 1.5rem;
 }
 

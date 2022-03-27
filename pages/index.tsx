@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-
+import hello from "../public/images/hello.png";
 const Home: NextPage = () => {
   return (
     <div className={styles.page}>
@@ -14,22 +14,24 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        <div className={styles.welcomeText}>
+          <p>Hello, my name is Nam !</p>
+        </div>
+        <div className={styles.imageHello}>
+          <Image src={hello} width={300} height={300} />
+        </div>
         <div className={styles.wrapper}>
-          <div className={styles.card}>
-            <Link href="/about" passHref>
-              <div>
-                <h2>About</h2>
-              </div>
-            </Link>
-          </div>
+          <Link href="/about" passHref>
+            <div className={styles.card}>
+              <h2>About</h2>
+            </div>
+          </Link>
 
-          <div className={styles.card}>
-            <Link href="/now" passHref>
-              <div>
-                <h2>Now</h2>
-              </div>
-            </Link>
-          </div>
+          <Link href="/now" passHref>
+            <div className={styles.card}>
+              <h2>Now</h2>
+            </div>
+          </Link>
         </div>
       </main>
     </div>
