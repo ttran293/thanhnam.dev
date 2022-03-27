@@ -128,7 +128,7 @@ const About: NextPage = () => {
           patterns of the HPCF. This assists the faculty in allocating resources
           towards the facility and determining future policies on this shared
           UMBC community resource. The visualization also help evaluates the
-          COVID-19 lockdown impact on the UMBC users' usage habits.
+          COVID-19 lockdown impact on the UMBC users usage habits.
         </p>
       </div>
 

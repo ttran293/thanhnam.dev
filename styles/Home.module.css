@@ -1,17 +1,24 @@
 .container {
   padding: 0 2rem;
 }
+.page {
+  padding: 0 2rem;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
 
 .main {
-  min-height: 100vh;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-bottom: 5rem;
 }
 
+.welcome{
+  text-align: center;
+}
 .footer {
   display: flex;
   flex: 1;
@@ -19,13 +26,6 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
 }
 
 .title a {
@@ -42,36 +42,44 @@
 .title {
   margin: 0;
   line-height: 1.15;
-  font-size: 4rem;
+  font-size: 2.5rem;
 }
-
+.subtitle {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 2rem;
+}
 .title,
 .description {
-  text-align: center;
+  text-align: left;
+  
 }
 
 .description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+  margin: 2rem 0;
+  line-height: 1.3;
+  font-size: 1.2rem;
+  text-align: left;
+}
+.description a{
+  font-weight: bold;
+}
+.description a:hover{
+  color:blue;
 }
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+.markLabel{
+  color:#eee;
+}
+.wrapper {
+  display: grid;
+  /* align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap; */
+  grid-template-columns: repeat(2, 1fr);
+
 }
 
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
 
 .card {
   margin: 1rem;
@@ -79,7 +87,7 @@
   text-align: left;
   color: inherit;
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  border: 1px solid #757575;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
@@ -90,6 +98,7 @@
 .card:active {
   color: #0070f3;
   border-color: #0070f3;
+  cursor: pointer;
 }
 
 .card h2 {
@@ -107,6 +116,7 @@
   height: 1em;
   margin-left: 0.5rem;
 }
+
 
 @media (max-width: 600px) {
   .grid {
