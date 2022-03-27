@@ -15,14 +15,14 @@ import InfoIcon from "@mui/icons-material/Info";
      </Button>
    </Link>,
    <Link href="/about" key="2" passHref>
-     <Button variant="text" startIcon={<InfoIcon />} sx={{ color: "black" }}>
+     <Button variant="text" sx={{ color: "black" }}>
        About
      </Button>
    </Link>,
    <Link href="/now" key="3" passHref>
      <Button
        variant="text"
-       startIcon={<NotificationImportantIcon />}
+      
        sx={{ color: "black" }}
      >
        Now

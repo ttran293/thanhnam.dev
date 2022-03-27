@@ -2,10 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Header from "../components/Header/Header";
+import Image from "next/image";
+import music from "../public/images/music.png";
 
 const Now: NextPage = () => {
- 
-
   return (
     <div className={styles.container}>
       <Head>
@@ -24,6 +24,9 @@ const Now: NextPage = () => {
           <li>Up Next: learn Flutter mobile-app development</li>
           <li>Listening to 🎧 Mac Miller, Keshi, and hidden indie gems.</li>
         </ul>
+        <div className={styles.illustrations}>
+          <Image src={music} width={350} height={350} />
+        </div>
         <p className={styles.description}>Find me at @Github @LinkedIn</p>
       </div>
       <hr style={{ width: "100%" }}></hr>

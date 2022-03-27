@@ -77,10 +77,10 @@
 
 }
 .welcomeText{
-  display: flex;
-  justify-content: center;
+  text-align: center;
+  margin: 0;
 }
-.imageHello{
+.illustrations{
   display: flex;
   justify-content: center;
 }

@@ -6,7 +6,10 @@ import BackgroundInfo from "../components/BackgroundInfo/BackgroundInfo";
 import ProjectInfo from "../components/ProjectInfo/ProjectInfo";
 import Slider from "../components/Slider/Slider";
 import Header from "../components/Header/Header";
-
+import find from "../public/images/find.png";
+import load from "../public/images/load.png";
+import working from "../public/images/working.png";
+import Image from "next/image";
 const About: NextPage = () => {
   return (
     <div className={styles.main}>
@@ -16,18 +19,28 @@ const About: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
+
       <div className={styles.main}>
         <h1 className={styles.title}>About Nam</h1>
+        <div className={styles.illustrations}>
+          <Image src={find} width={200} height={200} />
+        </div>
         <Slider></Slider>
       </div>
 
       <div className={styles.main}>
         <h1 className={styles.title}>Education and Career</h1>
+        <div className={styles.illustrations}>
+          <Image src={load} width={200} height={200} />
+        </div>
         <BackgroundInfo></BackgroundInfo>
       </div>
 
       <div className={styles.main}>
         <h1 className={styles.title}>Projects</h1>
+        <div className={styles.illustrations}>
+          <Image src={working} width={200} height={200} />
+        </div>
         <ProjectInfo></ProjectInfo>
       </div>
 

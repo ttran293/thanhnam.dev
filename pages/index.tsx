@@ -14,10 +14,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.welcomeText}>
-          <p>Hello, my name is Nam !</p>
-        </div>
-        <div className={styles.imageHello}>
+        <p className={styles.welcomeText}>
+          Hello, i'm Nam. Welcome to my portfolio !
+        </p>
+
+        <div className={styles.illustrations}>
           <Image src={hello} width={300} height={300} />
         </div>
         <div className={styles.wrapper}>
