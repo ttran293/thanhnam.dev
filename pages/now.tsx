@@ -1,25 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Link from "next/link";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+import Header from "./components/Header/Header";
 
 const Now: NextPage = () => {
-  const breadcrumbs = [
-    <Link href="/" key="1">
-      Home
-    </Link>,
-    <Link href="/about" key="2">
-      About
-    </Link>,
-    <Link href="/now" key="3">
-      Now
-    </Link>,
-  ];
+ 
 
   return (
     <div className={styles.container}>
@@ -30,12 +15,7 @@ const Now: NextPage = () => {
       </Head>
 
       <div className={styles.main}>
-        <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
-          aria-label="breadcrumb"
-        >
-          {breadcrumbs}
-        </Breadcrumbs>
+        <Header></Header>
         <h1 className={styles.title}>What I am up to</h1>
         <ul className={styles.description}>
           <li>Currently in Silver Spring, MD, US</li>

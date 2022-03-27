@@ -9,17 +9,17 @@ import NotificationImportantIcon from "@mui/icons-material/NotificationImportant
 import InfoIcon from "@mui/icons-material/Info";
 
  const breadcrumbs = [
-   <Link href="/" key="1">
+   <Link href="/" key="1" passHref>
      <Button variant="text" startIcon={<HomeIcon />} sx={{ color: "black" }}>
        Home
      </Button>
    </Link>,
-   <Link href="/about" key="2">
+   <Link href="/about" key="2" passHref>
      <Button variant="text" startIcon={<InfoIcon />} sx={{ color: "black" }}>
        About
      </Button>
    </Link>,
-   <Link href="/now" key="3">
+   <Link href="/now" key="3" passHref>
      <Button
        variant="text"
        startIcon={<NotificationImportantIcon />}

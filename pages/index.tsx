@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div className={styles.wrapper}>
           <div className={styles.card}>
-            <Link href="/about">
+            <Link href="/about" passHref>
               <div>
                 <h2>About</h2>
               </div>
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className={styles.card}>
-            <Link href="/now">
+            <Link href="/now" passHref>
               <div>
                 <h2>Now</h2>
               </div>

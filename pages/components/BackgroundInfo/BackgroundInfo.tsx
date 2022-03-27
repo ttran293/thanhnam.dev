@@ -6,7 +6,7 @@ export default function BackgroundInfo(props :any){
     return (
       <div>
         {timeline.map((item) => (
-          <p className={styles.description}>
+          <p className={styles.description} key={item.id}>
               {item.story}
           </p>
         ))}

@@ -8,7 +8,9 @@ export default function BackgroundInfo(props: any) {
       {projects.map((item) => (
         <>
           <h2>{item.name}</h2>
-          <p className={styles.description}>{item.description}</p>
+          <p className={styles.description} key={item.id}>
+            {item.description}
+          </p>
         </>
       ))}
     </div>
