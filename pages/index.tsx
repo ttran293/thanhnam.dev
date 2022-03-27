@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <p className={styles.welcomeText}>
-          Hello, i'm Nam. Welcome to my portfolio !
+          Hello, im Nam. Welcome to my portfolio !
         </p>
 
         <div className={styles.illustrations}>
