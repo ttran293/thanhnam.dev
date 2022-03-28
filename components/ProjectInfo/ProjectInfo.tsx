@@ -6,12 +6,11 @@ export default function BackgroundInfo(props: any) {
   return (
     <div>
       {projects.map((item) => (
-        <>
+        <div key={item.id}>
           <h2>{item.name}</h2>
-          <p className={styles.description} key={item.id}>
-            {item.description}
-          </p>
-        </>
+          <a href={item.url}>Live</a> | <a href={item.github}>Source code</a>
+          <p className={styles.description}>{item.description}</p>
+        </div>
       ))}
     </div>
   );

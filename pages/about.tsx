@@ -10,6 +10,8 @@ import find from "../public/images/find.png";
 import load from "../public/images/load.png";
 import working from "../public/images/working.png";
 import Image from "next/image";
+
+
 const About: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -47,7 +49,7 @@ const About: NextPage = () => {
         </div>
         <ProjectInfo></ProjectInfo>
       </div>
-
+      <hr style={{ width: "100%" }}></hr>
       <footer className={styles.footer}>Copyright © Nam</footer>
     </div>
   );
