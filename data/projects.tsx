@@ -27,7 +27,7 @@ const projects = [
   },
   {
     id: 4,
-    name: "thanhnam.me",
+    name: "thanhnam.info",
     description:
       "My portfolio. Build using ReactJS, NextJS, Typescript, Material UI",
     url: "https://thanhnam-info.vercel.app/",
