@@ -20,26 +20,32 @@ export default function findDescriptions(value: Number | Number[]) {
 export const marks = [
   {
     value: 0,
-    label: "Aug 2016",
+    label: "",
+    labelTop: "Aug 2016",
   },
   {
     value: 50,
-    label: "Aug 2019",
+    label: "",
+    labelTop: "Aug 2019",
   },
   {
     value: 70,
-    label: "May 2021",
+    label: "",
+    labelTop: "May 2021",
   },
   {
     value: 80,
-    label: "Dec 2021",
+    label: "",
+    labelTop: "Dec 2021",
   },
   {
     value: 90,
-    label: "Feb 2022",
+    label: "",
+    labelTop: "Feb 2022",
   },
   {
     value: 100,
-    label: "Present",
+    label: "",
+    labelTop: "Present",
   },
 ];

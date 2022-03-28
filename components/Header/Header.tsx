@@ -22,7 +22,6 @@ import InfoIcon from "@mui/icons-material/Info";
    <Link href="/now" key="3" passHref>
      <Button
        variant="text"
-      
        sx={{ color: "black" }}
      >
        Now

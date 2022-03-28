@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
@@ -6,6 +7,11 @@ import styles from "./Slider.module.css";
 
 export default function BackgroundInfo(props: any) {
   const [value, setValue] = React.useState<number | number[]>(100);
+
+  function valueLabelFormat(value: any) {
+    return marks.find((mark) => mark.value === value).labelTop;
+  }
+
   return (
     <div>
       <Box
@@ -16,16 +22,17 @@ export default function BackgroundInfo(props: any) {
         {" "}
         <p className={styles.description}>{findDescriptions(value)}</p>
       </Box>
-      <Box width={"100%"}>
+      <Box width={"90%"} className={styles.SliderHelp}>
         <Slider
           aria-label="Restricted values"
           defaultValue={100}
           step={null}
-          valueLabelDisplay="off"
+          valueLabelFormat={valueLabelFormat}
+          valueLabelDisplay="on"
           marks={marks}
           onChange={(_, value) => setValue(value)}
           onChangeCommitted={(_, value) => setValue(value)}
-          sx={{ color: "#eee" }}
+          sx={{ color: "black" }}
         />
       </Box>
     </div>
