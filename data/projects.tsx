@@ -34,7 +34,7 @@ const projects = [
     description:
       "My portfolio.",
     tech:"Built using ReactJS, NextJS, Typescript, Material UI.",
-    url: "https://thanhnam-info.vercel.app/",
+    url: "https://thanhnam-info-ttran293.vercel.app/",
     github: "https://github.com/ttran293/thanhnam.info",
   },
   {
