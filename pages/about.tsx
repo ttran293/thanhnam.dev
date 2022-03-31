@@ -30,7 +30,7 @@ const About: NextPage = () => {
         <div className={styles.main}>
           <h1 className={styles.title}>About Nam</h1>
           <div className={styles.illustrations}>
-            <Image src={find} width={200} height={200} />
+            <Image src={find} width={200} height={200} alt={"Illustration"}/>
           </div>
           <Slider></Slider>
         </div>
@@ -38,7 +38,7 @@ const About: NextPage = () => {
         <div className={styles.main}>
           <h1 className={styles.title}>Education and Career</h1>
           <div className={styles.illustrations}>
-            <Image src={load} width={200} height={200} />
+            <Image src={load} width={200} height={200} alt={"Illustration"}/>
           </div>
           <BackgroundInfo></BackgroundInfo>
         </div>
@@ -46,7 +46,7 @@ const About: NextPage = () => {
         <div className={styles.main}>
           <h1 className={styles.title}>Projects</h1>
           <div className={styles.illustrations}>
-            <Image src={working} width={200} height={200} />
+            <Image src={working} width={200} height={200} alt={"Illustration"}/>
           </div>
           <ProjectInfo></ProjectInfo>
         </div>

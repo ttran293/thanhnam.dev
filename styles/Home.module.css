@@ -118,6 +118,10 @@
   margin-left: 0.5rem;
 }
 
+.tag{
+  background-color: antiquewhite;
+
+} 
 
 @media (max-width: 600px) {
   .grid {

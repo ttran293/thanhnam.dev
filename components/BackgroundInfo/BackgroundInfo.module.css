@@ -4,3 +4,11 @@
   font-size: 1.2rem;
   text-align: left;
 }
+
+.link{
+  text-decoration: none;
+}
+
+.tag{
+  background-color: antiquewhite;
+} 

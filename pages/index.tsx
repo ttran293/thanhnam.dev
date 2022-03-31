@@ -26,7 +26,7 @@ const Home: NextPage = () => {
           </p>
 
           <div className={styles.illustrations}>
-            <Image src={hello} width={300} height={300} />
+            <Image src={hello} width={300} height={300} alt={"Illustration"}/>
           </div>
 
           <div className={styles.wrapper}>
