@@ -1,9 +1,9 @@
 export default function findDescriptions(value: Number | Number[]) {
   switch (value) {
     case 0:
-      return "Started my journey as an International Student at Montgomery College.";
+      return "Started my study as an International Student at Montgomery College.";
     case 50:
-      return "Achived A.A degree and transfered to University of Maryland, Baltimore County (UMBC)";
+      return "Achieved A.A degree and transfered to University of Maryland, Baltimore County (UMBC)";
     case 70:
       return "Began my Engineering internship @ Media Cybernetics. Inc";
     case 80:

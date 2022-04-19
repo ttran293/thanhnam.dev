@@ -5,7 +5,7 @@ import Header from "../components/Header/Header";
 import Image from "next/image";
 import music from "../public/images/music.png";
 import Layout from "../components/Layout/Layout";
-
+import Footer from "../components/Footer/Footer";
 const Now: NextPage = () => {
   return (
     <Layout>
@@ -15,10 +15,10 @@ const Now: NextPage = () => {
           <Header></Header>
           <h1 className={styles.title}>What I am up to</h1>
           <ul className={styles.description}>
-            <li>Currently in Silver Spring, MD, US</li>
+            <li>Currently in Silver Spring, MD</li>
             <li>
-              A full-time software developer @{" "}
-              <a href="https://www.mediacy.com/"><mark className={styles.tag}>Media Cybernetics Inc</mark></a>{" "}
+              A full-time software developer at{" "}
+              <a className={styles.link} href="https://www.mediacy.com/"><mark className={styles.tag}>Media Cybernetics Inc</mark></a>{" "}
               working on microscopy cameras and image analysis (and building
               awesome data visualization with PowerBI).
             </li>
@@ -37,7 +37,7 @@ const Now: NextPage = () => {
           </p>
         </div>
         <hr style={{ width: "100%" }}></hr>
-        <footer className={styles.footer}>Copyright © Nam</footer>
+        <Footer></Footer>
       </div>
     </Layout>
   );

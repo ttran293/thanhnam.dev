@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import BackgroundInfo from "../components/BackgroundInfo/BackgroundInfo";
 import ProjectInfo from "../components/ProjectInfo/ProjectInfo";
 import HeadHelper from "../components/HeadHelper/HeadHelper";
+import Footer from "../components/Footer/Footer";
 import Slider from "../components/Slider/Slider";
 import Header from "../components/Header/Header";
 import Layout from "../components/Layout/Layout";
@@ -11,6 +12,7 @@ import find from "../public/images/find.png";
 import load from "../public/images/load.png";
 import working from "../public/images/working.png";
 import Image from "next/image";
+
 
 const About: NextPage = () => {
   return (
@@ -44,7 +46,7 @@ const About: NextPage = () => {
         </div>
         <a href="#top">Back to top</a>
         <hr style={{ width: "100%" }}></hr>
-        <footer className={styles.footer}>Copyright © Nam</footer>
+        <Footer></Footer>
       </div>
     </Layout>
   );

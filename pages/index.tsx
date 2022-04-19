@@ -10,27 +10,38 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <div className={styles.page}>
-      <HeadHelper title="Home"></HeadHelper>
+        <HeadHelper title="Home"></HeadHelper>
 
         <main className={styles.main}>
           <p className={styles.welcomeText}>
-            Hello, im Nam. Welcome to my portfolio !
+            Hello there. Welcome to my website!
           </p>
 
           <div className={styles.illustrations}>
-            <Image src={hello} width={300} height={300} alt={"Illustration"}/>
+            <Image src={hello} width={300} height={300} alt={"Illustration"} />
           </div>
 
           <div className={styles.wrapper}>
             <Link href="/about" passHref>
               <div className={styles.card}>
-                <h2>About</h2>
+                <p>
+                  I&apos;m a passionate full time Jr Software Developer @
+                  MediaCybernetics, Inc and a hobbyist full stack web developer
+                  based in Rockville, MD.
+                </p>
+                <p>
+                  <mark className={styles.tag}>
+                  {"👉"} Check out my projects!
+                  </mark>
+                </p>
               </div>
             </Link>
 
             <Link href="/now" passHref>
               <div className={styles.card}>
-                <h2>Now</h2>
+              <p>
+                 {"👉"}  See what  I&apos;m doing right now.
+                </p>
               </div>
             </Link>
           </div>
