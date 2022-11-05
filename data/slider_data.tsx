@@ -11,7 +11,7 @@ export default function findDescriptions(value: Number | Number[]) {
     case 90:
       return "Received a full-time offer @ Media Cybernetics. Inc";
     case 100:
-      return "A passionate full time Jr Software Developer @ MediaCybernetics, Inc and a hobbyist full stack web developer based in Rockville, MD.";
+      return "A full time Jr Software Developer @ MediaCybernetics, Inc and a hobbyist full stack web developer based in Rockville, MD.";
     default:
       return ":)";
   }

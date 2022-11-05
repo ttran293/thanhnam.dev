@@ -6,8 +6,7 @@ const timeline = [
     imgURL:
       "https://www.mcinfonet.org/crtvsvc/creativeservices_website/mclogos_page/assets/MClogo_left_aligned_black_RGB_no_background.png",
     url: "https://www.montgomerycollege.edu/index.html",
-    tag:"Montgomery College"
-    
+    tag: "Montgomery College",
   },
   {
     id: 20,
@@ -16,23 +15,23 @@ const timeline = [
     imgURL:
       "https://styleguide.umbc.edu/files/2019/01/UMBC-primary-logo-RGB.png",
     url: "https://www.umbc.edu/",
-    tag:"University of Maryland, Baltimore County"
+    tag: "University of Maryland, Baltimore County",
   },
   {
     id: 30,
     story:
-      "Around May 2021, I applied for an internship offer at Media Cybernetics. While studying as a full-time student,  I pursued my first hands-on experience as a software developer. Eventually, I received a full-time offer at Media Cybernetics after completing my academic degree. My work surrounds microscopy cameras and image analysis. Specifically, I am involved in maintaining and developing capture interfaces connecting microscopy camera drivers and the company's main application. Furthermore, I also work on PowerBI visualizing the cameras data usage thank to the courses I took at UMBC. The visualizations help illustrate the cameras' manufacturer,  the users' habits. This ultimately contributes to many of the company's marketing strategies.",
+      "May 2021, I applied for an internship offer at Media Cybernetics. While studying as a full-time student,  I pursued my first hands-on experience as a software developer. Eventually, I received a full-time offer at Media Cybernetics after completing my academic degree. My work surrounds maintaining and developing capture interfaces connecting microscopy camera, camera hardware detection, and image analysis. In addition, I am involved in data business intelligence that provide insights in the company departments and help the company in developing strategies as well as decision makings.",
     imgURL: "",
     url: "https://www.mediacy.com/",
-    tag:"Media Cybernetics Inc"
+    tag: "Media Cybernetics Inc",
   },
   {
     id: 40,
     story:
-      "Outside my work, I'm a full-stack web-app developer, video editing hobbyist, and an illustrator.",
+      "Outside my work, I'm a full-stack web-app developer. I create artworks and designs for fun.",
     imgURL: "",
     url: "https://www.linkedin.com/in/thanh-nam-tran/",
-    tag:"Now"
-  }
+    tag: "Now",
+  },
 ];
 export default timeline;

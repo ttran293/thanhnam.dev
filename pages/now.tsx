@@ -19,12 +19,9 @@ const Now: NextPage = () => {
             <li>
               A full-time software developer at{" "}
               <a className={styles.link} href="https://www.mediacy.com/"><mark className={styles.tag}>Media Cybernetics Inc</mark></a>{" "}
-              working on microscopy cameras and image analysis (and building
-              awesome data visualization with PowerBI).
             </li>
-            <li>Interest in making web-app with friends</li>
-            <li>Up next: learn Flutter mobile-app development</li>
-            <li>Listening to 🎧 Mac Miller, Keshi, and hidden indie gems.</li>
+            {/* <li>Up next: </li> */}
+            <li>Listening to 🎧 Mac Miller, Keshi, and Joji.</li>
           </ul>
           <div className={styles.illustrations}>
             <Image src={music} width={300} height={300}  alt={"Illustration"}/>

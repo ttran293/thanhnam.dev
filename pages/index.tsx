@@ -25,7 +25,7 @@ const Home: NextPage = () => {
             <Link href="/about" passHref>
               <div className={styles.card}>
                 <p>
-                  I&apos;m a passionate full time Jr Software Developer @
+                  I&apos;m a Jr. Software Developer @
                   MediaCybernetics, Inc and a hobbyist full stack web developer
                   based in Rockville, MD.
                 </p>
