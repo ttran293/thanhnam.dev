@@ -43,6 +43,15 @@ const projects: Project[] = [
     tech: "ReactJS, Tailwind CSS, AI/LLM, shadcn UI",
     image: "/images/projects/mr-nobody-game.png",
   },
+  {
+    id: "15-puzzle",
+    name: "15 Puzzle",
+    url: "https://15-puzzle-henna.vercel.app/",
+    github: "https://github.com/ttran293/15-puzzle",
+    description: "15 Sliding Puzzle Game using paintings from National Gallery of Art",
+    tech: "ReactJS, Tailwind",
+    image: "/images/projects/15-puzzle.png",
+  },
 ];
 
 const ProjectImage = ({
