@@ -60,6 +60,16 @@
   color-scheme: dark;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+}
+
 html,
 body {
   padding: 0;

@@ -101,7 +101,10 @@ const Home: NextPage = () => {
           </div>
 
           {/* Left panel */}
-          <div className="lg:sticky lg:top-5 lg:col-start-1 lg:row-start-2 lg:self-start lg:max-h-[calc(100vh-2.5rem)] lg:overflow-y-auto lg:pr-12 xl:pr-16 2xl:pr-20 pt-8 lg:pt-6">
+          <div
+            className="lg:sticky lg:top-5 lg:col-start-1 lg:row-start-2 lg:self-start lg:max-h-[calc(100vh-2.5rem)] lg:overflow-y-auto lg:pr-12 xl:pr-16 2xl:pr-20 pt-8 lg:pt-6"
+            data-lenis-prevent
+          >
             <div className="max-w-2xl lg:max-w-none lg:pr-6 xl:pr-8">
               <section className="section-module mb-4">
                 <h1

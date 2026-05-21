@@ -1,8 +1,10 @@
+import "lenis/dist/lenis.css";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { Archivo_Black, Inter } from "next/font/google";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useSmoothScroll } from "../hooks/useSmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,13 +22,14 @@ const archivoBlack = Archivo_Black({
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
+  const { scrollToTop } = useSmoothScroll({ enabled: reduceMotion === false });
 
   return (
     <div className={`${inter.variable} ${inter.className} ${archivoBlack.variable}`}>
       <AnimatePresence
         mode="wait"
         initial={false}
-        onExitComplete={() => window.scrollTo(0, 0)}
+        onExitComplete={() => scrollToTop(true)}
       >
         <motion.div
           key={router.asPath}
