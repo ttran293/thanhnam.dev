@@ -1,16 +1,10 @@
-import type { NextPage } from "next";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
+import ItemPageLayout from "../../components/ItemPageLayout";
+import { itemTitleClassName } from "../../data/showcaseItems";
 
-type DrawingItem = {
-  id: string;
-  src: string;
-  alt: string;
-};
-
-const drawings: DrawingItem[] = [
+const drawings = [
   { id: "1", src: "/images/drawings/1.jpg", alt: "Drawing 1" },
   { id: "3", src: "/images/drawings/3.jpg", alt: "Drawing 3" },
   { id: "4", src: "/images/drawings/4.jpg", alt: "Drawing 4" },
@@ -34,14 +28,14 @@ const drawings: DrawingItem[] = [
   { id: "24", src: "/images/drawings/24.jpg", alt: "Drawing 24" },
 ];
 
-const DrawingImage = ({ src, alt }: { src: string; alt: string }) => {
+function DrawingImage({ src, alt }: { src: string; alt: string }) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
   if (error) return null;
 
   return (
-    <div className="relative w-full bg-stone-200">
+    <div className="relative w-full module-box p-0 overflow-hidden">
       <Image
         src={src}
         alt={alt}
@@ -55,61 +49,43 @@ const DrawingImage = ({ src, alt }: { src: string; alt: string }) => {
       />
       {!loaded && (
         <div className="absolute inset-0 flex items-center justify-center min-h-48">
-          <span className="text-stone-400 text-xs">Loading...</span>
+          <span className="opacity-40 text-xs uppercase font-mono">
+            Loading...
+          </span>
         </div>
       )}
     </div>
   );
-};
+}
 
-const Drawing: NextPage = () => {
+export default function SketchesPage() {
   return (
-    <div className="min-h-screen px-6 py-4 md:px-12">
-      <header className="flex justify-between items-center mb-16">
-        <Link
-          href="/"
-          className="text-stone-700 no-underline hover:text-stone-900 text-sm"
-          style={{ textDecoration: "none" }}
-        >
-          Thanh Nam
-        </Link>
-        <nav className="flex gap-6 text-sm">
-          <Link
-            href="/"
-            className="text-stone-500 no-underline hover:text-stone-700"
-            style={{ textDecoration: "none" }}
-          >
-            Home
-          </Link>
-        </nav>
-      </header>
+    <>
+      <Head>
+        <title>{`Sketches — Thanh Nam`}</title>
+      </Head>
+      <ItemPageLayout>
+        <article>
+          <div className="item-header-box">
+            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+              2024.03.11 / Art / Pencil / pen
+            </p>
+            <h1 className={`${itemTitleClassName} item-title`}>Sketches</h1>
+          </div>
 
-      {/* Masonry Grid */}
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
-          {drawings.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.03 }}
-              className="mb-2 break-inside-avoid"
-            >
-              <DrawingImage src={item.src} alt={item.alt} />
-            </motion.div>
-          ))}
-        </div>
-      </motion.main>
+          <p className="leading-relaxed text-base max-w-prose mb-4">
+            Mostly sketches done when I need a break from the screen.
+          </p>
 
-      <p className="text-sm text-stone-500 mb-16 mt-16">
-        <Link href="/">← Back to home</Link>
-      </p>
-    </div>
+          <div className="columns-2 md:columns-3 gap-2 mt-10">
+            {drawings.map((item) => (
+              <div key={item.id} className="mb-2 break-inside-avoid">
+                <DrawingImage src={item.src} alt={item.alt} />
+              </div>
+            ))}
+          </div>
+        </article>
+      </ItemPageLayout>
+    </>
   );
-};
-
-export default Drawing;
+}
