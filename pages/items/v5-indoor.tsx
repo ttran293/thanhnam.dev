@@ -41,7 +41,7 @@ export default function V5IndoorPage() {
             A cool V5 send. Love the backflag sequence.
           </p>
 
-          <YouTubeEmbed videoId="JrkuIMPYHw4" title="V5 Indoor send" />
+          <YouTubeEmbed videoId="UHjKLcKvXMQ" title="V5 Indoor send" />
         </article>
       </ItemPageLayout>
     </>

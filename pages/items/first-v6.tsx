@@ -41,7 +41,7 @@ export default function FirstV6Page() {
             My first V6 — hardest grade I&apos;ve sent so far.
           </p>
 
-          <YouTubeEmbed videoId="rmde-MGp8jQ" title="First V6 send" />
+          <YouTubeEmbed videoId="351RK0g-jFE" title="First V6 send" />
         </article>
       </ItemPageLayout>
     </>
