@@ -122,7 +122,15 @@ const Home: NextPage = () => {
                   >
                     Media Cybernetics Inc. ↗
                   </a>{" "}
-                  and a Graduate Student and Assistant at{" "}
+                  and a Graduate Student and{" "}
+                  <a
+                    href="https://umbc.edu/global/ask-a-student/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Global Ambassador ↗
+                  </a>{" "}
+                  at{" "}
                   <a
                     href="https://www.umbc.edu/"
                     target="_blank"
