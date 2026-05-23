@@ -40,6 +40,11 @@ export default function FirstV6Page() {
           <p className="leading-relaxed text-base max-w-prose mb-4">
             My first V6 — hardest grade I&apos;ve sent so far.
           </p>
+          <section className="max-w-prose mb-8 space-y-4">
+            <p className="leading-relaxed text-base">
+              Despite the holds are good, the climb consists of long sequences of powerful 'pull up' moves. 
+            </p>
+          </section>
 
           <YouTubeEmbed videoId="351RK0g-jFE" title="First V6 send" />
         </article>
