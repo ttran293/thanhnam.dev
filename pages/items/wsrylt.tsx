@@ -17,7 +17,7 @@ export default function WsryltPage() {
         <article>
           <div className="item-header-box">
             <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
-              2025.05.20 / Web App / Music sharing / MERN
+              2022.02.21 / Web App / Music sharing / MERN
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>
               What&apos;s song are you listening to?

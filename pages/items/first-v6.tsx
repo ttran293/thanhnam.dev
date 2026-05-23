@@ -42,7 +42,7 @@ export default function FirstV6Page() {
           </p>
           <section className="max-w-prose mb-8 space-y-4">
             <p className="leading-relaxed text-base">
-              Despite the holds are good, the climb consists of long sequences of powerful 'pull up' moves. 
+              Despite the holds are good, the climb consists of long sequences of powerful &apos;pull up&apos; moves.
             </p>
           </section>
 

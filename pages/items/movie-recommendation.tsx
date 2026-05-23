@@ -13,7 +13,7 @@ export default function MovieRecommendationPage() {
         <article>
           <div className="item-header-box">
             <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
-              2025.04.20 / School Project / CMSC678 / ML
+              2025.05.18 / School Project / CMSC678 / ML
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>
               MiniBERT4Rec + MF

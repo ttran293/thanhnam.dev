@@ -17,7 +17,7 @@ export default function PronunciationAppPage() {
         <article>
           <div className="item-header-box">
             <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
-              2025.05.15 / School Project / CS673 — Natural Language Processing
+              2026.04.15 / School Project / CS673 — Natural Language Processing
               / Automatic Speech Recognition
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>

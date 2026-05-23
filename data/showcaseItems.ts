@@ -23,7 +23,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Automatic Speech Recognition",
     tag: "School Project",
     filter: "school",
-    createdAt: "2025-05-15",
+    createdAt: "2026-04-15",
   },
   {
     id: "movie-recommendation",
@@ -31,7 +31,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Recommender systems",
     tag: "School Project",
     filter: "school",
-    createdAt: "2025-04-20",
+    createdAt: "2025-05-18",
   },
   {
     id: "wsrylt",
@@ -39,7 +39,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Music sharing",
     tag: "Web App",
     filter: "web-app",
-    createdAt: "2025-05-20",
+    createdAt: "2022-02-21",
   },
   {
     id: "15-puzzle",
@@ -47,7 +47,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Sliding puzzle",
     tag: "Web App",
     filter: "web-app",
-    createdAt: "2025-04-15",
+    createdAt: "2025-12-31",
   },
   {
     id: "mr-nobody",
@@ -55,7 +55,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Interactive fiction",
     tag: "School Project",
     filter: "school",
-    createdAt: "2024-04-12",
+    createdAt: "2025-10-16",
   },
   {
     id: "drawings",
@@ -63,7 +63,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Pencil",
     tag: "Art",
     filter: "art",
-    createdAt: "2024-03-11",
+    createdAt: "2023-03-11",
   },
   {
     id: "first-v6",
@@ -71,7 +71,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Indoor bouldering",
     tag: "Rock Climb",
     filter: "rock-climb",
-    createdAt: "2024-10-15",
+    createdAt: "2025-09-15",
   },
   {
     id: "northwest-branch",
@@ -79,7 +79,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Outdoor bouldering",
     tag: "Rock Climb",
     filter: "rock-climb",
-    createdAt: "2024-11-09",
+    createdAt: "2025-08-30",
   },
   {
     id: "v5-indoor",
@@ -87,7 +87,7 @@ export const showcaseItems: ShowcaseItem[] = [
     meta: "Indoor bouldering",
     tag: "Rock Climb",
     filter: "rock-climb",
-    createdAt: "2024-08-01",
+    createdAt: "2025-10-14",
   },
 ];
 

@@ -41,7 +41,7 @@ export default function V5IndoorPage() {
             A cool V5 that I sent. 
             It started out with a big throw and catch that requires precise foot placement.
             Then, you need to work on a crimp and a pinch followed by a backflag.
-            The end wasn't too bad.
+            The end wasn&apos;t too bad.
           </p>
 
           <YouTubeEmbed videoId="UHjKLcKvXMQ" title="V5 Indoor send" />
