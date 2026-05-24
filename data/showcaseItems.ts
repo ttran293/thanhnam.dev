@@ -18,6 +18,14 @@ export const filterLabels: Record<Filter, string> = {
 
 export const showcaseItems: ShowcaseItem[] = [
   {
+    id: "vision-gnn-sar-iceberg",
+    name: "Adapting Vision GNN SAR Iceberg Imagery Classification",
+    meta: "Graph neural networks",
+    tag: "School Project",
+    filter: "school",
+    createdAt: "2026-05-15",
+  },
+  {
     id: "pronunciation-app",
     name: "Did I pronounce that right?",
     meta: "Automatic Speech Recognition",
