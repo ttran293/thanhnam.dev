@@ -7,6 +7,7 @@ export type ShowcaseItem = {
   tag: string;
   filter: Filter;
   createdAt: string;
+  archived?: boolean;
 };
 
 export const filterLabels: Record<Filter, string> = {
@@ -42,12 +43,21 @@ export const showcaseItems: ShowcaseItem[] = [
     createdAt: "2025-05-18",
   },
   {
+    id: "wsrylt-v2",
+    name: "What's song are you listening to?",
+    meta: "Music sharing",
+    tag: "Web App",
+    filter: "web-app",
+    createdAt: "2026-05-24",
+  },
+  {
     id: "wsrylt",
     name: "What's song are you listening to?",
     meta: "Music sharing",
     tag: "Web App",
     filter: "web-app",
     createdAt: "2022-02-21",
+    archived: true,
   },
   {
     id: "15-puzzle",

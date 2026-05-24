@@ -282,8 +282,13 @@ const Home: NextPage = () => {
                                 #{itemNumber}
                               </span>
                               <span className="min-w-0">
-                                <span className="block display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
-                                  {item.name}↗
+                                <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                                  <span className="display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
+                                    {item.name}↗
+                                  </span>
+                                  {item.archived && (
+                                    <span className="showcase-badge">Archived</span>
+                                  )}
                                 </span>
                                 <span className="theme-blue-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm lg:text-base uppercase tracking-wide opacity-60 group-hover:opacity-80">
                                   <span>{formattedDate}</span>

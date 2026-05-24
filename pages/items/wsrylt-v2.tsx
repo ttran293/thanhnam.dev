@@ -5,7 +5,7 @@ import ItemActions from "../../components/ItemActions";
 import ItemPageLayout from "../../components/ItemPageLayout";
 import { itemTitleClassName } from "../../data/showcaseItems";
 
-export default function WsryltPage() {
+export default function WsryltV2Page() {
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -17,20 +17,23 @@ export default function WsryltPage() {
         <article>
           <div className="item-header-box">
             <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
-              2022.02.21 / Web App / Music sharing / MERN
+              2026.05.24 / Web App / Music sharing / Next.js
             </p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <h1 className={`${itemTitleClassName} item-title mb-0`}>
-                What&apos;s song are you listening to?
-              </h1>
-              <span className="showcase-badge">Archived</span>
-            </div>
+            <h1 className={`${itemTitleClassName} item-title`}>
+              What&apos;s song are you listening to?
+            </h1>
           </div>
 
           <p className="leading-relaxed text-base max-w-prose mb-4">
-            A small social music blog to share what songs you&apos;re listening
-            to. The idea started from a simple question people ask each other
-            all the time.
+            A rewrite of the original music blog — a small social app for sharing
+            what you&apos;re listening to, built with Next.js, MongoDB, and
+            NextAuth.
+          </p>
+
+          <p className="leading-relaxed text-base max-w-prose mb-4">
+            Same idea as before: answer the question people ask each other all
+            the time. This version adds typed API routes, session-based auth,
+            and embedded YouTube playback via react-player.
           </p>
 
           <div className="mb-8 w-full max-w-lg module-box p-0 overflow-hidden">
@@ -48,7 +51,7 @@ export default function WsryltPage() {
 
           <ItemActions
             primary={{
-              href: "https://github.com/ttran293/music-blog",
+              href: "https://github.com/ttran293/wsrylt",
               label: "GitHub",
             }}
           />

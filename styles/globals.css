@@ -205,6 +205,34 @@ h6 {
   text-decoration-color: var(--color-poster-blue);
 }
 
+.showcase-badge {
+  display: inline-block;
+  flex-shrink: 0;
+  align-self: center;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--link-decoration);
+  border-radius: 9999px;
+  opacity: 0.9;
+}
+
+@media (min-width: 640px) {
+  .showcase-badge {
+    font-size: 0.8125rem;
+    padding: 0.4rem 0.85rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .showcase-badge {
+    font-size: 0.875rem;
+    padding: 0.45rem 0.95rem;
+  }
+}
+
 .btn-pill-primary,
 .btn-pill-secondary {
   display: inline-flex;
