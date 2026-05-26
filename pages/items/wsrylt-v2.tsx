@@ -1,13 +1,9 @@
 import Head from "next/head";
-import Image from "next/image";
-import { useState } from "react";
 import ItemActions from "../../components/ItemActions";
 import ItemPageLayout from "../../components/ItemPageLayout";
 import { itemTitleClassName } from "../../data/showcaseItems";
 
 export default function WsryltV2Page() {
-  const [loaded, setLoaded] = useState(false);
-
   return (
     <>
       <Head>
@@ -36,24 +32,17 @@ export default function WsryltV2Page() {
             and embedded YouTube playback via react-player.
           </p>
 
-          <div className="mb-8 w-full max-w-lg module-box p-0 overflow-hidden">
-            <Image
-              src="/images/projects/music-blog-homepage.png"
-              alt="What's song are you listening to?"
-              width={600}
-              height={400}
-              className={`w-full h-auto object-cover transition-opacity duration-300 ${
-                loaded ? "opacity-100" : "opacity-0"
-              }`}
-              onLoad={() => setLoaded(true)}
-            />
-          </div>
-
           <ItemActions
             primary={{
-              href: "https://github.com/ttran293/wsrylt",
-              label: "GitHub",
+              href: "https://wsrylt.vercel.app/",
+              label: "Visit site",
             }}
+            secondary={[
+              {
+                href: "https://github.com/ttran293/wsrylt",
+                label: "GitHub",
+              },
+            ]}
           />
         </article>
       </ItemPageLayout>
