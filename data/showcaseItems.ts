@@ -44,7 +44,7 @@ export const showcaseItems: ShowcaseItem[] = [
   },
   {
     id: "wsrylt-v2",
-    name: "What's song are you listening to?",
+    name: "What's song are you listening to? Version 2",
     meta: "Music sharing",
     tag: "Web App",
     filter: "web-app",
