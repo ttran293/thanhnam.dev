@@ -207,7 +207,7 @@ const Home: NextPage = () => {
               </section>
 
               <p className="font-mono text-xs uppercase opacity-60 lg:mb-0">
-                Updated May 20, 2026
+                Updated May 27, 2026
               </p>
             </div>
           </div>
