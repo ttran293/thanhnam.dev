@@ -7,7 +7,7 @@ export default function StyleGuideDemoPage() {
   return (
     <>
       <Head>
-        <title>{`A Company Style Guide Template — Thanh Nam`}</title>
+        <title>{`A Company UX/UI Style Guide Template — Thanh Nam`}</title>
       </Head>
       <ItemPageLayout>
         <article>
@@ -16,7 +16,7 @@ export default function StyleGuideDemoPage() {
               2026.05.27 / Web App / Design system / Vite
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>
-              A Company Style Guide Template
+              A Company UX/UI Style Guide Template
             </h1>
           </div>
 

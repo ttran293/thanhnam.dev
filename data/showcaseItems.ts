@@ -20,7 +20,7 @@ export const filterLabels: Record<Filter, string> = {
 export const showcaseItems: ShowcaseItem[] = [
   {
     id: "style-guide-demo",
-    name: "A Company Style Guide Template",
+    name: "A Company UX/UI Style Guide Template",
     meta: "Design system",
     tag: "Web App",
     filter: "web-app",
