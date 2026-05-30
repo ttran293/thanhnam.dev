@@ -80,7 +80,19 @@ const Home: NextPage = () => {
           </>
         )}
       </p>
-      <p>{visibleItems.length} items</p>
+      <p className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
+        <span className="status-legend" aria-label="Project status legend">
+          <span className="status-legend-item">
+            <span className="status-square status-square-blue" />
+            <span>In-progress</span>
+          </span>
+          <span className="status-legend-item">
+            <span className="status-square status-square-green" />
+            <span>Done</span>
+          </span>
+        </span>
+        <span>{visibleItems.length} items</span>
+      </p>
     </div>
   );
 
@@ -254,6 +266,8 @@ const Home: NextPage = () => {
                         const formattedDate = formatShowcaseDate(item.createdAt);
                         const itemNumber = String(index + 1).padStart(2, "0");
                         const isLast = index === visibleItems.length - 1;
+                        const rowColorClass =
+                          index >= 2 ? "showcase-row-green" : "";
 
                         return (
                           <motion.div
@@ -275,11 +289,11 @@ const Home: NextPage = () => {
                           >
                             <Link
                               href={getItemHref(item.id)}
-                              className="showcase-row group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 no-underline"
+                              className={`showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 no-underline`}
                               style={{ textDecoration: "none" }}
                             >
                               <span className="theme-blue-meta text-base sm:text-lg lg:text-xl leading-none pt-1 opacity-70 group-hover:opacity-100">
-                                #{itemNumber}
+                                {itemNumber}
                               </span>
                               <span className="min-w-0">
                                 <span className="flex flex-wrap items-center gap-x-3 gap-y-2">

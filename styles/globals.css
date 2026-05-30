@@ -12,6 +12,7 @@
   --color-muted: #1727e8;
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
+  --color-poster-green: #018a49;
   --page-bg: #f5f4f0;
   --dot-color: rgba(23, 39, 232, 0.06);
   --link-hover: #101bb8;
@@ -25,6 +26,7 @@
     --color-muted: #40aaff;
     --color-border: #40aaff;
     --color-poster-blue: #40aaff;
+    --color-poster-green: #03d976;
     --page-bg: #050607;
     --dot-color: rgba(64, 170, 255, 0.1);
     --link-hover: #8dd0ff;
@@ -39,6 +41,7 @@
   --color-muted: #1727e8;
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
+  --color-poster-green: #018a49;
   --page-bg: #f5f4f0;
   --dot-color: rgba(23, 39, 232, 0.06);
   --link-hover: #101bb8;
@@ -52,6 +55,7 @@
   --color-muted: #40aaff;
   --color-border: #40aaff;
   --color-poster-blue: #40aaff;
+  --color-poster-green: #03d976;
   --page-bg: #050607;
   --dot-color: rgba(64, 170, 255, 0.1);
   --link-hover: #8dd0ff;
@@ -134,6 +138,12 @@ h6 {
   color: var(--color-poster-blue);
 }
 
+.showcase-row-green .theme-blue-muted,
+.showcase-row-green .theme-blue-soft,
+.showcase-row-green .theme-blue-meta {
+  color: var(--color-poster-green);
+}
+
 .page-texture {
   position: relative;
   background-color: var(--page-bg);
@@ -203,6 +213,34 @@ h6 {
 .filter-active {
   font-weight: 600;
   text-decoration-color: var(--color-poster-blue);
+}
+
+.status-legend,
+.status-legend-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.status-legend {
+  gap: 0.75rem;
+}
+
+.status-legend-item {
+  gap: 0.35rem;
+}
+
+.status-square {
+  width: 0.875rem;
+  height: 0.875rem;
+  display: inline-block;
+}
+
+.status-square-blue {
+  background-color: var(--color-poster-blue);
+}
+
+.status-square-green {
+  background-color: var(--color-poster-green);
 }
 
 .showcase-badge {
