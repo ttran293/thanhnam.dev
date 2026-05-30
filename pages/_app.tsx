@@ -2,14 +2,14 @@ import "lenis/dist/lenis.css";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { Archivo_Black, Inter } from "next/font/google";
+import { Archivo_Black, IBM_Plex_Mono, Inter } from "next/font/google";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-body",
 });
 
 const archivoBlack = Archivo_Black({
@@ -19,13 +19,22 @@ const archivoBlack = Archivo_Black({
   variable: "--font-display",
 });
 
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-mono-custom",
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
   const { scrollToTop } = useSmoothScroll({ enabled: reduceMotion === false });
 
   return (
-    <div className={`${inter.variable} ${inter.className} ${archivoBlack.variable}`}>
+    <div
+      className={`${inter.variable} ${inter.className} ${archivoBlack.variable} ${ibmPlexMono.variable}`}
+    >
       <AnimatePresence
         mode="wait"
         initial={false}
