@@ -2,7 +2,7 @@ import "lenis/dist/lenis.css";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { Archivo_Black, IBM_Plex_Mono, Inter } from "next/font/google";
+import { Inter, Oswald, Roboto_Mono } from "next/font/google";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
 
@@ -12,16 +12,16 @@ const inter = Inter({
   variable: "--font-body",
 });
 
-const archivoBlack = Archivo_Black({
+const oswald = Oswald({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["600", "700"],
   display: "swap",
   variable: "--font-display",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
+const robotoMono = Roboto_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "700"],
   display: "swap",
   variable: "--font-mono-custom",
 });
@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div
-      className={`${inter.variable} ${inter.className} ${archivoBlack.variable} ${ibmPlexMono.variable}`}
+      className={`${inter.variable} ${inter.className} ${oswald.variable} ${robotoMono.variable}`}
     >
       <AnimatePresence
         mode="wait"
