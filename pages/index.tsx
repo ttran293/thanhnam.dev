@@ -235,7 +235,7 @@ const Home: NextPage = () => {
                   <span className="module-label">Next up</span>
                   <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5">
                     <span className="theme-blue-meta text-base sm:text-lg lg:text-xl leading-none pt-1">
-                      #00
+                      00
                     </span>
                     <span className="block display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
                       ??????
