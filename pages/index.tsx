@@ -9,6 +9,7 @@ import {
   getItemHref,
   getSortedShowcaseItems,
 } from "../data/showcaseItems";
+import { useSoundDesign } from "../hooks/useSoundDesign";
 import { useTheme } from "../hooks/useTheme";
 
 const filters: { id: Filter | "all"; label: string }[] = [
@@ -26,13 +27,23 @@ const categoryFilters = filters.filter(
 const Home: NextPage = () => {
   const [activeFilter, setActiveFilter] = useState<Filter | "all">("all");
   const { theme, toggleTheme } = useTheme();
+  const { playSound, soundEnabled, toggleSound } = useSoundDesign();
   const reduceMotion = useReducedMotion();
   const visibleItems = getSortedShowcaseItems(activeFilter);
   const activeFilterLabel =
     filters.find((filter) => filter.id === activeFilter)?.label ?? "All";
 
   const toggleFilter = (filter: Filter) => {
+    playSound(activeFilter === filter ? "clear" : filter);
     setActiveFilter((current) => (current === filter ? "all" : filter));
+  };
+
+  const clearFilter = () => {
+    if (activeFilter !== "all") {
+      playSound("clear");
+    }
+
+    setActiveFilter("all");
   };
 
   const filterButtonClass = (filter: Filter) =>
@@ -45,11 +56,33 @@ const Home: NextPage = () => {
       type="button"
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       aria-pressed={theme === "dark"}
-      onClick={toggleTheme}
+      onClick={() => {
+        playSound("theme");
+        toggleTheme();
+      }}
       className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
     >
       {theme === "dark" ? "Light" : "Dark"}
     </button>
+  );
+
+  const soundToggle = (
+    <button
+      type="button"
+      aria-label={`${soundEnabled ? "Disable" : "Enable"} interface sounds`}
+      aria-pressed={soundEnabled}
+      onClick={toggleSound}
+      className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+    >
+      Sound {soundEnabled ? "On" : "Off"}
+    </button>
+  );
+
+  const topControls = (
+    <div className="flex items-center gap-4">
+      {soundToggle}
+      {themeToggle}
+    </div>
   );
 
   const filterCrumb = (
@@ -61,7 +94,7 @@ const Home: NextPage = () => {
         <>
           <button
             type="button"
-            onClick={() => setActiveFilter("all")}
+            onClick={clearFilter}
             className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
           >
             All
@@ -71,7 +104,7 @@ const Home: NextPage = () => {
           {" · "}
           <button
             type="button"
-            onClick={() => setActiveFilter("all")}
+            onClick={clearFilter}
             className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none opacity-60"
           >
             Clear
@@ -110,12 +143,12 @@ const Home: NextPage = () => {
     <div className="page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 lg:py-5 xl:px-28 2xl:px-36">
       <div className="relative z-10 mx-auto w-full max-w-[1700px] lg:min-h-[calc(100vh-2.5rem)]">
         <div className="theme-blue-muted font-mono text-sm sm:text-base uppercase leading-none lg:hidden">
-          <div className="flex justify-end pt-4">{themeToggle}</div>
+          <div className="flex justify-end pt-4">{topControls}</div>
         </div>
 
         <div className="lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-0 lg:items-start">
           <div className="hidden lg:flex lg:col-start-1 lg:justify-end lg:items-center lg:pr-12 xl:pr-16 2xl:pr-20 theme-blue-muted font-mono text-sm uppercase leading-none pt-4">
-            {themeToggle}
+            {topControls}
           </div>
           <div className="hidden lg:flex lg:col-start-2 lg:items-center lg:pl-0 lg:pr-4 xl:pr-6 theme-blue-muted font-mono text-sm uppercase leading-none pt-4 w-full">
             {filterBar}
@@ -128,6 +161,7 @@ const Home: NextPage = () => {
                 <h1
                   className="display-font poster-blue text-[clamp(4.25rem,18vw,7.5rem)] lg:text-[clamp(5rem,6.25vw,6.5rem)] mb-5 lg:mb-4 max-w-[8ch] cursor-help"
                   title="/tʰajŋ nam/"
+                  onMouseEnter={() => playSound("name")}
                 >
                   Thanh Nam
                 </h1>
@@ -140,6 +174,7 @@ const Home: NextPage = () => {
                     href="https://mediacy.com/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => playSound("external")}
                   >
                     Media Cybernetics Inc. ↗
                   </a>{" "}
@@ -148,6 +183,7 @@ const Home: NextPage = () => {
                     href="https://umbc.edu/global/ask-a-student/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => playSound("external")}
                   >
                     Global Ambassador ↗
                   </a>{" "}
@@ -156,6 +192,7 @@ const Home: NextPage = () => {
                     href="https://www.umbc.edu/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => playSound("external")}
                   >
                     UMBC ↗
                   </a>
@@ -177,6 +214,7 @@ const Home: NextPage = () => {
                         type="button"
                         aria-pressed={activeFilter === id}
                         onClick={() => toggleFilter(id)}
+                        onMouseEnter={() => playSound("hover")}
                         className={filterButtonClass(id)}
                       >
                         {label}
@@ -192,13 +230,19 @@ const Home: NextPage = () => {
                 </h2>
                 <ul className="text-base lg:text-[1.0625rem] grid grid-cols-2 gap-x-8 gap-y-1">
                   <li>
-                    <a href="mailto:ttran19@umbc.edu">Email me ↗</a>
+                    <a
+                      href="mailto:ttran19@umbc.edu"
+                      onClick={() => playSound("external")}
+                    >
+                      Email me ↗
+                    </a>
                   </li>
                   <li>
                     <a
                       href="https://github.com/ttran293"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => playSound("external")}
                     >
                       GitHub ↗
                     </a>
@@ -208,6 +252,7 @@ const Home: NextPage = () => {
                       href="https://linkedin.com/in/thanh-nam-tran-9bbb921b3/"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => playSound("external")}
                     >
                       LinkedIn ↗
                     </a>
@@ -217,6 +262,7 @@ const Home: NextPage = () => {
                       href="https://github.com/ttran293/ttran293/blob/main/resume.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => playSound("external")}
                     >
                       Resume ↗
                     </a>
@@ -243,6 +289,7 @@ const Home: NextPage = () => {
                 <div
                   className="module-box mb-6 lg:mb-8 cursor-help"
                   title="What should I work on next?"
+                  onMouseEnter={() => playSound("mystery")}
                 >
                   <span className="module-label">Next up</span>
                   <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5">
@@ -266,7 +313,8 @@ const Home: NextPage = () => {
                       No items in this category yet.{" "}
                       <button
                         type="button"
-                        onClick={() => setActiveFilter("all")}
+                        onClick={clearFilter}
+                        onMouseEnter={() => playSound("hover")}
                         className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase"
                       >
                         View all
@@ -301,6 +349,8 @@ const Home: NextPage = () => {
                           >
                             <Link
                               href={getItemHref(item.id)}
+                              onClick={() => playSound("navigate")}
+                              onMouseEnter={() => playSound("hover")}
                               className={`showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 no-underline`}
                               style={{ textDecoration: "none" }}
                             >

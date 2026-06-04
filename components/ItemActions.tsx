@@ -1,3 +1,5 @@
+import { useSoundDesign } from "../hooks/useSoundDesign";
+
 type ItemAction = {
   href: string;
   label: string;
@@ -12,6 +14,8 @@ export default function ItemActions({
   primary,
   secondary = [],
 }: ItemActionsProps) {
+  const { playSound } = useSoundDesign();
+
   if (!primary && secondary.length === 0) return null;
 
   return (
@@ -21,6 +25,7 @@ export default function ItemActions({
           href={primary.href}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => playSound("external")}
           className="btn-pill-primary"
         >
           {primary.label}
@@ -32,6 +37,7 @@ export default function ItemActions({
           href={action.href}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => playSound("external")}
           className="btn-pill-secondary"
         >
           {action.label}
