@@ -14,6 +14,7 @@
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
   --color-poster-green: #018a49;
+  --color-archived: #6f778a;
   --cursor-default: url("/cursors/dot-blue.svg") 18 18;
   --page-bg: #ffffff;
   --dot-color: rgba(23, 39, 232, 0.06);
@@ -29,6 +30,7 @@
     --color-border: #40aaff;
     --color-poster-blue: #40aaff;
     --color-poster-green: #03d976;
+    --color-archived: #8c96a8;
     --page-bg: #000000;
     --dot-color: rgba(64, 170, 255, 0.1);
     --link-hover: #8dd0ff;
@@ -44,6 +46,7 @@
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
   --color-poster-green: #018a49;
+  --color-archived: #6f778a;
   --page-bg: #ffffff;
   --dot-color: rgba(23, 39, 232, 0.06);
   --link-hover: #101bb8;
@@ -58,6 +61,7 @@
   --color-border: #40aaff;
   --color-poster-blue: #40aaff;
   --color-poster-green: #03d976;
+  --color-archived: #8c96a8;
   --page-bg: #000000;
   --dot-color: rgba(64, 170, 255, 0.1);
   --link-hover: #8dd0ff;
@@ -152,6 +156,17 @@ h6 {
 .showcase-row-green .theme-blue-soft,
 .showcase-row-green .theme-blue-meta {
   color: var(--color-poster-green);
+}
+
+.showcase-row-archived .theme-blue-muted,
+.showcase-row-archived .theme-blue-soft,
+.showcase-row-archived .theme-blue-meta {
+  color: var(--color-archived);
+}
+
+.showcase-row-archived .showcase-badge {
+  border-color: color-mix(in srgb, var(--color-archived) 45%, transparent);
+  color: var(--color-archived);
 }
 
 .page-texture {

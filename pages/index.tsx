@@ -326,8 +326,11 @@ const Home: NextPage = () => {
                         const formattedDate = formatShowcaseDate(item.createdAt);
                         const itemNumber = String(index + 1).padStart(2, "0");
                         const isLast = index === visibleItems.length - 1;
-                        const rowColorClass =
-                          index >= 2 ? "showcase-row-green" : "";
+                        const rowColorClass = item.archived
+                          ? "showcase-row-archived"
+                          : index >= 2
+                            ? "showcase-row-green"
+                            : "";
 
                         return (
                           <motion.div
@@ -338,7 +341,9 @@ const Home: NextPage = () => {
                             }
                             animate={{ opacity: 1, y: 0 }}
                             exit={
-                              reduceMotion ? undefined : { opacity: 0, y: -8 }
+                              reduceMotion
+                                ? undefined
+                                : { opacity: 0, y: -8 }
                             }
                             transition={{
                               duration: reduceMotion ? 0 : 0.22,
