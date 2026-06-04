@@ -86,10 +86,10 @@ const Home: NextPage = () => {
   );
 
   const filterCrumb = (
-    <p>
-      #{" "}
+    <p className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+      <span>#</span>
       {activeFilter === "all" ? (
-        "All"
+        <span>All</span>
       ) : (
         <>
           <button
@@ -99,16 +99,18 @@ const Home: NextPage = () => {
           >
             All
           </button>
-          {" / "}
-          {activeFilterLabel}
-          {" · "}
-          <button
-            type="button"
-            onClick={clearFilter}
-            className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none opacity-60"
-          >
-            Clear
-          </button>
+          <span>/</span>
+          <span>{activeFilterLabel}</span>
+          <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
+            <span>·</span>
+            <button
+              type="button"
+              onClick={clearFilter}
+              className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none opacity-60"
+            >
+              Clear
+            </button>
+          </span>
         </>
       )}
     </p>
@@ -133,7 +135,7 @@ const Home: NextPage = () => {
   );
 
   const filterBar = (
-    <div className="flex w-full justify-between gap-6">
+    <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-x-6 gap-y-2">
       {filterCrumb}
       {renderStatusSummary()}
     </div>
@@ -291,7 +293,6 @@ const Home: NextPage = () => {
                   title="What should I work on next?"
                   onMouseEnter={() => playSound("mystery")}
                 >
-                  <span className="module-label">Next up</span>
                   <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5">
                     <span className="theme-blue-meta text-base sm:text-lg lg:text-xl leading-none pt-1">
                       00
