@@ -15,7 +15,7 @@
   --color-poster-blue: #1727e8;
   --color-poster-green: #018a49;
   --cursor-default: url("/cursors/dot-blue.svg") 18 18;
-  --page-bg: #f5f4f0;
+  --page-bg: #ffffff;
   --dot-color: rgba(23, 39, 232, 0.06);
   --link-hover: #101bb8;
   --link-decoration: rgba(23, 39, 232, 0.35);
@@ -29,7 +29,7 @@
     --color-border: #40aaff;
     --color-poster-blue: #40aaff;
     --color-poster-green: #03d976;
-    --page-bg: #050607;
+    --page-bg: #000000;
     --dot-color: rgba(64, 170, 255, 0.1);
     --link-hover: #8dd0ff;
     --link-decoration: rgba(64, 170, 255, 0.42);
@@ -44,7 +44,7 @@
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
   --color-poster-green: #018a49;
-  --page-bg: #f5f4f0;
+  --page-bg: #ffffff;
   --dot-color: rgba(23, 39, 232, 0.06);
   --link-hover: #101bb8;
   --link-decoration: rgba(23, 39, 232, 0.35);
@@ -58,7 +58,7 @@
   --color-border: #40aaff;
   --color-poster-blue: #40aaff;
   --color-poster-green: #03d976;
-  --page-bg: #050607;
+  --page-bg: #000000;
   --dot-color: rgba(64, 170, 255, 0.1);
   --link-hover: #8dd0ff;
   --link-decoration: rgba(64, 170, 255, 0.42);
@@ -85,7 +85,7 @@ body {
   color: var(--color-poster-blue);
   font-family: var(--font-body), system-ui, -apple-system, sans-serif;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.15em;
   -webkit-font-smoothing: antialiased;
   cursor: var(--cursor-default), auto;
 }
