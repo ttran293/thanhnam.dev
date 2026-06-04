@@ -162,10 +162,7 @@ const Home: NextPage = () => {
                   .
                 </p>
                 <p className="leading-relaxed text-base lg:text-[1.0625rem]">
-                  I&apos;m passionate about building solutions and exploring new
-                  technologies.
-                  <br />
-                  Currently, I&apos;m focused on AI/ML/NLP.
+                  I like to build things that answer questions and connect people.
                 </p>
               </section>
 
