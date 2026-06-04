@@ -52,47 +52,57 @@ const Home: NextPage = () => {
     </button>
   );
 
+  const filterCrumb = (
+    <p>
+      #{" "}
+      {activeFilter === "all" ? (
+        "All"
+      ) : (
+        <>
+          <button
+            type="button"
+            onClick={() => setActiveFilter("all")}
+            className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+          >
+            All
+          </button>
+          {" / "}
+          {activeFilterLabel}
+          {" · "}
+          <button
+            type="button"
+            onClick={() => setActiveFilter("all")}
+            className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none opacity-60"
+          >
+            Clear
+          </button>
+        </>
+      )}
+    </p>
+  );
+
+  const renderStatusSummary = (justifyClassName = "justify-end") => (
+    <p
+      className={`flex flex-wrap items-center ${justifyClassName} gap-x-4 gap-y-2`}
+    >
+      <span className="status-legend" aria-label="Project status legend">
+        <span className="status-legend-item">
+          <span className="status-square status-square-blue" />
+          <span>In-progress</span>
+        </span>
+        <span className="status-legend-item">
+          <span className="status-square status-square-green" />
+          <span>Done</span>
+        </span>
+      </span>
+      <span>{visibleItems.length} items</span>
+    </p>
+  );
+
   const filterBar = (
     <div className="flex w-full justify-between gap-6">
-      <p>
-        #{" "}
-        {activeFilter === "all" ? (
-          "All"
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={() => setActiveFilter("all")}
-              className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
-            >
-              All
-            </button>
-            {" / "}
-            {activeFilterLabel}
-            {" · "}
-            <button
-              type="button"
-              onClick={() => setActiveFilter("all")}
-              className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none opacity-60"
-            >
-              Clear
-            </button>
-          </>
-        )}
-      </p>
-      <p className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2">
-        <span className="status-legend" aria-label="Project status legend">
-          <span className="status-legend-item">
-            <span className="status-square status-square-blue" />
-            <span>In-progress</span>
-          </span>
-          <span className="status-legend-item">
-            <span className="status-square status-square-green" />
-            <span>Done</span>
-          </span>
-        </span>
-        <span>{visibleItems.length} items</span>
-      </p>
+      {filterCrumb}
+      {renderStatusSummary()}
     </div>
   );
 
@@ -100,8 +110,7 @@ const Home: NextPage = () => {
     <div className="page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 lg:py-5 xl:px-28 2xl:px-36">
       <div className="relative z-10 mx-auto w-full max-w-[1700px] lg:min-h-[calc(100vh-2.5rem)]">
         <div className="theme-blue-muted font-mono text-sm sm:text-base uppercase leading-none lg:hidden">
-          <div className="flex justify-end">{themeToggle}</div>
-          <div className="pt-4 mt-4">{filterBar}</div>
+          <div className="flex justify-end pt-4">{themeToggle}</div>
         </div>
 
         <div className="lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-0 lg:items-start">
@@ -227,6 +236,12 @@ const Home: NextPage = () => {
           {/* Right panel */}
           <div className="mt-8 lg:mt-0 lg:col-start-2 lg:row-start-2 lg:flex lg:flex-col lg:pl-0 min-h-[40vh]">
             <div className="relative flex-1 min-h-[40vh] py-0 lg:pt-6 lg:pr-4 xl:pr-6">
+              <div className="theme-blue-muted font-mono text-sm sm:text-base uppercase leading-none mb-6 lg:hidden">
+                <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3">
+                  {filterCrumb}
+                  {renderStatusSummary()}
+                </div>
+              </div>
               <nav className="font-mono">
                 <div
                   className="module-box mb-6 lg:mb-8 cursor-help"
