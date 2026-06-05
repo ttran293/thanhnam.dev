@@ -6,6 +6,7 @@ type SketchPageCanvasProps = {
 };
 
 type PageTool = "browse" | "draw";
+type DrawingColor = "blue" | "green";
 
 function getThemeColor(name: string, fallback: string) {
   return (
@@ -20,6 +21,13 @@ export default function SketchPageCanvas({
   const canvasElementRef = useRef<HTMLCanvasElement | null>(null);
   const canvasRef = useRef<Canvas | null>(null);
   const [tool, setTool] = useState<PageTool>("browse");
+  const [drawingColor, setDrawingColor] = useState<DrawingColor>("blue");
+
+  const getDrawingColorValue = useCallback((color: DrawingColor) => {
+    if (color === "blue") return getThemeColor("--color-poster-blue", "#1727e8");
+
+    return getThemeColor("--color-poster-green", "#018a49");
+  }, []);
 
   const setCanvasSize = useCallback(() => {
     const canvas = canvasRef.current;
@@ -78,7 +86,11 @@ export default function SketchPageCanvas({
     canvas.isDrawingMode = tool === "draw" && !disabled;
     canvas.defaultCursor = "crosshair";
     canvas.hoverCursor = "crosshair";
-  }, [disabled, tool]);
+
+    if (canvas.freeDrawingBrush) {
+      canvas.freeDrawingBrush.color = getDrawingColorValue(drawingColor);
+    }
+  }, [disabled, drawingColor, getDrawingColorValue, tool]);
 
   return (
     <>
@@ -92,34 +104,60 @@ export default function SketchPageCanvas({
       </div>
 
       {!disabled && (
-        <div className="display-font relative z-30 flex flex-wrap items-end justify-end gap-x-3 gap-y-2 text-right text-[clamp(1.25rem,2.4vw,2.5rem)] leading-[0.86]">
-          <button
-            type="button"
-            onClick={() => setTool("browse")}
-            className={`interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-[0.86] ${
-              tool === "browse" ? "filter-active" : "opacity-60"
-            }`}
-          >
-            I&apos;ll Look Around
-          </button>
-          <span className="opacity-35">/</span>
-          <button
-            type="button"
-            onClick={() => setTool("draw")}
-            className={`interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-[0.86] ${
-              tool === "draw" ? "filter-active" : "opacity-60"
-            }`}
-          >
-            I&apos;ll Draw Something
-          </button>
-          <span className="opacity-35">/</span>
-          <button
-            type="button"
-            onClick={clearMarks}
-            className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-[0.86] opacity-70"
-          >
-            Clear That
-          </button>
+        <div className="relative z-30 flex flex-col items-end gap-3 text-right">
+          <div className="display-font flex flex-wrap items-baseline justify-end gap-x-3 gap-y-2 text-[clamp(1.25rem,2.4vw,2.5rem)] leading-[0.86]">
+            <button
+              type="button"
+              onClick={() => setTool("browse")}
+              className={`interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-[0.86] ${
+                tool === "browse" ? "filter-active" : "opacity-60"
+              }`}
+            >
+              I&apos;ll Look Around
+            </button>
+            <span className="opacity-35">/</span>
+            <span className="relative inline-flex items-baseline pt-6">
+              <span className="font-mono absolute right-0 top-0 flex items-center justify-end gap-3 pr-1 text-xs uppercase leading-none tracking-wide">
+                <span className="opacity-60">Color</span>
+                {(["blue", "green"] as const).map((color) => {
+                  const colorValue = getDrawingColorValue(color);
+
+                  return (
+                    <button
+                      key={color}
+                      type="button"
+                      onClick={() => setDrawingColor(color)}
+                      aria-label={`Use ${color} drawing color`}
+                      aria-pressed={drawingColor === color}
+                      className={`h-4 w-4 rounded-full border bg-transparent p-0 cursor-pointer sm:h-5 sm:w-5 ${
+                        drawingColor === color
+                          ? "border-(--color-poster-blue)"
+                          : "border-(--link-decoration)"
+                      }`}
+                      style={{ backgroundColor: colorValue }}
+                    />
+                  );
+                })}
+              </span>
+              <button
+                type="button"
+                onClick={() => setTool("draw")}
+                className={`interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-[0.86] ${
+                  tool === "draw" ? "filter-active" : "opacity-60"
+                }`}
+              >
+                I&apos;ll Draw Something
+              </button>
+            </span>
+            <span className="opacity-35">/</span>
+            <button
+              type="button"
+              onClick={clearMarks}
+              className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-[0.86] opacity-70"
+            >
+              Clear That
+            </button>
+          </div>
         </div>
       )}
     </>
