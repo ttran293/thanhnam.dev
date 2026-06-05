@@ -55,12 +55,12 @@ export default function SketchSoundtrackControl() {
   }, []);
 
   return (
-    <div className="max-w-md py-2 font-mono text-xs uppercase leading-none lg:ml-auto lg:text-right">
+    <div className="max-w-md py-2 text-left font-mono text-xs uppercase leading-none lg:ml-auto lg:text-right">
       <p className="mb-2 opacity-70">Now Playing</p>
       <p className="mb-3 text-sm sm:text-base">
         Carry On <span className="opacity-50">by</span> eeryskies
       </p>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 lg:justify-end">
+      <div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 lg:justify-end">
         <button
           type="button"
           onClick={play}

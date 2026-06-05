@@ -104,8 +104,8 @@ export default function SketchPageCanvas({
       </div>
 
       {!disabled && (
-        <div className="relative z-30 flex flex-col items-end gap-3 text-right">
-          <div className="display-font flex flex-wrap items-baseline justify-end gap-x-3 gap-y-2 text-[clamp(1.25rem,2.4vw,2.5rem)] leading-[0.86]">
+        <div className="relative z-30 flex flex-col items-start gap-3 text-left lg:items-end lg:text-right">
+          <div className="display-font flex flex-wrap items-baseline justify-start gap-x-3 gap-y-2 text-[clamp(1.25rem,2.4vw,2.5rem)] leading-[0.86] lg:justify-end">
             <button
               type="button"
               onClick={() => setTool("browse")}
@@ -117,7 +117,7 @@ export default function SketchPageCanvas({
             </button>
             <span className="opacity-35">/</span>
             <span className="relative inline-flex items-baseline pt-6">
-              <span className="font-mono absolute right-0 top-0 flex items-center justify-end gap-3 pr-1 text-xs uppercase leading-none tracking-wide">
+              <span className="font-mono absolute left-0 top-0 flex items-center justify-start gap-3 text-xs uppercase leading-none tracking-wide lg:left-auto lg:right-0 lg:justify-end lg:pr-1">
                 <span className="opacity-60">Color</span>
                 {(["blue", "green"] as const).map((color) => {
                   const colorValue = getDrawingColorValue(color);
