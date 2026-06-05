@@ -5,25 +5,35 @@ import { useTheme } from "../hooks/useTheme";
 
 type ItemPageLayoutProps = {
   children: ReactNode;
+  contentClassName?: string;
+  enableSoundEffects?: boolean;
 };
 
-export default function ItemPageLayout({ children }: ItemPageLayoutProps) {
+export default function ItemPageLayout({
+  children,
+  contentClassName = "relative z-10 mx-auto w-full max-w-[900px]",
+  enableSoundEffects = true,
+}: ItemPageLayoutProps) {
   const { theme, toggleTheme } = useTheme();
   const { playSound, soundEnabled } = useSoundDesign();
 
   useEffect(() => {
-    if (soundEnabled) {
+    if (enableSoundEffects && soundEnabled) {
       playSound("page-enter");
     }
-  }, [playSound, soundEnabled]);
+  }, [enableSoundEffects, playSound, soundEnabled]);
 
   return (
     <div className="page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 xl:px-28 2xl:px-36">
-      <div className="relative z-10 mx-auto w-full max-w-[900px]">
+      <div className={contentClassName}>
         <div className="flex justify-between items-center font-mono text-xs sm:text-sm uppercase leading-none mb-8">
           <Link
             href="/"
-            onClick={() => playSound("back")}
+            onClick={() => {
+              if (enableSoundEffects) {
+                playSound("back");
+              }
+            }}
             className="interactive-link no-underline uppercase"
             style={{ textDecoration: "none" }}
           >
@@ -34,7 +44,9 @@ export default function ItemPageLayout({ children }: ItemPageLayoutProps) {
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             aria-pressed={theme === "dark"}
             onClick={() => {
-              playSound("theme");
+              if (enableSoundEffects) {
+                playSound("theme");
+              }
               toggleTheme();
             }}
             className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"

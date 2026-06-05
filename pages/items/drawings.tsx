@@ -1,10 +1,20 @@
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ItemPageLayout from "../../components/ItemPageLayout";
+import SketchImageModal, {
+  type SketchDrawing,
+} from "../../components/SketchImageModal";
 import { itemTitleClassName } from "../../data/showcaseItems";
+import { useSoundDesign } from "../../hooks/useSoundDesign";
 
-const drawings = [
+const SketchPageCanvas = dynamic(
+  () => import("../../components/SketchPageCanvas"),
+  { ssr: false }
+);
+
+const drawings: SketchDrawing[] = [
   { id: "1", src: "/images/drawings/1.jpg", alt: "Drawing 1" },
   { id: "3", src: "/images/drawings/3.jpg", alt: "Drawing 3" },
   { id: "4", src: "/images/drawings/4.jpg", alt: "Drawing 4" },
@@ -28,20 +38,31 @@ const drawings = [
   { id: "24", src: "/images/drawings/24.jpg", alt: "Drawing 24" },
 ];
 
-function DrawingImage({ src, alt }: { src: string; alt: string }) {
+function DrawingImage({
+  drawing,
+  onOpen,
+}: {
+  drawing: SketchDrawing;
+  onOpen: (drawing: SketchDrawing) => void;
+}) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
   if (error) return null;
 
   return (
-    <div className="relative w-full module-box p-0 overflow-hidden">
+    <button
+      type="button"
+      onClick={() => onOpen(drawing)}
+      className="group relative block w-full overflow-hidden border-0 bg-transparent p-0 text-left"
+      aria-label={`Open ${drawing.alt}`}
+    >
       <Image
-        src={src}
-        alt={alt}
+        src={drawing.src}
+        alt={drawing.alt}
         width={400}
         height={500}
-        className={`w-full h-auto transition-opacity duration-300 ${
+        className={`h-auto w-full transition duration-300 group-hover:scale-[1.015] group-hover:opacity-90 ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         onLoad={() => setLoaded(true)}
@@ -54,37 +75,78 @@ function DrawingImage({ src, alt }: { src: string; alt: string }) {
           </span>
         </div>
       )}
-    </div>
+    </button>
   );
 }
 
 export default function SketchesPage() {
+  const [selectedDrawing, setSelectedDrawing] = useState<SketchDrawing | null>(
+    null
+  );
+  const { playSound } = useSoundDesign();
+
+  const openDrawing = useCallback((drawing: SketchDrawing) => {
+    playSound("paper-open");
+    setSelectedDrawing(drawing);
+  }, [playSound]);
+
+  const closeDrawing = useCallback(() => {
+    setSelectedDrawing(null);
+  }, []);
+
+  useEffect(() => {
+    if (!selectedDrawing) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeDrawing();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [closeDrawing, selectedDrawing]);
+
   return (
     <>
       <Head>
         <title>{`Sketches — Thanh Nam`}</title>
       </Head>
-      <ItemPageLayout>
-        <article>
-          <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
-              2024.03.11 / Art / Pencil / pen
+      <ItemPageLayout
+        contentClassName="relative z-10 mx-auto w-full max-w-none"
+        enableSoundEffects={false}
+      >
+        <div>
+          <article>
+            <div className="item-header-box">
+              <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+                2024.03.11 / Art / Pencil / pen
+              </p>
+              <h1 className={`${itemTitleClassName} item-title`}>Sketches</h1>
+            </div>
+
+            <p className="leading-relaxed text-base max-w-prose mb-4">
+              Mostly sketches done when I need a break from the screen. Wanna join me? Draw something!
             </p>
-            <h1 className={`${itemTitleClassName} item-title`}>Sketches</h1>
-          </div>
 
-          <p className="leading-relaxed text-base max-w-prose mb-4">
-            Mostly sketches done when I need a break from the screen.
-          </p>
+            <div className="columns-2 gap-3 mt-10 md:columns-3 xl:columns-4 2xl:columns-5">
+              {drawings.map((item) => (
+                <div key={item.id} className="mb-3 break-inside-avoid">
+                  <DrawingImage drawing={item} onOpen={openDrawing} />
+                </div>
+              ))}
+            </div>
+          </article>
 
-          <div className="columns-2 md:columns-3 gap-2 mt-10">
-            {drawings.map((item) => (
-              <div key={item.id} className="mb-2 break-inside-avoid">
-                <DrawingImage src={item.src} alt={item.alt} />
-              </div>
-            ))}
-          </div>
-        </article>
+          <SketchPageCanvas disabled={Boolean(selectedDrawing)} />
+          <SketchImageModal drawing={selectedDrawing} onClose={closeDrawing} />
+        </div>
       </ItemPageLayout>
     </>
   );

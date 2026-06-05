@@ -10,6 +10,7 @@ type SoundCue =
   | "mystery"
   | "name"
   | "navigate"
+  | "paper-open"
   | "page-enter"
   | "theme";
 
@@ -153,6 +154,9 @@ function playCue(context: AudioContext, cue: SoundCue) {
     case "page-enter":
       playNoise(context, 0.12, 0.018, 760);
       playSweep(context, 360, 520, 0.1, 0.011, 0.035);
+      break;
+    case "paper-open":
+      playNoise(context, 0.16, 0.022, 1100);
       break;
     case "back":
       playNoise(context, 0.1, 0.017, 640);
