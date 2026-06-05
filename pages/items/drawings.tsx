@@ -1,11 +1,12 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ItemPageLayout from "../../components/ItemPageLayout";
 import SketchImageModal, {
   type SketchDrawing,
 } from "../../components/SketchImageModal";
+import SketchSoundtrackControl from "../../components/SketchSoundtrackControl";
 import { itemTitleClassName } from "../../data/showcaseItems";
 import { useSoundDesign } from "../../hooks/useSoundDesign";
 
@@ -83,9 +84,6 @@ export default function SketchesPage() {
   const [selectedDrawing, setSelectedDrawing] = useState<SketchDrawing | null>(
     null
   );
-  const [isSoundtrackPlaying, setIsSoundtrackPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.35);
-  const pageAudioRef = useRef<HTMLAudioElement | null>(null);
   const { playSound } = useSoundDesign();
 
   const openDrawing = useCallback((drawing: SketchDrawing) => {
@@ -95,50 +93,6 @@ export default function SketchesPage() {
 
   const closeDrawing = useCallback(() => {
     setSelectedDrawing(null);
-  }, []);
-
-  const startPageAudio = useCallback(() => {
-    const audio = pageAudioRef.current;
-    if (!audio) return;
-
-    void audio.play().then(() => setIsSoundtrackPlaying(true));
-  }, []);
-
-  const stopPageAudio = useCallback(() => {
-    const audio = pageAudioRef.current;
-    if (!audio) return;
-
-    audio.pause();
-    audio.currentTime = 0;
-    setIsSoundtrackPlaying(false);
-  }, []);
-
-  const updateVolume = useCallback((nextVolume: number) => {
-    const audio = pageAudioRef.current;
-
-    setVolume(nextVolume);
-
-    if (audio) {
-      audio.volume = nextVolume;
-    }
-  }, []);
-
-  useEffect(() => {
-    const audio = new Audio("/sounds/up-we-go_7543367.mp3");
-    audio.volume = 0.35;
-    audio.preload = "auto";
-    pageAudioRef.current = audio;
-
-    void audio
-      .play()
-      .then(() => setIsSoundtrackPlaying(true))
-      .catch(() => setIsSoundtrackPlaying(false));
-
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-      pageAudioRef.current = null;
-    };
   }, []);
 
   useEffect(() => {
@@ -187,47 +141,7 @@ export default function SketchesPage() {
 
               <div className="space-y-5 lg:pt-6">
                 <SketchPageCanvas disabled={Boolean(selectedDrawing)} />
-
-                <div className="max-w-md bg-(--page-bg)/80 px-0 py-2 font-mono text-xs uppercase leading-none backdrop-blur-sm lg:ml-auto lg:text-right">
-                  <p className="mb-2 opacity-70">Now Playing</p>
-                  <p className="mb-3 text-sm sm:text-base">
-                    Carry On <span className="opacity-50">by</span> eeryskies
-                  </p>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 lg:justify-end">
-                    <button
-                      type="button"
-                      onClick={startPageAudio}
-                      className={`interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none ${
-                        isSoundtrackPlaying ? "opacity-50" : ""
-                      }`}
-                    >
-                      Play
-                    </button>
-                    <span className="opacity-40">/</span>
-                    <button
-                      type="button"
-                      onClick={stopPageAudio}
-                      className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
-                    >
-                      Stop
-                    </button>
-                    <label className="flex items-center gap-2">
-                      <span className="opacity-70">Volume</span>
-                      <input
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value={volume}
-                        onChange={(event) =>
-                          updateVolume(Number(event.target.value))
-                        }
-                        className="w-24 accent-(--color-poster-blue)"
-                        aria-label="Soundtrack volume"
-                      />
-                    </label>
-                  </div>
-                </div>
+                <SketchSoundtrackControl />
               </div>
             </div>
 

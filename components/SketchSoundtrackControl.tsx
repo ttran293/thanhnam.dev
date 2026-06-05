@@ -1,0 +1,97 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+
+export default function SketchSoundtrackControl() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.35);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const play = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    void audio.play().then(() => setIsPlaying(true));
+  }, []);
+
+  const stop = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.pause();
+    audio.currentTime = 0;
+    setIsPlaying(false);
+  }, []);
+
+  const updateVolume = useCallback((nextVolume: number) => {
+    const audio = audioRef.current;
+
+    setVolume(nextVolume);
+
+    if (audio) {
+      audio.volume = nextVolume;
+    }
+  }, []);
+
+  useEffect(() => {
+    const audio = new Audio("/sounds/up-we-go_7543367.mp3");
+    audio.volume = 0.35;
+    audio.preload = "auto";
+    audioRef.current = audio;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+
+    void audio.play().catch(() => setIsPlaying(false));
+
+    return () => {
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.pause();
+      audio.currentTime = 0;
+      audioRef.current = null;
+    };
+  }, []);
+
+  return (
+    <div className="max-w-md bg-(--page-bg)/80 px-0 py-2 font-mono text-xs uppercase leading-none backdrop-blur-sm lg:ml-auto lg:text-right">
+      <p className="mb-2 opacity-70">Now Playing</p>
+      <p className="mb-3 text-sm sm:text-base">
+        Carry On <span className="opacity-50">by</span> eeryskies
+      </p>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 lg:justify-end">
+        <button
+          type="button"
+          onClick={play}
+          className={`interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none ${
+            isPlaying ? "opacity-50" : ""
+          }`}
+        >
+          Play
+        </button>
+        <span className="opacity-40">/</span>
+        <button
+          type="button"
+          onClick={stop}
+          className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+        >
+          Stop
+        </button>
+        <label className="flex items-center gap-2">
+          <span className="opacity-70">Volume</span>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={(event) => updateVolume(Number(event.target.value))}
+            className="w-24 accent-(--color-poster-blue)"
+            aria-label="Soundtrack volume"
+          />
+        </label>
+      </div>
+    </div>
+  );
+}
