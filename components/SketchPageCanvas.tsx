@@ -92,7 +92,7 @@ export default function SketchPageCanvas({
       </div>
 
       {!disabled && (
-        <div className="display-font fixed right-6 top-16 z-30 flex max-w-[50vw] flex-wrap items-end justify-end gap-x-3 gap-y-2 text-right text-[clamp(1.25rem,2.4vw,2.5rem)] leading-[0.86] sm:right-10 lg:right-20 lg:top-20">
+        <div className="display-font relative z-30 flex flex-wrap items-end justify-end gap-x-3 gap-y-2 text-right text-[clamp(1.25rem,2.4vw,2.5rem)] leading-[0.86]">
           <button
             type="button"
             onClick={() => setTool("browse")}
