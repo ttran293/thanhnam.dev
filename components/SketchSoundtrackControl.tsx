@@ -55,7 +55,7 @@ export default function SketchSoundtrackControl() {
   }, []);
 
   return (
-    <div className="max-w-md bg-(--page-bg)/80 px-0 py-2 font-mono text-xs uppercase leading-none backdrop-blur-sm lg:ml-auto lg:text-right">
+    <div className="max-w-md py-2 font-mono text-xs uppercase leading-none lg:ml-auto lg:text-right">
       <p className="mb-2 opacity-70">Now Playing</p>
       <p className="mb-3 text-sm sm:text-base">
         Carry On <span className="opacity-50">by</span> eeryskies
