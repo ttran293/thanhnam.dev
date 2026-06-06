@@ -105,7 +105,7 @@ export default function SketchPageCanvas({
 
       {!disabled && (
         <div className="relative z-30 flex flex-col items-start gap-3 text-left lg:items-end lg:text-right">
-          <div className="display-font flex flex-wrap items-baseline justify-start gap-x-3 gap-y-2 text-[clamp(1.25rem,2.4vw,2.5rem)] leading-[0.86] lg:justify-end">
+          <div className="display-font flex w-full flex-nowrap items-baseline justify-start gap-x-1 whitespace-nowrap text-[clamp(0.875rem,3.8vw,1.3rem)] leading-[0.86] sm:gap-x-2 sm:text-[clamp(1.1rem,2.5vw,2.5rem)] lg:gap-x-3 lg:justify-end">
             <button
               type="button"
               onClick={() => setTool("browse")}
@@ -116,7 +116,7 @@ export default function SketchPageCanvas({
               I&apos;ll Look Around
             </button>
             <span className="opacity-35">/</span>
-            <span className="relative inline-flex items-baseline pt-6">
+            <span className="relative inline-flex items-baseline pt-8 sm:pt-7">
               <span className="font-mono absolute left-0 top-0 flex items-center justify-start gap-3 text-xs uppercase leading-none tracking-wide lg:left-auto lg:right-0 lg:justify-end lg:pr-1">
                 <span className="opacity-60">Color</span>
                 {(["blue", "green"] as const).map((color) => {
@@ -129,12 +129,8 @@ export default function SketchPageCanvas({
                       onClick={() => setDrawingColor(color)}
                       aria-label={`Use ${color} drawing color`}
                       aria-pressed={drawingColor === color}
-                      className={`h-4 w-4 rounded-full border bg-transparent p-0 cursor-pointer sm:h-5 sm:w-5 ${
-                        drawingColor === color
-                          ? "border-(--color-poster-blue)"
-                          : "border-(--link-decoration)"
-                      }`}
-                      style={{ backgroundColor: colorValue }}
+                      className="h-4 w-4 rounded-full border bg-transparent p-0 cursor-pointer sm:h-5 sm:w-5"
+                      style={{ backgroundColor: colorValue, borderColor: colorValue }}
                     />
                   );
                 })}

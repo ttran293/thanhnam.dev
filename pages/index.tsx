@@ -282,8 +282,8 @@ const Home: NextPage = () => {
           {/* Right panel */}
           <div className="mt-8 lg:mt-0 lg:col-start-2 lg:row-start-2 lg:flex lg:flex-col lg:pl-0 min-h-[40vh]">
             <div className="relative flex-1 min-h-[40vh] py-0 lg:pt-6 lg:pr-4 xl:pr-6">
-              <div className="theme-blue-muted font-mono text-sm sm:text-base uppercase leading-none mb-6 lg:hidden">
-                <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3">
+              <div className="theme-blue-muted font-mono text-sm sm:text-base uppercase leading-none mb-8 sm:mb-10 lg:hidden">
+                <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-6">
                   {filterCrumb}
                   {renderStatusSummary()}
                 </div>

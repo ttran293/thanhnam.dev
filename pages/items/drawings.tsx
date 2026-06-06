@@ -139,7 +139,7 @@ export default function SketchesPage() {
                 </p>
               </div>
 
-              <div className="space-y-5 lg:pt-6">
+              <div className="space-y-8 sm:space-y-7 lg:space-y-5 lg:pt-6">
                 <SketchPageCanvas disabled={Boolean(selectedDrawing)} />
                 <SketchSoundtrackControl />
               </div>
