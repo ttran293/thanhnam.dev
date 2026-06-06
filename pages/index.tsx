@@ -29,6 +29,7 @@ const Home: NextPage = () => {
   const { theme, toggleTheme } = useTheme();
   const { playSound, soundEnabled, toggleSound } = useSoundDesign();
   const reduceMotion = useReducedMotion();
+  const allItems = getSortedShowcaseItems("all");
   const visibleItems = getSortedShowcaseItems(activeFilter);
   const activeFilterLabel =
     filters.find((filter) => filter.id === activeFilter)?.label ?? "All";
@@ -294,8 +295,8 @@ const Home: NextPage = () => {
                   onMouseEnter={() => playSound("mystery")}
                 >
                   <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5">
-                    <span className="theme-blue-meta text-base sm:text-lg lg:text-xl leading-none pt-1">
-                      00
+                    <span className="theme-blue-meta self-start text-base sm:text-lg lg:text-xl leading-none pt-1">
+                      ??
                     </span>
                     <span className="block display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
                       ??????
@@ -325,7 +326,12 @@ const Home: NextPage = () => {
                     <AnimatePresence initial={false} mode="popLayout">
                       {visibleItems.map((item, index) => {
                         const formattedDate = formatShowcaseDate(item.createdAt);
-                        const itemNumber = String(index + 1).padStart(2, "0");
+                        const itemIndex = allItems.findIndex(
+                          (entry) => entry.id === item.id
+                        );
+                        const itemNumber = String(
+                          allItems.length - itemIndex
+                        ).padStart(2, "0");
                         const isLast = index === visibleItems.length - 1;
                         const rowColorClass = item.archived
                           ? "showcase-row-archived"
@@ -360,7 +366,7 @@ const Home: NextPage = () => {
                               className={`showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 no-underline`}
                               style={{ textDecoration: "none" }}
                             >
-                              <span className="theme-blue-meta text-base sm:text-lg lg:text-xl leading-none pt-1 opacity-70 group-hover:opacity-100">
+                              <span className="theme-blue-meta self-start text-base sm:text-lg lg:text-xl leading-none pt-1 opacity-70 group-hover:opacity-100">
                                 {itemNumber}
                               </span>
                               <span className="min-w-0">
