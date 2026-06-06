@@ -6,7 +6,9 @@ type SketchPageCanvasProps = {
 };
 
 type PageTool = "browse" | "draw";
-type DrawingColor = "blue" | "green";
+type DrawingColor = "blue" | "green" | "yellow" | "neutral";
+
+const drawingColors: DrawingColor[] = ["blue", "green", "yellow", "neutral"];
 
 function getThemeColor(name: string, fallback: string) {
   return (
@@ -22,12 +24,18 @@ export default function SketchPageCanvas({
   const canvasRef = useRef<Canvas | null>(null);
   const [tool, setTool] = useState<PageTool>("browse");
   const [drawingColor, setDrawingColor] = useState<DrawingColor>("blue");
+  const [themeName, setThemeName] = useState(() =>
+    document.documentElement.dataset.theme === "dark" ? "dark" : "light"
+  );
 
   const getDrawingColorValue = useCallback((color: DrawingColor) => {
-    if (color === "blue") return getThemeColor("--color-poster-blue", "#1727e8");
+    if (color === "blue") return "#1727e8";
+    if (color === "green") return "#018a49";
+    if (color === "yellow") return "#f6c945";
+    if (color === "neutral") return themeName === "dark" ? "#ffffff" : "#000000";
 
-    return getThemeColor("--color-poster-green", "#018a49");
-  }, []);
+    return getThemeColor("--color-poster-blue", "#1727e8");
+  }, [themeName]);
 
   const setCanvasSize = useCallback(() => {
     const canvas = canvasRef.current;
@@ -52,6 +60,19 @@ export default function SketchPageCanvas({
   }, []);
 
   useEffect(() => {
+    const root = document.documentElement;
+    const updateThemeName = () => {
+      setThemeName(root.dataset.theme === "dark" ? "dark" : "light");
+    };
+    const observer = new MutationObserver(updateThemeName);
+
+    updateThemeName();
+    observer.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!canvasElementRef.current) return;
 
     const canvas = new Canvas(canvasElementRef.current, {
@@ -61,7 +82,7 @@ export default function SketchPageCanvas({
     });
     const brush = new PencilBrush(canvas);
 
-    brush.color = getThemeColor("--color-poster-blue", "#1727e8");
+    brush.color = getDrawingColorValue("blue");
     brush.width = 2.2;
     canvas.freeDrawingBrush = brush;
     canvas.defaultCursor = "crosshair";
@@ -77,7 +98,7 @@ export default function SketchPageCanvas({
       canvas.dispose();
       canvasRef.current = null;
     };
-  }, [setCanvasSize]);
+  }, [getDrawingColorValue, setCanvasSize]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -119,7 +140,7 @@ export default function SketchPageCanvas({
             <span className="relative inline-flex items-baseline pt-8 sm:pt-7">
               <span className="font-mono absolute left-0 top-0 flex items-center justify-start gap-3 text-xs uppercase leading-none tracking-wide lg:left-auto lg:right-0 lg:justify-end lg:pr-1">
                 <span className="opacity-60">Color</span>
-                {(["blue", "green"] as const).map((color) => {
+                {drawingColors.map((color) => {
                   const colorValue = getDrawingColorValue(color);
 
                   return (
