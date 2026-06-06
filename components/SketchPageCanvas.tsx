@@ -124,8 +124,12 @@ export default function SketchPageCanvas({
         <canvas ref={canvasElementRef} />
       </div>
 
-      {!disabled && (
-        <div className="relative z-30 flex flex-col items-start gap-3 text-left lg:items-end lg:text-right">
+      <div
+        className={`relative z-30 flex flex-col items-start gap-3 text-left lg:items-end lg:text-right ${
+          disabled ? "pointer-events-none" : ""
+        }`}
+        aria-hidden={disabled}
+      >
           <div className="display-font flex w-full flex-nowrap items-baseline justify-start gap-x-1 whitespace-nowrap text-[clamp(0.875rem,3.8vw,1.3rem)] leading-[0.86] sm:gap-x-2 sm:text-[clamp(1.1rem,2.5vw,2.5rem)] lg:gap-x-3 lg:justify-end">
             <button
               type="button"
@@ -175,8 +179,7 @@ export default function SketchPageCanvas({
               Clear That
             </button>
           </div>
-        </div>
-      )}
+      </div>
     </>
   );
 }

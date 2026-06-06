@@ -1,6 +1,6 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import ItemPageLayout from "../../components/ItemPageLayout";
 import SketchImageModal, {
@@ -14,6 +14,32 @@ const SketchPageCanvas = dynamic(
   () => import("../../components/SketchPageCanvas"),
   { ssr: false }
 );
+
+const modalImageSizes =
+  "(max-width: 1024px) calc(100vw - 2.5rem), 1200px";
+const preloadedModalImages = new Set<string>();
+
+function preloadModalImage(src: string) {
+  if (typeof window === "undefined" || preloadedModalImages.has(src)) return;
+
+  preloadedModalImages.add(src);
+
+  const {
+    props: { sizes, src: imageSrc, srcSet },
+  } = getImageProps({
+    src,
+    alt: "",
+    width: 1200,
+    height: 1600,
+    sizes: modalImageSizes,
+  });
+  const image = new window.Image();
+
+  image.decoding = "async";
+  if (sizes) image.sizes = sizes;
+  if (srcSet) image.srcset = srcSet;
+  image.src = imageSrc;
+}
 
 const drawings: SketchDrawing[] = [
   { id: "1", src: "/images/drawings/1.jpg", alt: "Drawing 1" },
@@ -39,12 +65,28 @@ const drawings: SketchDrawing[] = [
   { id: "24", src: "/images/drawings/24.jpg", alt: "Drawing 24" },
 ];
 
+function preloadRelatedModalImages(drawing: SketchDrawing) {
+  const index = drawings.findIndex((item) => item.id === drawing.id);
+
+  if (index === -1) {
+    preloadModalImage(drawing.src);
+    return;
+  }
+
+  [index, index + 1, index - 1].forEach((nextIndex) => {
+    const nextDrawing = drawings[nextIndex];
+    if (nextDrawing) preloadModalImage(nextDrawing.src);
+  });
+}
+
 function DrawingImage({
   drawing,
   onOpen,
+  onPreload,
 }: {
   drawing: SketchDrawing;
   onOpen: (drawing: SketchDrawing) => void;
+  onPreload: (drawing: SketchDrawing) => void;
 }) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -55,6 +97,8 @@ function DrawingImage({
     <button
       type="button"
       onClick={() => onOpen(drawing)}
+      onFocus={() => onPreload(drawing)}
+      onPointerEnter={() => onPreload(drawing)}
       className="group relative block w-full overflow-hidden border-0 bg-transparent p-0 text-left"
       aria-label={`Open ${drawing.alt}`}
     >
@@ -87,9 +131,14 @@ export default function SketchesPage() {
   const { playSound } = useSoundDesign();
 
   const openDrawing = useCallback((drawing: SketchDrawing) => {
+    preloadRelatedModalImages(drawing);
     playSound("paper-open");
     setSelectedDrawing(drawing);
   }, [playSound]);
+
+  const warmDrawing = useCallback((drawing: SketchDrawing) => {
+    preloadRelatedModalImages(drawing);
+  }, []);
 
   const closeDrawing = useCallback(() => {
     setSelectedDrawing(null);
@@ -113,6 +162,17 @@ export default function SketchesPage() {
       document.body.style.overflow = previousOverflow;
     };
   }, [closeDrawing, selectedDrawing]);
+
+  useEffect(() => {
+    const preloadQueue = drawings.slice(0, 6);
+    const timers = preloadQueue.map((drawing, index) =>
+      window.setTimeout(() => preloadModalImage(drawing.src), 800 + index * 300)
+    );
+
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, []);
 
   return (
     <>
@@ -149,7 +209,11 @@ export default function SketchesPage() {
             <div className="columns-2 gap-3 mt-10 md:columns-3 xl:columns-4 2xl:columns-5">
               {drawings.map((item) => (
                 <div key={item.id} className="mb-3 break-inside-avoid">
-                  <DrawingImage drawing={item} onOpen={openDrawing} />
+                  <DrawingImage
+                    drawing={item}
+                    onOpen={openDrawing}
+                    onPreload={warmDrawing}
+                  />
                 </div>
               ))}
             </div>

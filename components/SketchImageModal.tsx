@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export type SketchDrawing = {
   id: string;
@@ -16,6 +17,12 @@ export default function SketchImageModal({
   drawing,
   onClose,
 }: SketchImageModalProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [drawing?.src]);
+
   return (
     <AnimatePresence>
       {drawing && (
@@ -41,12 +48,23 @@ export default function SketchImageModal({
             transition={{ duration: 0.18, ease: "easeOut" }}
             onClick={(event) => event.stopPropagation()}
           >
+            <div
+              className={`absolute inset-0 flex items-center justify-center font-mono text-xs uppercase tracking-wide transition-opacity duration-200 ${
+                imageLoaded ? "opacity-0" : "opacity-60"
+              }`}
+            >
+              Loading image...
+            </div>
             <Image
               src={drawing.src}
               alt={drawing.alt}
               width={1200}
               height={1600}
-              className="max-h-[82vh] w-auto max-w-full border border-neutral-900 object-contain shadow-[0_18px_64px_rgba(23,39,232,0.12)]"
+              sizes="(max-width: 1024px) calc(100vw - 2.5rem), 1200px"
+              className={`max-h-[82vh] w-auto max-w-full border border-(--color-poster-blue) object-contain shadow-[0_18px_64px_rgba(23,39,232,0.12)] transition-opacity duration-300 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={() => setImageLoaded(true)}
               priority
             />
             <button
