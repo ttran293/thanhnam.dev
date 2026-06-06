@@ -85,8 +85,8 @@ export default function SketchPageCanvas({
     brush.color = getDrawingColorValue("blue");
     brush.width = 2.2;
     canvas.freeDrawingBrush = brush;
-    canvas.defaultCursor = "crosshair";
-    canvas.hoverCursor = "crosshair";
+    canvas.defaultCursor = "default";
+    canvas.hoverCursor = "default";
     canvas.isDrawingMode = false;
     canvasRef.current = canvas;
     setCanvasSize();
@@ -105,8 +105,8 @@ export default function SketchPageCanvas({
     if (!canvas) return;
 
     canvas.isDrawingMode = tool === "draw" && !disabled;
-    canvas.defaultCursor = "crosshair";
-    canvas.hoverCursor = "crosshair";
+    canvas.defaultCursor = "default";
+    canvas.hoverCursor = "default";
 
     if (canvas.freeDrawingBrush) {
       canvas.freeDrawingBrush.color = getDrawingColorValue(drawingColor);

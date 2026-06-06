@@ -209,6 +209,18 @@ h6 {
   display: none;
 }
 
+.sketch-page-plain,
+.sketch-page-plain canvas,
+.sketch-page-plain .cursor-help {
+  cursor: auto;
+}
+
+.sketch-page-plain a,
+.sketch-page-plain button,
+.sketch-page-plain .cursor-pointer {
+  cursor: pointer;
+}
+
 :root[data-theme="dark"] .sketch-page-plain {
   --color-poster-blue: #ffffff;
   --color-poster-green: #03d976;

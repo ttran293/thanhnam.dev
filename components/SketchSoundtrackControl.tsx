@@ -41,6 +41,10 @@ export default function SketchSoundtrackControl() {
     setIsPlaying(false);
   }, []);
 
+  const nextTrack = useCallback(() => {
+    setActiveTrackIndex((current) => (current + 1) % tracks.length);
+  }, []);
+
   const updateVolume = useCallback((nextVolume: number) => {
     const audio = audioRef.current;
 
@@ -113,6 +117,14 @@ export default function SketchSoundtrackControl() {
           className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
         >
           Stop
+        </button>
+        <span className="opacity-40">/</span>
+        <button
+          type="button"
+          onClick={nextTrack}
+          className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+        >
+          Next
         </button>
         <label className="flex items-center gap-2">
           <span className="opacity-70">Volume</span>
