@@ -122,6 +122,7 @@ export default function SketchesPage() {
       <ItemPageLayout
         contentClassName="relative z-10 mx-auto w-full max-w-none"
         enableSoundEffects={false}
+        pageClassName="sketch-page-plain"
       >
         <div>
           <article>

@@ -190,6 +190,38 @@ h6 {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+.sketch-page-plain {
+  --color-poster-blue: #000000;
+  --color-poster-green: #000000;
+  --color-archived: #000000;
+  --page-bg: #ffffff;
+  --dot-color: transparent;
+  --link-hover: #000000;
+  --link-decoration: rgba(0, 0, 0, 0.35);
+  --selection-bg: rgba(0, 0, 0, 0.12);
+
+  background-color: #ffffff;
+  background-image: none;
+  color: #000000;
+}
+
+.sketch-page-plain::before {
+  display: none;
+}
+
+:root[data-theme="dark"] .sketch-page-plain {
+  --color-poster-blue: #ffffff;
+  --color-poster-green: #03d976;
+  --color-archived: #ffffff;
+  --page-bg: #000000;
+  --link-hover: #ffffff;
+  --link-decoration: rgba(255, 255, 255, 0.42);
+  --selection-bg: rgba(255, 255, 255, 0.22);
+
+  background-color: #000000;
+  color: var(--color-poster-blue);
+}
+
 :root[data-theme="dark"] .page-texture::before {
   opacity: 0.06;
 }

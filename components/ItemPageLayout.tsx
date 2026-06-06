@@ -7,12 +7,14 @@ type ItemPageLayoutProps = {
   children: ReactNode;
   contentClassName?: string;
   enableSoundEffects?: boolean;
+  pageClassName?: string;
 };
 
 export default function ItemPageLayout({
   children,
   contentClassName = "relative z-10 mx-auto w-full max-w-[900px]",
   enableSoundEffects = true,
+  pageClassName = "",
 }: ItemPageLayoutProps) {
   const { theme, toggleTheme } = useTheme();
   const { playSound, soundEnabled } = useSoundDesign();
@@ -24,7 +26,9 @@ export default function ItemPageLayout({
   }, [enableSoundEffects, playSound, soundEnabled]);
 
   return (
-    <div className="page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 xl:px-28 2xl:px-36">
+    <div
+      className={`page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 xl:px-28 2xl:px-36 ${pageClassName}`}
+    >
       <div className={contentClassName}>
         <div className="flex justify-between items-center font-mono text-xs sm:text-sm uppercase leading-none mb-8">
           <Link
