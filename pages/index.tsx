@@ -372,7 +372,10 @@ const Home: NextPage = () => {
                               <span className="min-w-0">
                                 <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
                                   <span className="display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
-                                    {item.name}↗︎
+                                    {item.name}
+                                    <span className="ml-2 inline-block translate-x-[-0.15em] opacity-0 transition duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
+                                      →
+                                    </span>
                                   </span>
                                   {item.archived && (
                                     <span className="showcase-badge">Archived</span>
