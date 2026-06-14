@@ -236,20 +236,48 @@ export function useSoundDesign() {
 
   const toggleSound = useCallback(() => {
     const next = !soundEnabled;
-    setSoundEnabled(next);
     window.localStorage.setItem(SOUND_STORAGE_KEY, next ? "on" : "off");
 
-    if (next) {
-      const context = getContext();
-      if (context) {
-        playCue(context, "theme");
-      }
+    if (!next) {
+      setSoundEnabled(false);
+      return;
     }
+
+    const context = getContext();
+    if (!context) return;
+
+    void context
+      .resume()
+      .then(() => {
+        setSoundEnabled(true);
+        playCue(context, "theme");
+      })
+      .catch(() => setSoundEnabled(false));
   }, [getContext, soundEnabled]);
 
   useEffect(() => {
-    setSoundEnabled(window.localStorage.getItem(SOUND_STORAGE_KEY) === "on");
-  }, []);
+    if (window.localStorage.getItem(SOUND_STORAGE_KEY) !== "on") return;
+
+    const unlockSound = () => {
+      const context = getContext();
+      if (!context) return;
+
+      void context
+        .resume()
+        .then(() => {
+          setSoundEnabled(true);
+        })
+        .catch(() => setSoundEnabled(false));
+    };
+
+    window.addEventListener("pointerdown", unlockSound, { once: true });
+    window.addEventListener("keydown", unlockSound, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", unlockSound);
+      window.removeEventListener("keydown", unlockSound);
+    };
+  }, [getContext]);
 
   return { playSound, soundEnabled, toggleSound };
 }
