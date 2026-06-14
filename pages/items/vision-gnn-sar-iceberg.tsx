@@ -60,7 +60,7 @@ export default function VisionGnnSarIcebergPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                SARViG repository ↗
+                SARViG repository ↗︎
               </a>
             </p>
           </section>

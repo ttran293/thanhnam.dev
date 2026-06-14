@@ -179,7 +179,7 @@ const Home: NextPage = () => {
                     rel="noopener noreferrer"
                     onClick={() => playSound("external")}
                   >
-                    Media Cybernetics Inc. ↗
+                    Media Cybernetics Inc. ↗︎
                   </a>{" "}
                   and a Graduate Student and{" "}
                   <a
@@ -188,7 +188,7 @@ const Home: NextPage = () => {
                     rel="noopener noreferrer"
                     onClick={() => playSound("external")}
                   >
-                    Global Ambassador ↗
+                    Global Ambassador ↗︎
                   </a>{" "}
                   at{" "}
                   <a
@@ -197,7 +197,7 @@ const Home: NextPage = () => {
                     rel="noopener noreferrer"
                     onClick={() => playSound("external")}
                   >
-                    UMBC ↗
+                    UMBC ↗︎
                   </a>
                   .
                 </p>
@@ -237,7 +237,7 @@ const Home: NextPage = () => {
                       href="mailto:ttran19@umbc.edu"
                       onClick={() => playSound("external")}
                     >
-                      Email me ↗
+                      Email me ↗︎
                     </a>
                   </li>
                   <li>
@@ -247,7 +247,7 @@ const Home: NextPage = () => {
                       rel="noopener noreferrer"
                       onClick={() => playSound("external")}
                     >
-                      GitHub ↗
+                      GitHub ↗︎
                     </a>
                   </li>
                   <li>
@@ -257,7 +257,7 @@ const Home: NextPage = () => {
                       rel="noopener noreferrer"
                       onClick={() => playSound("external")}
                     >
-                      LinkedIn ↗
+                      LinkedIn ↗︎
                     </a>
                   </li>
                   <li>
@@ -267,7 +267,7 @@ const Home: NextPage = () => {
                       rel="noopener noreferrer"
                       onClick={() => playSound("external")}
                     >
-                      Resume ↗
+                      Resume ↗︎
                     </a>
                   </li>
                 </ul>
@@ -372,7 +372,7 @@ const Home: NextPage = () => {
                               <span className="min-w-0">
                                 <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
                                   <span className="display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
-                                    {item.name}↗
+                                    {item.name}↗︎
                                   </span>
                                   {item.archived && (
                                     <span className="showcase-badge">Archived</span>
