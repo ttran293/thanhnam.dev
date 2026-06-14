@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const tracks = [
   {
-    title: "Carry On",
+    title: "Up We Go",
     artist: "eeryskies",
     src: "/sounds/up-we-go_7543367.mp3",
   },
@@ -18,9 +18,22 @@ const tracks = [
   },
 ];
 
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds)) return "0:00";
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60)
+    .toString()
+    .padStart(2, "0");
+
+  return `${minutes}:${remainingSeconds}`;
+}
+
 export default function SketchSoundtrackControl() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTrackIndex, setActiveTrackIndex] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.35);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const activeTrack = tracks[activeTrackIndex];
@@ -38,6 +51,7 @@ export default function SketchSoundtrackControl() {
 
     audio.pause();
     audio.currentTime = 0;
+    setCurrentTime(0);
     setIsPlaying(false);
   }, []);
 
@@ -55,6 +69,16 @@ export default function SketchSoundtrackControl() {
     }
   }, []);
 
+  const updateTime = useCallback((nextTime: number) => {
+    const audio = audioRef.current;
+
+    setCurrentTime(nextTime);
+
+    if (audio) {
+      audio.currentTime = nextTime;
+    }
+  }, []);
+
   useEffect(() => {
     const audio = new Audio(activeTrack.src);
     audio.volume = volume;
@@ -64,15 +88,25 @@ export default function SketchSoundtrackControl() {
 
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
+    const handleLoadedMetadata = () => {
+      setDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+    };
+    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
 
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePause);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
 
+    setCurrentTime(0);
+    setDuration(0);
     void audio.play().catch(() => setIsPlaying(false));
 
     return () => {
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.pause();
       audio.currentTime = 0;
       audioRef.current = null;
@@ -100,6 +134,23 @@ export default function SketchSoundtrackControl() {
           </button>
         ))}
       </div>
+      <label className="mb-3 flex flex-wrap items-center justify-start gap-2 lg:justify-end">
+        <span className="opacity-70">Time</span>
+        <input
+          type="range"
+          min="0"
+          max={duration || 0}
+          step="0.01"
+          value={duration ? Math.min(currentTime, duration) : 0}
+          onChange={(event) => updateTime(Number(event.target.value))}
+          className="w-32 accent-(--color-poster-blue) sm:w-48"
+          aria-label="Soundtrack timeline"
+          disabled={!duration}
+        />
+        <span className="tabular-nums opacity-70">
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </span>
+      </label>
       <div className="flex flex-wrap items-center justify-start gap-x-3 gap-y-2 lg:justify-end">
         <button
           type="button"
