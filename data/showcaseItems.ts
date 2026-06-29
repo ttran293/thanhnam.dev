@@ -7,6 +7,7 @@ export type ShowcaseItem = {
   tag: string;
   filter: Filter;
   createdAt: string;
+  status?: "in-progress" | "done";
   archived?: boolean;
 };
 
@@ -19,12 +20,22 @@ export const filterLabels: Record<Filter, string> = {
 
 export const showcaseItems: ShowcaseItem[] = [
   {
+    id: "sticker-vending-machine",
+    name: "Sticker Vending Machine",
+    meta: "Sticker shop",
+    tag: "Web App",
+    filter: "web-app",
+    createdAt: "2026-06-14",
+    status: "in-progress",
+  },
+  {
     id: "style-guide-demo",
     name: "A Company UX/UI Style Guide Template",
     meta: "Design system",
     tag: "Web App",
     filter: "web-app",
     createdAt: "2026-05-27",
+    status: "done",
   },
   {
     id: "vision-gnn-sar-iceberg",
@@ -33,6 +44,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "School Project",
     filter: "school",
     createdAt: "2026-05-15",
+    status: "done",
   },
   {
     id: "pronunciation-app",

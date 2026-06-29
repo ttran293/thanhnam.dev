@@ -335,7 +335,7 @@ const Home: NextPage = () => {
                         const isLast = index === visibleItems.length - 1;
                         const rowColorClass = item.archived
                           ? "showcase-row-archived"
-                          : index >= 2
+                          : item.status !== "in-progress"
                             ? "showcase-row-green"
                             : "";
 
