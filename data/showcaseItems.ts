@@ -14,7 +14,7 @@ export type ShowcaseItem = {
 export const filterLabels: Record<Filter, string> = {
   "web-app": "Web Apps",
   art: "Sketches",
-  "rock-climb": "Climbing",
+  "rock-climb": "Hiking/Climbing",
   school: "School Projects",
 };
 
@@ -93,6 +93,14 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Web App",
     filter: "web-app",
     createdAt: "2026-05-24",
+  },
+  {
+    id: "mount-rainier",
+    name: "Mount Rainier",
+    meta: "National park",
+    tag: "Hiking",
+    filter: "rock-climb",
+    createdAt: "2026-06-29",
   },
   {
     id: "wsrylt",
