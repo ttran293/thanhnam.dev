@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import StarIcon from "../components/StarIcon";
 import {
   type Filter,
   filterLabels,
@@ -129,6 +130,10 @@ const Home: NextPage = () => {
         <span className="status-legend-item">
           <span className="status-square status-square-green" />
           <span>Done</span>
+        </span>
+        <span className="status-legend-item">
+          <StarIcon />
+          <span>Starred</span>
         </span>
       </span>
       <span>{visibleItems.length} items</span>
@@ -366,8 +371,16 @@ const Home: NextPage = () => {
                               className={`showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 no-underline`}
                               style={{ textDecoration: "none" }}
                             >
-                              <span className="theme-blue-meta self-start text-base sm:text-lg lg:text-xl leading-none pt-1 opacity-70 group-hover:opacity-100">
-                                {itemNumber}
+                              <span className="flex flex-col items-start gap-1 self-start pt-1">
+                                <span className="theme-blue-meta text-base sm:text-lg lg:text-xl leading-none opacity-70 group-hover:opacity-100">
+                                  {itemNumber}
+                                </span>
+                                {item.starred && (
+                                  <StarIcon
+                                    className="showcase-star-index"
+                                    aria-label="Starred"
+                                  />
+                                )}
                               </span>
                               <span className="min-w-0">
                                 <span className="flex flex-wrap items-center gap-x-3 gap-y-2">

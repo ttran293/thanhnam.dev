@@ -8,6 +8,7 @@ export type ShowcaseItem = {
   filter: Filter;
   createdAt: string;
   status?: "in-progress" | "done";
+  starred?: boolean;
   archived?: boolean;
 };
 
@@ -27,6 +28,7 @@ export const showcaseItems: ShowcaseItem[] = [
     filter: "web-app",
     createdAt: "2026-06-14",
     status: "in-progress",
+    starred: true,
   },
   {
     id: "style-guide-demo",
@@ -45,6 +47,7 @@ export const showcaseItems: ShowcaseItem[] = [
     filter: "school",
     createdAt: "2026-05-15",
     status: "done",
+    starred: true,
   },
   {
     id: "pronunciation-app",
@@ -93,6 +96,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Web App",
     filter: "web-app",
     createdAt: "2026-05-24",
+    starred: true,
   },
   {
     id: "mount-rainier",

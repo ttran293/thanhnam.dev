@@ -14,6 +14,7 @@
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
   --color-poster-green: #018a49;
+  --color-poster-star: #ffd700;
   --color-archived: #6f778a;
   --cursor-default: url("/cursors/dot-blue.svg") 18 18;
   --page-bg: #ffffff;
@@ -30,6 +31,7 @@
     --color-border: #40aaff;
     --color-poster-blue: #40aaff;
     --color-poster-green: #03d976;
+    --color-poster-star: #ffe566;
     --color-archived: #8c96a8;
     --page-bg: #000000;
     --dot-color: rgba(64, 170, 255, 0.1);
@@ -46,6 +48,7 @@
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
   --color-poster-green: #018a49;
+  --color-poster-star: #ffd700;
   --color-archived: #6f778a;
   --page-bg: #ffffff;
   --dot-color: rgba(23, 39, 232, 0.06);
@@ -61,6 +64,7 @@
   --color-border: #40aaff;
   --color-poster-blue: #40aaff;
   --color-poster-green: #03d976;
+  --color-poster-star: #ffe566;
   --color-archived: #8c96a8;
   --page-bg: #000000;
   --dot-color: rgba(64, 170, 255, 0.1);
@@ -310,6 +314,36 @@ h6 {
 
 .status-square-green {
   background-color: var(--color-poster-green);
+}
+
+.status-star {
+  width: 0.875rem;
+  height: 0.875rem;
+  display: inline-block;
+  flex-shrink: 0;
+  color: var(--color-poster-star);
+}
+
+.showcase-star-index {
+  width: 1.125rem;
+  height: 1.125rem;
+  display: block;
+  flex-shrink: 0;
+  color: var(--color-poster-star);
+}
+
+@media (min-width: 640px) {
+  .showcase-star-index {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .showcase-star-index {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
 }
 
 .showcase-badge {
