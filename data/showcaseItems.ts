@@ -188,7 +188,7 @@ export const showcaseItems: ShowcaseItem[] = [
 ];
 
 export function getItemHref(id: string): string {
-  return `/items/${id}`;
+  return `/project/${id}`;
 }
 
 export function matchesStatusFilter(
