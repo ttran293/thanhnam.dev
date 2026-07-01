@@ -183,6 +183,10 @@ function playCue(context: AudioContext, cue: SoundCue) {
       playTone(context, 1180, 0.025, 0.018, 0.018, "sine");
       playTone(context, 880, 0.035, 0.015, 0.052, "triangle");
       break;
+    case "research":
+      playSweep(context, 360, 620, 0.1, 0.014, 0.02);
+      playTone(context, 920, 0.05, 0.013, 0.04, "triangle");
+      break;
     case "clear":
       playSweep(context, 460, 260, 0.08, 0.019);
       break;

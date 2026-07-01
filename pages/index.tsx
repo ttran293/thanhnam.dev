@@ -21,6 +21,7 @@ const filters: { id: Filter | "all"; label: string }[] = [
   { id: "art", label: filterLabels.art },
   { id: "rock-climb", label: filterLabels["rock-climb"] },
   { id: "school", label: filterLabels.school },
+  { id: "research", label: filterLabels.research },
 ];
 
 const categoryFilters = filters.filter(

@@ -7,7 +7,7 @@ export default function WsryltV2Page() {
   return (
     <>
       <Head>
-        <title>{`What's song are you listening to? Version 2 — Thanh Nam`}</title>
+        <title>{`What song are you listening to? — Thanh Nam`}</title>
       </Head>
       <ItemPageLayout>
         <article>
@@ -16,7 +16,7 @@ export default function WsryltV2Page() {
               2026.05.24 / Web App / Music sharing / Next.js
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>
-              What&apos;s song are you listening to? Version 2
+              What song are you listening to?
             </h1>
           </div>
 

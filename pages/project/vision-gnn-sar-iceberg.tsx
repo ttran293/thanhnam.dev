@@ -13,7 +13,7 @@ export default function VisionGnnSarIcebergPage() {
         <article>
           <div className="item-header-box">
             <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
-              2026.05.15 / School Project / CS675 / Group project / Computer
+              2026.05.15 / Research Projects / CS675 / Group project / Computer
               vision
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>

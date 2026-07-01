@@ -1,4 +1,4 @@
-export type Filter = "web-app" | "art" | "rock-climb" | "school";
+export type Filter = "web-app" | "art" | "rock-climb" | "school" | "research";
 
 export type StatusFilter = "in-progress" | "done" | "starred";
 
@@ -25,6 +25,7 @@ export const filterLabels: Record<Filter, string> = {
   art: "Sketches",
   "rock-climb": "Hiking/Climbing",
   school: "School Projects",
+  research: "Research Projects",
 };
 
 export const showcaseItems: ShowcaseItem[] = [
@@ -51,8 +52,8 @@ export const showcaseItems: ShowcaseItem[] = [
     id: "vision-gnn-sar-iceberg",
     name: "Adapting Vision GNN SAR Iceberg Imagery Classification",
     meta: "Graph neural networks",
-    tag: "School Project",
-    filter: "school",
+    tag: "Research Projects",
+    filter: "research",
     createdAt: "2026-05-15",
     status: "done",
     starred: true,
@@ -70,8 +71,8 @@ export const showcaseItems: ShowcaseItem[] = [
     id: "movie-recommendation",
     name: "MiniBERT4Rec + MF",
     meta: "Recommender systems",
-    tag: "School Project",
-    filter: "school",
+    tag: "Research Projects",
+    filter: "research",
     createdAt: "2025-05-18",
     status: "done",
   },
@@ -104,7 +105,7 @@ export const showcaseItems: ShowcaseItem[] = [
   },
   {
     id: "wsrylt-v2",
-    name: "What's song are you listening to? Version 2",
+    name: "What song are you listening to?",
     meta: "Music sharing",
     tag: "Web App",
     filter: "web-app",
