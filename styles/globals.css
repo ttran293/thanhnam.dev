@@ -294,6 +294,11 @@ h6 {
   align-items: center;
 }
 
+.status-legend button {
+  font: inherit;
+  color: inherit;
+}
+
 .status-legend {
   gap: 0.75rem;
 }

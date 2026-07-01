@@ -5,10 +5,12 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import StarIcon from "../components/StarIcon";
 import {
   type Filter,
+  type StatusFilter,
   filterLabels,
   formatShowcaseDate,
   getItemHref,
   getSortedShowcaseItems,
+  statusFilterLabels,
 } from "../data/showcaseItems";
 import { useSoundDesign } from "../hooks/useSoundDesign";
 import { useTheme } from "../hooks/useTheme";
@@ -27,30 +29,52 @@ const categoryFilters = filters.filter(
 
 const Home: NextPage = () => {
   const [activeFilter, setActiveFilter] = useState<Filter | "all">("all");
+  const [activeStatusFilter, setActiveStatusFilter] = useState<
+    StatusFilter | "all"
+  >("all");
   const { theme, toggleTheme } = useTheme();
   const { playSound, soundEnabled, toggleSound } = useSoundDesign();
   const reduceMotion = useReducedMotion();
   const allItems = getSortedShowcaseItems("all");
-  const visibleItems = getSortedShowcaseItems(activeFilter);
+  const visibleItems = getSortedShowcaseItems(activeFilter, activeStatusFilter);
   const activeFilterLabel =
     filters.find((filter) => filter.id === activeFilter)?.label ?? "All";
+  const activeStatusFilterLabel =
+    activeStatusFilter === "all"
+      ? null
+      : statusFilterLabels[activeStatusFilter];
+  const hasActiveFilters =
+    activeFilter !== "all" || activeStatusFilter !== "all";
 
   const toggleFilter = (filter: Filter) => {
     playSound(activeFilter === filter ? "clear" : filter);
     setActiveFilter((current) => (current === filter ? "all" : filter));
   };
 
+  const toggleStatusFilter = (statusFilter: StatusFilter) => {
+    playSound(activeStatusFilter === statusFilter ? "clear" : "hover");
+    setActiveStatusFilter((current) =>
+      current === statusFilter ? "all" : statusFilter
+    );
+  };
+
   const clearFilter = () => {
-    if (activeFilter !== "all") {
+    if (hasActiveFilters) {
       playSound("clear");
     }
 
     setActiveFilter("all");
+    setActiveStatusFilter("all");
   };
 
   const filterButtonClass = (filter: Filter) =>
     `interactive-link bg-transparent border-0 p-0 cursor-pointer text-left ${
       activeFilter === filter ? "filter-active" : ""
+    }`;
+
+  const statusFilterButtonClass = (statusFilter: StatusFilter) =>
+    `status-legend-item interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none ${
+      activeStatusFilter === statusFilter ? "filter-active" : ""
     }`;
 
   const themeToggle = (
@@ -90,7 +114,7 @@ const Home: NextPage = () => {
   const filterCrumb = (
     <p className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
       <span>#</span>
-      {activeFilter === "all" ? (
+      {!hasActiveFilters ? (
         <span>All</span>
       ) : (
         <>
@@ -101,8 +125,18 @@ const Home: NextPage = () => {
           >
             All
           </button>
-          <span>/</span>
-          <span>{activeFilterLabel}</span>
+          {activeFilter !== "all" && (
+            <>
+              <span>/</span>
+              <span>{activeFilterLabel}</span>
+            </>
+          )}
+          {activeStatusFilterLabel && (
+            <>
+              <span>/</span>
+              <span>{activeStatusFilterLabel}</span>
+            </>
+          )}
           <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
             <span>·</span>
             <button
@@ -122,19 +156,37 @@ const Home: NextPage = () => {
     <p
       className={`flex flex-wrap items-center ${justifyClassName} gap-x-4 gap-y-2`}
     >
-      <span className="status-legend" aria-label="Project status legend">
-        <span className="status-legend-item">
+      <span className="status-legend" aria-label="Filter by project status">
+        <button
+          type="button"
+          aria-pressed={activeStatusFilter === "in-progress"}
+          onClick={() => toggleStatusFilter("in-progress")}
+          onMouseEnter={() => playSound("hover")}
+          className={statusFilterButtonClass("in-progress")}
+        >
           <span className="status-square status-square-blue" />
           <span>In-progress</span>
-        </span>
-        <span className="status-legend-item">
+        </button>
+        <button
+          type="button"
+          aria-pressed={activeStatusFilter === "done"}
+          onClick={() => toggleStatusFilter("done")}
+          onMouseEnter={() => playSound("hover")}
+          className={statusFilterButtonClass("done")}
+        >
           <span className="status-square status-square-green" />
           <span>Done</span>
-        </span>
-        <span className="status-legend-item">
+        </button>
+        <button
+          type="button"
+          aria-pressed={activeStatusFilter === "starred"}
+          onClick={() => toggleStatusFilter("starred")}
+          onMouseEnter={() => playSound("hover")}
+          className={statusFilterButtonClass("starred")}
+        >
           <StarIcon />
           <span>Starred</span>
-        </span>
+        </button>
       </span>
       <span>{visibleItems.length} items</span>
     </p>
@@ -294,20 +346,22 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <nav className="font-mono">
-                <div
-                  className="module-box mb-6 lg:mb-8 cursor-help"
-                  title="What should I work on next?"
-                  onMouseEnter={() => playSound("mystery")}
-                >
-                  <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5">
-                    <span className="theme-blue-meta self-start text-base sm:text-lg lg:text-xl leading-none pt-1">
-                      ??
-                    </span>
-                    <span className="block display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
-                      ??????
-                    </span>
+                {activeStatusFilter === "all" && (
+                  <div
+                    className="module-box mb-6 lg:mb-8 cursor-help"
+                    title="What should I work on next?"
+                    onMouseEnter={() => playSound("mystery")}
+                  >
+                    <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5">
+                      <span className="theme-blue-meta self-start text-base sm:text-lg lg:text-xl leading-none pt-1">
+                        ??
+                      </span>
+                      <span className="block display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
+                        ??????
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="space-y-0">
                   {visibleItems.length === 0 ? (
@@ -317,7 +371,7 @@ const Home: NextPage = () => {
                       animate={{ opacity: 1 }}
                       className="text-sm sm:text-base opacity-60 max-w-prose py-4"
                     >
-                      No items in this category yet.{" "}
+                      No items match this filter yet.{" "}
                       <button
                         type="button"
                         onClick={clearFilter}
@@ -340,7 +394,7 @@ const Home: NextPage = () => {
                         const isLast = index === visibleItems.length - 1;
                         const rowColorClass = item.archived
                           ? "showcase-row-archived"
-                          : item.status !== "in-progress"
+                          : item.status === "done"
                             ? "showcase-row-green"
                             : "";
 

@@ -1,5 +1,13 @@
 export type Filter = "web-app" | "art" | "rock-climb" | "school";
 
+export type StatusFilter = "in-progress" | "done" | "starred";
+
+export const statusFilterLabels: Record<StatusFilter, string> = {
+  "in-progress": "In-progress",
+  done: "Done",
+  starred: "Starred",
+};
+
 export type ShowcaseItem = {
   id: string;
   name: string;
@@ -56,6 +64,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "School Project",
     filter: "school",
     createdAt: "2026-04-15",
+    status: "done",
   },
   {
     id: "movie-recommendation",
@@ -64,6 +73,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "School Project",
     filter: "school",
     createdAt: "2025-05-18",
+    status: "done",
   },
   {
     id: "tictactoe-nasmx86-64",
@@ -72,6 +82,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "School Project",
     filter: "school",
     createdAt: "2020-12-19",
+    status: "done",
   },
   {
     id: "skew-heap-priority-queue",
@@ -80,6 +91,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "School Project",
     filter: "school",
     createdAt: "2020-12-16",
+    status: "done",
   },
   {
     id: "adjacency-lists",
@@ -88,6 +100,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "School Project",
     filter: "school",
     createdAt: "2020-12-16",
+    status: "done",
   },
   {
     id: "wsrylt-v2",
@@ -96,6 +109,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Web App",
     filter: "web-app",
     createdAt: "2026-05-24",
+    status: "done",
     starred: true,
   },
   {
@@ -105,6 +119,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Hiking",
     filter: "rock-climb",
     createdAt: "2026-06-29",
+    status: "done",
   },
   {
     id: "wsrylt",
@@ -113,6 +128,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Web App",
     filter: "web-app",
     createdAt: "2022-02-21",
+    status: "done",
     archived: true,
   },
   {
@@ -122,6 +138,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Web App",
     filter: "web-app",
     createdAt: "2025-12-31",
+    status: "done",
   },
   {
     id: "mr-nobody",
@@ -130,6 +147,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "School Project",
     filter: "school",
     createdAt: "2025-10-16",
+    status: "done",
   },
   {
     id: "drawings",
@@ -138,6 +156,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Art",
     filter: "art",
     createdAt: "2023-03-11",
+    status: "done",
   },
   {
     id: "first-v6",
@@ -146,6 +165,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Rock Climb",
     filter: "rock-climb",
     createdAt: "2025-09-15",
+    status: "done",
   },
   {
     id: "northwest-branch",
@@ -154,6 +174,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Rock Climb",
     filter: "rock-climb",
     createdAt: "2025-08-30",
+    status: "done",
   },
   {
     id: "v5-indoor",
@@ -162,6 +183,7 @@ export const showcaseItems: ShowcaseItem[] = [
     tag: "Rock Climb",
     filter: "rock-climb",
     createdAt: "2025-10-14",
+    status: "done",
   },
 ];
 
@@ -169,17 +191,28 @@ export function getItemHref(id: string): string {
   return `/items/${id}`;
 }
 
+export function matchesStatusFilter(
+  item: ShowcaseItem,
+  statusFilter: StatusFilter | "all"
+): boolean {
+  if (statusFilter === "all") return true;
+  if (statusFilter === "in-progress") return item.status === "in-progress";
+  if (statusFilter === "done") return item.status === "done";
+  return Boolean(item.starred);
+}
+
 export function getSortedShowcaseItems(
-  filter: Filter | "all" = "all"
+  filter: Filter | "all" = "all",
+  statusFilter: StatusFilter | "all" = "all"
 ): ShowcaseItem[] {
   const items =
     filter === "all"
       ? [...showcaseItems]
       : showcaseItems.filter((item) => item.filter === filter);
 
-  return items.sort(
-    (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-  );
+  return items
+    .filter((item) => matchesStatusFilter(item, statusFilter))
+    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 }
 
 export function getShowcaseItem(id: string): ShowcaseItem | undefined {
