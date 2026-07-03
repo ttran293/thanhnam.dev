@@ -6,6 +6,7 @@
   --color-border: #1727e8;
   --color-poster-blue: #1727e8;
   --font-mono: var(--font-mono-custom), ui-monospace, monospace;
+  --tracking-tight: -0.06em;
 }
 
 :root {
@@ -147,6 +148,61 @@ h6 {
   text-transform: uppercase;
 }
 
+/* Homepage — sans only */
+.home-page {
+  letter-spacing: var(--tracking-tight);
+}
+
+.home-section-title {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  text-transform: none;
+  color: var(--color-poster-blue);
+}
+
+@media (min-width: 1024px) {
+  .home-section-title {
+    font-size: 1.375rem;
+  }
+}
+
+.home-page .showcase-badge {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 500;
+  text-transform: none;
+  font-size: 0.6875rem;
+}
+
+@media (min-width: 640px) {
+  .home-page .showcase-badge {
+    font-size: 0.75rem;
+  }
+}
+
+.home-page .home-meta {
+  text-transform: none;
+}
+
+/* Item pages — sans only (sketch components keep their own typography) */
+.item-page {
+  letter-spacing: var(--tracking-tight);
+}
+
+.item-meta {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  opacity: 0.6;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .item-meta {
+    font-size: 0.875rem;
+  }
+}
+
 .poster-blue {
   color: var(--color-poster-blue);
 }
@@ -254,10 +310,10 @@ h6 {
 
 .module-label {
   display: block;
-  font-family: var(--font-mono-custom), ui-monospace, monospace;
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: var(--tracking-tight);
   opacity: 0.65;
   margin-bottom: 0.5rem;
 }
@@ -269,6 +325,20 @@ h6 {
 .showcase-divider {
   padding-bottom: 1.25rem;
   margin-bottom: 0.25rem;
+}
+
+.showcase-row {
+  align-items: start;
+}
+
+.showcase-row-index {
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.showcase-row-title {
+  line-height: 1;
+  display: block;
 }
 
 .interactive-link {
@@ -356,9 +426,10 @@ h6 {
   display: inline-block;
   flex-shrink: 0;
   align-self: center;
-  font-family: var(--font-mono-custom), ui-monospace, monospace;
+  font-family: var(--font-body), system-ui, sans-serif;
   font-size: 0.75rem;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: var(--tracking-tight);
   line-height: 1;
   padding: 0.35rem 0.7rem;
   border: 1px solid var(--link-decoration);
@@ -387,11 +458,10 @@ h6 {
   justify-content: center;
   padding: 0.625rem 1.375rem;
   font-size: 0.8125rem;
-  font-family: var(--font-mono-custom), ui-monospace, monospace;
+  font-family: var(--font-body), system-ui, sans-serif;
   font-weight: 500;
+  letter-spacing: var(--tracking-tight);
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   border-radius: 9999px;
   transition: opacity 0.2s, background-color 0.2s, color 0.2s;
   white-space: nowrap;

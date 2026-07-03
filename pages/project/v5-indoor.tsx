@@ -31,7 +31,7 @@ export default function V5IndoorPage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2024.08.01 / Rock Climb / Indoor bouldering / V5
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>V5 Indoor</h1>

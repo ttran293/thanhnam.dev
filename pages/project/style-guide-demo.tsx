@@ -12,7 +12,7 @@ export default function StyleGuideDemoPage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2026.05.27 / Web App / Design system / Vite
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>

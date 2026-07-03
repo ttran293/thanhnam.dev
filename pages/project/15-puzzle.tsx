@@ -17,7 +17,7 @@ export default function FifteenPuzzlePage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2025.12.31 / Web App / Sliding puzzle / React
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>15 Puzzle</h1>

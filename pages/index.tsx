@@ -28,6 +28,35 @@ const categoryFilters = filters.filter(
   (filter): filter is { id: Filter; label: string } => filter.id !== "all"
 );
 
+const showcaseTitleArrow = (
+  <span className="ml-2 inline-block shrink-0 translate-x-[-0.15em] whitespace-nowrap opacity-0 transition duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
+    →
+  </span>
+);
+
+function ShowcaseItemTitle({ name }: { name: string }) {
+  const lastSpace = name.lastIndexOf(" ");
+
+  if (lastSpace === -1) {
+    return (
+      <span className="whitespace-nowrap">
+        {name}
+        {showcaseTitleArrow}
+      </span>
+    );
+  }
+
+  return (
+    <>
+      {name.slice(0, lastSpace + 1)}
+      <span className="whitespace-nowrap">
+        {name.slice(lastSpace + 1)}
+        {showcaseTitleArrow}
+      </span>
+    </>
+  );
+}
+
 const Home: NextPage = () => {
   const [activeFilter, setActiveFilter] = useState<Filter | "all">("all");
   const [activeStatusFilter, setActiveStatusFilter] = useState<
@@ -74,7 +103,7 @@ const Home: NextPage = () => {
     }`;
 
   const statusFilterButtonClass = (statusFilter: StatusFilter) =>
-    `status-legend-item interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none ${
+    `status-legend-item interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug ${
       activeStatusFilter === statusFilter ? "filter-active" : ""
     }`;
 
@@ -87,7 +116,7 @@ const Home: NextPage = () => {
         playSound("theme");
         toggleTheme();
       }}
-      className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+      className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug"
     >
       {theme === "dark" ? "Light" : "Dark"}
     </button>
@@ -99,7 +128,7 @@ const Home: NextPage = () => {
       aria-label={`${soundEnabled ? "Disable" : "Enable"} interface sounds`}
       aria-pressed={soundEnabled}
       onClick={toggleSound}
-      className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+      className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug"
     >
       Sound {soundEnabled ? "On" : "Off"}
     </button>
@@ -122,7 +151,7 @@ const Home: NextPage = () => {
           <button
             type="button"
             onClick={clearFilter}
-            className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+            className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug"
           >
             All
           </button>
@@ -143,7 +172,7 @@ const Home: NextPage = () => {
             <button
               type="button"
               onClick={clearFilter}
-              className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none opacity-60"
+              className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug opacity-60"
             >
               Clear
             </button>
@@ -201,17 +230,17 @@ const Home: NextPage = () => {
   );
 
   return (
-    <div className="page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 lg:py-5 xl:px-28 2xl:px-36">
+    <div className="home-page page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 lg:py-5 xl:px-28 2xl:px-36">
       <div className="relative z-10 mx-auto w-full max-w-[1700px] lg:min-h-[calc(100vh-2.5rem)]">
-        <div className="theme-blue-muted font-mono text-sm sm:text-base uppercase leading-none lg:hidden">
+        <div className="theme-blue-muted text-sm sm:text-base font-medium leading-snug lg:hidden">
           <div className="flex justify-end pt-4">{topControls}</div>
         </div>
 
         <div className="lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-0 lg:items-start">
-          <div className="hidden lg:flex lg:col-start-1 lg:justify-end lg:items-center lg:pr-12 xl:pr-16 2xl:pr-20 theme-blue-muted font-mono text-sm uppercase leading-none pt-4">
+          <div className="hidden lg:flex lg:col-start-1 lg:justify-end lg:items-center lg:pr-12 xl:pr-16 2xl:pr-20 theme-blue-muted text-sm font-medium leading-snug pt-4">
             {topControls}
           </div>
-          <div className="hidden lg:flex lg:col-start-2 lg:items-center lg:pl-0 lg:pr-4 xl:pr-6 theme-blue-muted font-mono text-sm uppercase leading-none pt-4 w-full">
+          <div className="hidden lg:flex lg:col-start-2 lg:items-center lg:pl-0 lg:pr-4 xl:pr-6 theme-blue-muted text-sm font-medium leading-snug pt-4 w-full">
             {filterBar}
           </div>
 
@@ -220,13 +249,13 @@ const Home: NextPage = () => {
             <div className="max-w-2xl lg:max-w-none lg:pr-6 xl:pr-8">
               <section className="section-module mb-4">
                 <h1
-                  className="display-font poster-blue text-[clamp(4.25rem,18vw,7.5rem)] lg:text-[clamp(5rem,6.25vw,6.5rem)] mb-5 lg:mb-4 max-w-[8ch] cursor-help"
+                  className="poster-blue text-[clamp(2.75rem,12vw,4.5rem)] lg:text-[clamp(3.25rem,5.5vw,4.25rem)] font-semibold tracking-tight leading-[1.05] mb-5 lg:mb-4 max-w-[12ch] cursor-help"
                   title="/tʰajŋ nam/"
                   onMouseEnter={() => playSound("name")}
                 >
                   Thanh Nam
                 </h1>
-                <h2 className="text-xl lg:text-[1.375rem] mb-3 font-medium">
+                <h2 className="home-section-title mb-3">
                   About
                 </h2>
                 <p className="leading-relaxed mb-4 text-base lg:text-[1.0625rem]">
@@ -265,7 +294,7 @@ const Home: NextPage = () => {
               </section>
 
               <section className="section-module mb-4">
-                <h2 className="text-xl lg:text-[1.375rem] mb-4 font-medium poster-blue">
+                <h2 className="home-section-title mb-4">
                   What I&apos;ve been working on
                 </h2>
                 <ul className="text-base lg:text-[1.0625rem] grid grid-cols-2 gap-x-8 gap-y-1">
@@ -286,7 +315,7 @@ const Home: NextPage = () => {
               </section>
 
               <section className="section-module mb-4">
-                <h2 className="text-xl lg:text-[1.375rem] mb-4 font-medium poster-blue">
+                <h2 className="home-section-title mb-4">
                   Contact me
                 </h2>
                 <ul className="text-base lg:text-[1.0625rem] grid grid-cols-2 gap-x-8 gap-y-1">
@@ -331,7 +360,7 @@ const Home: NextPage = () => {
                 </ul>
               </section>
 
-              <p className="font-mono text-xs uppercase opacity-60 lg:mb-0">
+              <p className="text-xs opacity-50 lg:mb-0">
                 Updated May 27, 2026
               </p>
             </div>
@@ -340,24 +369,24 @@ const Home: NextPage = () => {
           {/* Right panel */}
           <div className="mt-8 lg:mt-0 lg:col-start-2 lg:row-start-2 lg:flex lg:flex-col lg:pl-0 min-h-[40vh]">
             <div className="relative flex-1 min-h-[40vh] py-0 lg:pt-6 lg:pr-4 xl:pr-6">
-              <div className="theme-blue-muted font-mono text-sm sm:text-base uppercase leading-none mb-8 sm:mb-10 lg:hidden">
+              <div className="theme-blue-muted text-sm sm:text-base font-medium leading-snug mb-8 sm:mb-10 lg:hidden">
                 <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-6">
                   {filterCrumb}
                   {renderStatusSummary()}
                 </div>
               </div>
-              <nav className="font-mono">
+              <nav>
                 {activeStatusFilter === "all" && (
                   <div
                     className="module-box mb-6 lg:mb-8 cursor-help"
                     title="What should I work on next?"
                     onMouseEnter={() => playSound("mystery")}
                   >
-                    <div className="grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5">
-                      <span className="theme-blue-meta self-start text-base sm:text-lg lg:text-xl leading-none pt-1">
+                    <div className="showcase-row grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 items-start">
+                      <span className="showcase-row-index theme-blue-meta text-base sm:text-lg lg:text-xl font-semibold opacity-70">
                         ??
                       </span>
-                      <span className="block display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
+                      <span className="showcase-row-title theme-blue-soft text-[clamp(1.5rem,5.5vw,2.25rem)] sm:text-[clamp(1.625rem,4.5vw,2.5rem)] lg:text-[clamp(1.75rem,3vw,2.75rem)] font-medium tracking-tight wrap-break-word">
                         ??????
                       </span>
                     </div>
@@ -377,7 +406,7 @@ const Home: NextPage = () => {
                         type="button"
                         onClick={clearFilter}
                         onMouseEnter={() => playSound("hover")}
-                        className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase"
+                        className="interactive-link bg-transparent border-0 p-0 cursor-pointer"
                       >
                         View all
                       </button>
@@ -423,33 +452,30 @@ const Home: NextPage = () => {
                               href={getItemHref(item.id)}
                               onClick={() => playSound("navigate")}
                               onMouseEnter={() => playSound("hover")}
-                              className={`showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 no-underline`}
+                              className={`showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 items-start no-underline`}
                               style={{ textDecoration: "none" }}
                             >
-                              <span className="flex flex-col items-start gap-1 self-start pt-1">
-                                <span className="theme-blue-meta text-base sm:text-lg lg:text-xl leading-none opacity-70 group-hover:opacity-100">
+                              <span className="showcase-row-index flex items-start gap-1">
+                                <span className="theme-blue-meta text-base sm:text-lg lg:text-xl font-semibold opacity-70 group-hover:opacity-100">
                                   {itemNumber}
                                 </span>
                                 {item.starred && (
                                   <StarIcon
-                                    className="showcase-star-index"
+                                    className="showcase-star-index shrink-0"
                                     aria-label="Starred"
                                   />
                                 )}
                               </span>
                               <span className="min-w-0">
-                                <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                                  <span className="display-font theme-blue-soft text-[clamp(2rem,8vw,3rem)] sm:text-[clamp(2.25rem,6vw,3.4rem)] lg:text-[clamp(2.5rem,4.25vw,4.2rem)] leading-[0.9] wrap-break-word">
-                                    {item.name}
-                                    <span className="ml-2 inline-block translate-x-[-0.15em] opacity-0 transition duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
-                                      →
-                                    </span>
+                                <span className="flex flex-wrap items-start gap-x-3 gap-y-2">
+                                  <span className="showcase-row-title theme-blue-soft text-[clamp(1.5rem,5.5vw,2.25rem)] sm:text-[clamp(1.625rem,4.5vw,2.5rem)] lg:text-[clamp(1.75rem,3vw,2.75rem)] font-medium tracking-tight wrap-break-word">
+                                    <ShowcaseItemTitle name={item.name} />
                                   </span>
                                   {item.archived && (
                                     <span className="showcase-badge">Archived</span>
                                   )}
                                 </span>
-                                <span className="theme-blue-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm lg:text-base uppercase tracking-wide opacity-60 group-hover:opacity-80">
+                                <span className="home-meta theme-blue-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm opacity-55 group-hover:opacity-75">
                                   <span>{formattedDate}</span>
                                   <span>/</span>
                                   <span>{item.tag}</span>

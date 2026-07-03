@@ -12,7 +12,7 @@ export default function VisionGnnSarIcebergPage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2026.05.15 / Research Projects / CS675 / Group project / Computer
               vision
             </p>

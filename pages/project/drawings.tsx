@@ -7,7 +7,7 @@ import SketchImageModal, {
   type SketchDrawing,
 } from "../../components/SketchImageModal";
 import SketchSoundtrackControl from "../../components/SketchSoundtrackControl";
-import { itemTitleClassName } from "../../data/showcaseItems";
+import { sketchItemTitleClassName } from "../../data/showcaseItems";
 import { useSoundDesign } from "../../hooks/useSoundDesign";
 
 const SketchPageCanvas = dynamic(
@@ -192,7 +192,7 @@ export default function SketchesPage() {
                   <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
                     2024.03.11 / Art / Pencil / pen
                   </p>
-                  <h1 className={`${itemTitleClassName} item-title`}>Sketches</h1>
+                  <h1 className={`${sketchItemTitleClassName} item-title`}>Sketches</h1>
                 </div>
 
                 <p className="leading-relaxed text-base max-w-prose mb-4">

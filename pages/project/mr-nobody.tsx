@@ -16,7 +16,7 @@ export default function MrNobodyPage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2025.10.16 / School Project / Interactive fiction / AI
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>Mr. Nobody</h1>

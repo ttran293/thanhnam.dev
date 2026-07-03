@@ -112,7 +112,7 @@ function YosemiteImageDialog({
               event.stopPropagation();
               onClose();
             }}
-            className="absolute right-3 top-3 z-20 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-current/15 bg-(--page-bg)/90 font-mono text-2xl leading-none backdrop-blur-sm"
+            className="absolute right-3 top-3 z-20 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-current/15 bg-(--page-bg)/90 text-2xl font-light leading-none backdrop-blur-sm"
           >
             ×
           </button>
@@ -127,7 +127,7 @@ function YosemiteImageDialog({
               onClick={(event) => event.stopPropagation()}
             >
               <div
-                className={`absolute inset-0 flex items-center justify-center font-mono text-xs uppercase tracking-wide transition-opacity duration-200 ${
+                className={`absolute inset-0 flex items-center justify-center text-xs tracking-tight transition-opacity duration-200 ${
                   loaded ? "opacity-0" : "opacity-60"
                 }`}
               >
@@ -238,7 +238,7 @@ export default function YosemitePage() {
               >
                 Yosemite
               </h1>
-              <p className="mt-1 font-mono text-[0.625rem] uppercase tracking-wide opacity-60 sm:text-xs">
+              <p className="item-meta mt-1 mb-0 text-[0.625rem] sm:text-xs">
                 2024.10.03 · Hiking · National park · California
               </p>
             </div>

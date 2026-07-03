@@ -262,4 +262,7 @@ export function getRelatedItems(id: string, limit = 2): ShowcaseItem[] {
 }
 
 export const itemTitleClassName =
+  "poster-blue text-[clamp(2rem,8vw,3.5rem)] font-semibold tracking-tight leading-[1.05] mb-6";
+
+export const sketchItemTitleClassName =
   "display-font poster-blue text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.9] mb-6";

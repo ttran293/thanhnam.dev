@@ -12,7 +12,7 @@ export default function SkewHeapPriorityQueuePage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2020.12.16 / School Project / CMSC341 / C++
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>

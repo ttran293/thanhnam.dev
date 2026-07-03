@@ -27,10 +27,10 @@ export default function ItemPageLayout({
 
   return (
     <div
-      className={`page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 xl:px-28 2xl:px-36 ${pageClassName}`}
+      className={`item-page page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 xl:px-28 2xl:px-36 ${pageClassName}`}
     >
       <div className={contentClassName}>
-        <div className="flex justify-between items-center font-mono text-xs sm:text-sm uppercase leading-none mb-8">
+        <div className="flex justify-between items-center text-xs sm:text-sm font-medium tracking-tight leading-snug mb-8">
           <Link
             href="/"
             onClick={() => {
@@ -38,7 +38,7 @@ export default function ItemPageLayout({
                 playSound("back");
               }
             }}
-            className="interactive-link no-underline uppercase"
+            className="interactive-link no-underline"
             style={{ textDecoration: "none" }}
           >
             ← Home
@@ -53,7 +53,7 @@ export default function ItemPageLayout({
               }
               toggleTheme();
             }}
-            className="interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none"
+            className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug"
           >
             {theme === "dark" ? "Light" : "Dark"}
           </button>

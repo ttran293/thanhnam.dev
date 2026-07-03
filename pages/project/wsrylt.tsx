@@ -16,7 +16,7 @@ export default function WsryltPage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2022.02.21 / Web App / Music sharing / MERN
             </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">

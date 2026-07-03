@@ -26,7 +26,7 @@ export default function MountRainierPage() {
       <ItemPageLayout contentClassName="relative z-10 mx-auto w-full max-w-none">
         <article>
           <div className="item-header-box max-w-[900px]">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2026.06.29 / Hiking / National park / Washington
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>

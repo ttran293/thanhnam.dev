@@ -12,7 +12,7 @@ export default function TictactoeNasmPage() {
       <ItemPageLayout>
         <article>
           <div className="item-header-box">
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-wide opacity-60 mb-3">
+            <p className="item-meta">
               2020.12.19 / School Project / NASM x86-64 / C
             </p>
             <h1 className={`${itemTitleClassName} item-title`}>
@@ -32,8 +32,8 @@ export default function TictactoeNasmPage() {
             <h2 className="text-base font-medium">Concept</h2>
             <p className="leading-relaxed text-base">
               The game uses a 4x4 board where the human player goes first as
-              <span className="font-mono"> x</span>, and the computer responds as
-              <span className="font-mono"> o</span>. It includes menu-driven easy
+              <span> x</span>, and the computer responds as
+              <span> o</span>. It includes menu-driven easy
               and hard modes: easy mode picks a random open spot, while hard mode
               scans for a possible human win and blocks it before choosing a move.
             </p>
