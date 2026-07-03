@@ -57,6 +57,64 @@ function ShowcaseItemTitle({ name }: { name: string }) {
   );
 }
 
+const easeOut = [0.22, 1, 0.36, 1] as const;
+
+function useHomeMotion(reduceMotion: boolean | null) {
+  const enabled = reduceMotion !== true;
+
+  const fadeUp = {
+    hidden: enabled ? { opacity: 0, y: 14 } : {},
+    visible: enabled
+      ? {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.45, ease: easeOut },
+        }
+      : {},
+  };
+
+  const fadeIn = {
+    hidden: enabled ? { opacity: 0 } : {},
+    visible: enabled
+      ? {
+          opacity: 1,
+          transition: { duration: 0.35, ease: easeOut },
+        }
+      : {},
+  };
+
+  const slideInRight = {
+    hidden: enabled ? { opacity: 0, x: 16 } : {},
+    visible: enabled
+      ? {
+          opacity: 1,
+          x: 0,
+          transition: { duration: 0.5, ease: easeOut },
+        }
+      : {},
+  };
+
+  const stagger = {
+    hidden: {},
+    visible: enabled
+      ? {
+          transition: { staggerChildren: 0.07, delayChildren: 0.08 },
+        }
+      : {},
+  };
+
+  const staggerFast = {
+    hidden: {},
+    visible: enabled
+      ? {
+          transition: { staggerChildren: 0.04, delayChildren: 0.02 },
+        }
+      : {},
+  };
+
+  return { enabled, fadeUp, fadeIn, slideInRight, stagger, staggerFast };
+}
+
 const Home: NextPage = () => {
   const [activeFilter, setActiveFilter] = useState<Filter | "all">("all");
   const [activeStatusFilter, setActiveStatusFilter] = useState<
@@ -65,6 +123,8 @@ const Home: NextPage = () => {
   const { theme, toggleTheme } = useTheme();
   const { playSound, soundEnabled, toggleSound } = useSoundDesign();
   const reduceMotion = useReducedMotion();
+  const { enabled, fadeUp, fadeIn, slideInRight, stagger, staggerFast } =
+    useHomeMotion(reduceMotion);
   const allItems = getSortedShowcaseItems("all");
   const visibleItems = getSortedShowcaseItems(activeFilter, activeStatusFilter);
   const activeFilterLabel =
@@ -135,58 +195,25 @@ const Home: NextPage = () => {
   );
 
   const topControls = (
-    <div className="flex items-center gap-4">
+    <motion.div
+      className="flex items-center gap-4"
+      initial={enabled ? { opacity: 0, y: -6 } : false}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: easeOut, delay: enabled ? 0.05 : 0 }}
+    >
       {soundToggle}
       {themeToggle}
-    </div>
-  );
-
-  const filterCrumb = (
-    <p className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
-      <span>#</span>
-      {!hasActiveFilters ? (
-        <span>All</span>
-      ) : (
-        <>
-          <button
-            type="button"
-            onClick={clearFilter}
-            className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug"
-          >
-            All
-          </button>
-          {activeFilter !== "all" && (
-            <>
-              <span>/</span>
-              <span>{activeFilterLabel}</span>
-            </>
-          )}
-          {activeStatusFilterLabel && (
-            <>
-              <span>/</span>
-              <span>{activeStatusFilterLabel}</span>
-            </>
-          )}
-          <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
-            <span>·</span>
-            <button
-              type="button"
-              onClick={clearFilter}
-              className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug opacity-60"
-            >
-              Clear
-            </button>
-          </span>
-        </>
-      )}
-    </p>
+    </motion.div>
   );
 
   const renderStatusSummary = (justifyClassName = "justify-end") => (
     <p
       className={`flex flex-wrap items-center ${justifyClassName} gap-x-4 gap-y-2`}
     >
-      <span className="status-legend" aria-label="Filter by project status">
+      <span
+        className="status-legend"
+        aria-label="Filter by project status"
+      >
         <button
           type="button"
           aria-pressed={activeStatusFilter === "in-progress"}
@@ -218,13 +245,70 @@ const Home: NextPage = () => {
           <span>Starred</span>
         </button>
       </span>
-      <span>{visibleItems.length} items</span>
+      <motion.span
+        key={visibleItems.length}
+        initial={enabled ? { opacity: 0, y: 4 } : false}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.22, ease: easeOut }}
+      >
+        {visibleItems.length} items
+      </motion.span>
     </p>
+  );
+
+  const renderAnimatedFilterCrumb = () => (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.p
+        key={`${activeFilter}-${activeStatusFilter}`}
+        initial={enabled ? { opacity: 0, y: 6 } : false}
+        animate={{ opacity: 1, y: 0 }}
+        exit={enabled ? { opacity: 0, y: -4 } : undefined}
+        transition={{ duration: 0.2, ease: easeOut }}
+        className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1"
+      >
+        <span>#</span>
+        {!hasActiveFilters ? (
+          <span>All</span>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={clearFilter}
+              className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug"
+            >
+              All
+            </button>
+            {activeFilter !== "all" && (
+              <>
+                <span>/</span>
+                <span>{activeFilterLabel}</span>
+              </>
+            )}
+            {activeStatusFilterLabel && (
+              <>
+                <span>/</span>
+                <span>{activeStatusFilterLabel}</span>
+              </>
+            )}
+            <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
+              <span>·</span>
+              <button
+                type="button"
+                onClick={clearFilter}
+                className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug opacity-60"
+              >
+                Clear
+              </button>
+            </span>
+          </>
+        )}
+      </motion.p>
+    </AnimatePresence>
   );
 
   const filterBar = (
     <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-x-6 gap-y-2">
-      {filterCrumb}
+      {renderAnimatedFilterCrumb()}
       {renderStatusSummary()}
     </div>
   );
@@ -241,20 +325,36 @@ const Home: NextPage = () => {
             {topControls}
           </div>
           <div className="hidden lg:flex lg:col-start-2 lg:items-center lg:pl-0 lg:pr-4 xl:pr-6 theme-blue-muted text-sm font-medium leading-snug pt-4 w-full">
-            {filterBar}
+            <motion.div
+              className="w-full"
+              variants={slideInRight}
+              initial="hidden"
+              animate="visible"
+            >
+              {filterBar}
+            </motion.div>
           </div>
 
           {/* Left panel */}
           <div className="lg:sticky lg:top-5 lg:col-start-1 lg:row-start-2 lg:self-start lg:pr-12 xl:pr-16 2xl:pr-20 pt-8 lg:pt-6">
-            <div className="max-w-2xl lg:max-w-none lg:pr-6 xl:pr-8">
-              <section className="section-module mb-4">
-                <h1
+            <motion.div
+              className="max-w-2xl lg:max-w-none lg:pr-6 xl:pr-8"
+              variants={stagger}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.section className="section-module mb-4" variants={fadeUp}>
+                <motion.h1
                   className="poster-blue text-[clamp(2.75rem,12vw,4.5rem)] lg:text-[clamp(3.25rem,5.5vw,4.25rem)] font-semibold tracking-tight leading-[1.05] mb-5 lg:mb-4 max-w-[12ch] cursor-help"
                   title="/tʰajŋ nam/"
                   onMouseEnter={() => playSound("name")}
+                  variants={fadeUp}
+                  whileHover={
+                    enabled ? { scale: 1.01, transition: { duration: 0.2 } } : undefined
+                  }
                 >
                   Thanh Nam
-                </h1>
+                </motion.h1>
                 <h2 className="home-section-title mb-3">
                   About
                 </h2>
@@ -291,15 +391,18 @@ const Home: NextPage = () => {
                 <p className="leading-relaxed text-base lg:text-[1.0625rem]">
                   I like to build things that answer questions and connect people.
                 </p>
-              </section>
+              </motion.section>
 
-              <section className="section-module mb-4">
+              <motion.section className="section-module mb-4" variants={fadeUp}>
                 <h2 className="home-section-title mb-4">
                   What I&apos;ve been working on
                 </h2>
-                <ul className="text-base lg:text-[1.0625rem] grid grid-cols-2 gap-x-8 gap-y-1">
+                <motion.ul
+                  className="text-base lg:text-[1.0625rem] grid grid-cols-2 gap-x-8 gap-y-1"
+                  variants={staggerFast}
+                >
                   {categoryFilters.map(({ id, label }) => (
-                    <li key={id}>
+                    <motion.li key={id} variants={fadeIn}>
                       <button
                         type="button"
                         aria-pressed={activeFilter === id}
@@ -309,25 +412,28 @@ const Home: NextPage = () => {
                       >
                         {label}
                       </button>
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
-              </section>
+                </motion.ul>
+              </motion.section>
 
-              <section className="section-module mb-4">
+              <motion.section className="section-module mb-4" variants={fadeUp}>
                 <h2 className="home-section-title mb-4">
                   Contact me
                 </h2>
-                <ul className="text-base lg:text-[1.0625rem] grid grid-cols-2 gap-x-8 gap-y-1">
-                  <li>
+                <motion.ul
+                  className="text-base lg:text-[1.0625rem] grid grid-cols-2 gap-x-8 gap-y-1"
+                  variants={staggerFast}
+                >
+                  <motion.li variants={fadeIn}>
                     <a
                       href="mailto:ttran19@umbc.edu"
                       onClick={() => playSound("external")}
                     >
                       Email me ↗︎
                     </a>
-                  </li>
-                  <li>
+                  </motion.li>
+                  <motion.li variants={fadeIn}>
                     <a
                       href="https://github.com/ttran293"
                       target="_blank"
@@ -336,8 +442,8 @@ const Home: NextPage = () => {
                     >
                       GitHub ↗︎
                     </a>
-                  </li>
-                  <li>
+                  </motion.li>
+                  <motion.li variants={fadeIn}>
                     <a
                       href="https://linkedin.com/in/thanh-nam-tran-9bbb921b3/"
                       target="_blank"
@@ -346,8 +452,8 @@ const Home: NextPage = () => {
                     >
                       LinkedIn ↗︎
                     </a>
-                  </li>
-                  <li>
+                  </motion.li>
+                  <motion.li variants={fadeIn}>
                     <a
                       href="https://github.com/ttran293/ttran293/blob/main/resume.pdf"
                       target="_blank"
@@ -356,31 +462,45 @@ const Home: NextPage = () => {
                     >
                       Resume ↗︎
                     </a>
-                  </li>
-                </ul>
-              </section>
+                  </motion.li>
+                </motion.ul>
+              </motion.section>
 
-              <p className="text-xs opacity-50 lg:mb-0">
+              <motion.p className="text-xs opacity-50 lg:mb-0" variants={fadeIn}>
                 Updated May 27, 2026
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
           </div>
 
           {/* Right panel */}
-          <div className="mt-8 lg:mt-0 lg:col-start-2 lg:row-start-2 lg:flex lg:flex-col lg:pl-0 min-h-[40vh]">
+          <motion.div
+            className="mt-8 lg:mt-0 lg:col-start-2 lg:row-start-2 lg:flex lg:flex-col lg:pl-0 min-h-[40vh]"
+            variants={slideInRight}
+            initial="hidden"
+            animate="visible"
+            transition={enabled ? { delay: 0.12 } : undefined}
+          >
             <div className="relative flex-1 min-h-[40vh] py-0 lg:pt-6 lg:pr-4 xl:pr-6">
               <div className="theme-blue-muted text-sm sm:text-base font-medium leading-snug mb-8 sm:mb-10 lg:hidden">
                 <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-6">
-                  {filterCrumb}
+                  {renderAnimatedFilterCrumb()}
                   {renderStatusSummary()}
                 </div>
               </div>
               <nav>
                 {activeStatusFilter === "all" && (
-                  <div
+                  <motion.div
                     className="module-box mb-6 lg:mb-8 cursor-help"
                     title="What should I work on next?"
                     onMouseEnter={() => playSound("mystery")}
+                    initial={enabled ? { opacity: 0, y: 10 } : false}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, ease: easeOut, delay: 0.2 }}
+                    whileHover={
+                      enabled
+                        ? { x: 4, transition: { type: "spring", stiffness: 320, damping: 24 } }
+                        : undefined
+                    }
                   >
                     <div className="showcase-row grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 items-start">
                       <span className="showcase-row-index theme-blue-meta text-base sm:text-lg lg:text-xl font-semibold opacity-70">
@@ -390,15 +510,16 @@ const Home: NextPage = () => {
                         ??????
                       </span>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
 
                 <div className="space-y-0">
                   {visibleItems.length === 0 ? (
                     <motion.p
                       key="empty"
-                      initial={reduceMotion ? false : { opacity: 0 }}
-                      animate={{ opacity: 1 }}
+                      initial={enabled ? { opacity: 0, y: 8 } : false}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, ease: easeOut }}
                       className="text-sm sm:text-base opacity-60 max-w-prose py-4"
                     >
                       No items match this filter yet.{" "}
@@ -412,7 +533,7 @@ const Home: NextPage = () => {
                       </button>
                     </motion.p>
                   ) : (
-                    <AnimatePresence initial={false} mode="popLayout">
+                    <AnimatePresence initial={enabled} mode="popLayout">
                       {visibleItems.map((item, index) => {
                         const formattedDate = formatShowcaseDate(item.createdAt);
                         const itemIndex = allItems.findIndex(
@@ -431,21 +552,27 @@ const Home: NextPage = () => {
                         return (
                           <motion.div
                             key={item.id}
-                            layout={!reduceMotion}
-                            initial={
-                              reduceMotion ? false : { opacity: 0, y: 10 }
-                            }
+                            layout={enabled}
+                            initial={enabled ? { opacity: 0, y: 16 } : false}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={
-                              reduceMotion
-                                ? undefined
-                                : { opacity: 0, y: -8 }
-                            }
+                            exit={enabled ? { opacity: 0, y: -10 } : undefined}
                             transition={{
-                              duration: reduceMotion ? 0 : 0.22,
-                              ease: "easeOut",
-                              delay: reduceMotion ? 0 : index * 0.025,
+                              duration: enabled ? 0.28 : 0,
+                              ease: easeOut,
+                              delay: enabled ? index * 0.035 : 0,
                             }}
+                            whileHover={
+                              enabled
+                                ? {
+                                    x: 6,
+                                    transition: {
+                                      type: "spring",
+                                      stiffness: 380,
+                                      damping: 28,
+                                    },
+                                  }
+                                : undefined
+                            }
                             className={isLast ? "py-1" : "showcase-divider py-1"}
                           >
                             <Link
@@ -492,7 +619,7 @@ const Home: NextPage = () => {
                 </div>
               </nav>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

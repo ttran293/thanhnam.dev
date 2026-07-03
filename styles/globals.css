@@ -501,11 +501,7 @@ h6 {
 
 @media (prefers-reduced-motion: no-preference) {
   .showcase-row {
-    transition: transform 0.2s ease;
-  }
-
-  .showcase-row:hover {
-    transform: translateX(0.35rem);
+    transition: color 0.2s ease;
   }
 }
 
