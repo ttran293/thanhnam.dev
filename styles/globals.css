@@ -16,7 +16,6 @@
   --color-poster-green: #018a49;
   --color-poster-star: #ffd700;
   --color-archived: #6f778a;
-  --cursor-default: url("/cursors/dot-blue.svg") 18 18;
   --page-bg: #ffffff;
   --dot-color: rgba(23, 39, 232, 0.06);
   --link-hover: #101bb8;
@@ -95,14 +94,16 @@ body {
   font-weight: 400;
   letter-spacing: 0.15em;
   -webkit-font-smoothing: antialiased;
-  cursor: var(--cursor-default), auto;
 }
 
 a,
 button,
-.cursor-pointer,
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .cursor-help {
-  cursor: var(--cursor-default), auto;
+  cursor: help;
 }
 
 a {

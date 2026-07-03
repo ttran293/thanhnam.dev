@@ -123,6 +123,15 @@ export const showcaseItems: ShowcaseItem[] = [
     status: "done",
   },
   {
+    id: "yosemite",
+    name: "Yosemite",
+    meta: "National park",
+    tag: "Hiking",
+    filter: "rock-climb",
+    createdAt: "2024-10-03",
+    status: "done",
+  },
+  {
     id: "wsrylt",
     name: "What's song are you listening to?",
     meta: "Music sharing",
