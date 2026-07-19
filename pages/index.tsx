@@ -467,7 +467,7 @@ const Home: NextPage = () => {
               </motion.section>
 
               <motion.p className="text-xs opacity-50 lg:mb-0" variants={fadeIn}>
-                Updated May 27, 2026
+                Updated July 19, 2026
               </motion.p>
             </motion.div>
           </div>

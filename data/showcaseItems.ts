@@ -30,6 +30,25 @@ export const filterLabels: Record<Filter, string> = {
 
 export const showcaseItems: ShowcaseItem[] = [
   {
+    id: "dearly",
+    name: "dearly",
+    meta: "Community mailboxes",
+    tag: "Web App",
+    filter: "web-app",
+    createdAt: "2026-07-19",
+    status: "done",
+    starred: true,
+  },
+  {
+    id: "neural-networks",
+    name: "Neural Networks",
+    meta: "Neural network architectures",
+    tag: "School Project",
+    filter: "school",
+    createdAt: "2026-07-05",
+    status: "done",
+  },
+  {
     id: "sticker-vending-machine",
     name: "Sticker Vending Machine",
     meta: "Sticker shop",
