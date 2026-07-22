@@ -312,8 +312,8 @@ const Home: NextPage = () => {
                   </a>
                   .
                 </p>
-                <p className="leading-relaxed text-base lg:text-[1.0625rem]">
-                  I like to build things that answer questions and connect people.
+                <p className="home-tagline leading-relaxed text-base lg:text-[1.0625rem]">
+                  <span>I like to build things that connect people.</span>
                 </p>
               </motion.section>
 

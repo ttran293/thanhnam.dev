@@ -22,6 +22,8 @@
   --link-hover: #000000;
   --link-decoration: rgba(23, 23, 23, 0.35);
   --selection-bg: rgba(23, 23, 23, 0.12);
+  --tagline-gradient: linear-gradient(105deg, #0f766e 0%, #0369a1 55%, #1d4ed8 100%);
+  --tagline-highlight: #e8e8e8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,6 +40,8 @@
     --link-hover: #ffffff;
     --link-decoration: rgba(240, 240, 240, 0.42);
     --selection-bg: rgba(240, 240, 240, 0.18);
+    --tagline-gradient: linear-gradient(105deg, #99f6e4 0%, #7dd3fc 50%, #60a5fa 100%);
+    --tagline-highlight: #2a2a2a;
     color-scheme: dark;
   }
 }
@@ -55,6 +59,8 @@
   --link-hover: #000000;
   --link-decoration: rgba(23, 23, 23, 0.35);
   --selection-bg: rgba(23, 23, 23, 0.12);
+  --tagline-gradient: linear-gradient(105deg, #0f766e 0%, #0369a1 55%, #1d4ed8 100%);
+  --tagline-highlight: #e8e8e8;
   color-scheme: light;
 }
 
@@ -71,6 +77,8 @@
   --link-hover: #ffffff;
   --link-decoration: rgba(240, 240, 240, 0.42);
   --selection-bg: rgba(240, 240, 240, 0.18);
+  --tagline-gradient: linear-gradient(105deg, #99f6e4 0%, #7dd3fc 50%, #60a5fa 100%);
+  --tagline-highlight: #2a2a2a;
   color-scheme: dark;
 }
 
@@ -183,6 +191,23 @@ h6 {
 
 .home-page .home-meta {
   text-transform: none;
+}
+
+.home-tagline {
+  display: inline;
+  padding: 0.2em 0.4em;
+  margin-inline: -0.4em;
+  background-color: var(--tagline-highlight);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-weight: 500;
+}
+
+.home-tagline > span {
+  background-image: var(--tagline-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Item pages — sans only (sketch components keep their own typography) */
