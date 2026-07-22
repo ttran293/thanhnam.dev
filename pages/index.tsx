@@ -25,20 +25,27 @@ const categoryFilters = filters.filter(
   (filter): filter is { id: Filter; label: string } => filter.id !== "all"
 );
 
-const showcaseTitleArrow = (
+const showcaseTitleArrow = (external: boolean) => (
   <span className="ml-2 inline-block shrink-0 translate-x-[-0.15em] whitespace-nowrap opacity-0 transition duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
-    →
+    {external ? "↗︎" : "→"}
   </span>
 );
 
-function ShowcaseItemTitle({ name }: { name: string }) {
+function ShowcaseItemTitle({
+  name,
+  external = false,
+}: {
+  name: string;
+  external?: boolean;
+}) {
+  const arrow = showcaseTitleArrow(external);
   const lastSpace = name.lastIndexOf(" ");
 
   if (lastSpace === -1) {
     return (
       <span className="whitespace-nowrap">
         {name}
-        {showcaseTitleArrow}
+        {arrow}
       </span>
     );
   }
@@ -48,7 +55,7 @@ function ShowcaseItemTitle({ name }: { name: string }) {
       {name.slice(0, lastSpace + 1)}
       <span className="whitespace-nowrap">
         {name.slice(lastSpace + 1)}
-        {showcaseTitleArrow}
+        {arrow}
       </span>
     </>
   );
@@ -498,36 +505,68 @@ const Home: NextPage = () => {
                             }
                             className={isLast ? "py-1" : "showcase-divider py-1"}
                           >
-                            <Link
-                              href={getItemHref(item.id)}
-                              onClick={() => playSound("navigate")}
-                              onMouseEnter={() => playSound("hover")}
-                              className={`showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 items-start no-underline`}
-                              style={{ textDecoration: "none" }}
-                            >
-                              <span className="showcase-row-index flex items-start gap-1">
-                                <span className="theme-blue-meta text-base sm:text-lg lg:text-xl font-semibold opacity-70 group-hover:opacity-100">
-                                  {itemNumber}
-                                </span>
-                              </span>
-                              <span className="min-w-0">
-                                <span className="flex flex-wrap items-start gap-x-3 gap-y-2">
-                                  <span className="showcase-row-title theme-blue-soft text-[clamp(1.5rem,5.5vw,2.25rem)] sm:text-[clamp(1.625rem,4.5vw,2.5rem)] lg:text-[clamp(1.75rem,3vw,2.75rem)] font-medium tracking-tight wrap-break-word">
-                                    <ShowcaseItemTitle name={item.name} />
+                            {(() => {
+                              const rowClassName = `showcase-row ${rowColorClass} group grid grid-cols-[2.75rem_minmax(0,1fr)] sm:grid-cols-[3.25rem_minmax(0,1fr)] lg:grid-cols-[3.5rem_minmax(0,1fr)] gap-3 sm:gap-4 lg:gap-5 items-start no-underline`;
+                              const rowContent = (
+                                <>
+                                  <span className="showcase-row-index flex items-start gap-1">
+                                    <span className="theme-blue-meta text-base sm:text-lg lg:text-xl font-semibold opacity-70 group-hover:opacity-100">
+                                      {itemNumber}
+                                    </span>
                                   </span>
-                                  {item.archived && (
-                                    <span className="showcase-badge">Archived</span>
-                                  )}
-                                </span>
-                                <span className="home-meta theme-blue-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm opacity-55 group-hover:opacity-75">
-                                  <span>{formattedDate}</span>
-                                  <span>/</span>
-                                  <span>{item.tag}</span>
-                                  <span>/</span>
-                                  <span>{item.meta}</span>
-                                </span>
-                              </span>
-                            </Link>
+                                  <span className="min-w-0">
+                                    <span className="flex flex-wrap items-start gap-x-3 gap-y-2">
+                                      <span className="showcase-row-title theme-blue-soft text-[clamp(1.5rem,5.5vw,2.25rem)] sm:text-[clamp(1.625rem,4.5vw,2.5rem)] lg:text-[clamp(1.75rem,3vw,2.75rem)] font-medium tracking-tight wrap-break-word">
+                                        <ShowcaseItemTitle
+                                          name={item.name}
+                                          external={Boolean(item.externalUrl)}
+                                        />
+                                      </span>
+                                      {item.archived && (
+                                        <span className="showcase-badge">
+                                          Archived
+                                        </span>
+                                      )}
+                                    </span>
+                                    <span className="home-meta theme-blue-meta mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm opacity-55 group-hover:opacity-75">
+                                      <span>{formattedDate}</span>
+                                      <span>/</span>
+                                      <span>{item.tag}</span>
+                                      <span>/</span>
+                                      <span>{item.meta}</span>
+                                    </span>
+                                  </span>
+                                </>
+                              );
+
+                              if (item.externalUrl) {
+                                return (
+                                  <a
+                                    href={item.externalUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => playSound("external")}
+                                    onMouseEnter={() => playSound("hover")}
+                                    className={rowClassName}
+                                    style={{ textDecoration: "none" }}
+                                  >
+                                    {rowContent}
+                                  </a>
+                                );
+                              }
+
+                              return (
+                                <Link
+                                  href={getItemHref(item.id)}
+                                  onClick={() => playSound("navigate")}
+                                  onMouseEnter={() => playSound("hover")}
+                                  className={rowClassName}
+                                  style={{ textDecoration: "none" }}
+                                >
+                                  {rowContent}
+                                </Link>
+                              );
+                            })()}
                           </motion.div>
                         );
                       })}

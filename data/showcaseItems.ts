@@ -9,6 +9,8 @@ export type ShowcaseItem = {
   createdAt: string;
   status?: "in-progress" | "done";
   archived?: boolean;
+  /** When set, homepage links straight to this URL instead of a project page. */
+  externalUrl?: string;
 };
 
 export const filterLabels: Record<Filter, string> = {
@@ -22,12 +24,13 @@ export const filterLabels: Record<Filter, string> = {
 export const showcaseItems: ShowcaseItem[] = [
   {
     id: "dearly",
-    name: "dearly",
+    name: "dearly.blog",
     meta: "Community mailboxes",
     tag: "Web App",
     filter: "web-app",
     createdAt: "2026-07-19",
     status: "done",
+    externalUrl: "https://dearly.blog/",
   },
   {
     id: "neural-networks",
@@ -37,15 +40,17 @@ export const showcaseItems: ShowcaseItem[] = [
     filter: "school",
     createdAt: "2026-07-05",
     status: "done",
+    externalUrl: "https://github.com/ttran293/neural-networks",
   },
   {
     id: "sticker-vending-machine",
-    name: "Sticker Vending Machine",
+    name: "mystickervendingmachine.com",
     meta: "Sticker shop",
     tag: "Web App",
     filter: "web-app",
     createdAt: "2026-06-14",
     status: "in-progress",
+    externalUrl: "https://mystickervendingmachine.com/",
   },
   {
     id: "style-guide-demo",
@@ -118,6 +123,7 @@ export const showcaseItems: ShowcaseItem[] = [
     filter: "web-app",
     createdAt: "2026-05-24",
     status: "done",
+    externalUrl: "https://wsrylt.vercel.app/",
   },
   {
     id: "mount-rainier",
@@ -155,6 +161,7 @@ export const showcaseItems: ShowcaseItem[] = [
     filter: "web-app",
     createdAt: "2025-12-31",
     status: "done",
+    externalUrl: "https://15-puzzle-henna.vercel.app/",
   },
   {
     id: "mr-nobody",
@@ -204,7 +211,8 @@ export const showcaseItems: ShowcaseItem[] = [
 ];
 
 export function getItemHref(id: string): string {
-  return `/project/${id}`;
+  const item = getShowcaseItem(id);
+  return item?.externalUrl ?? `/project/${id}`;
 }
 
 export function getSortedShowcaseItems(
