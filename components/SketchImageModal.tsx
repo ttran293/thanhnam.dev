@@ -61,7 +61,7 @@ export default function SketchImageModal({
               width={1200}
               height={1600}
               sizes="(max-width: 1024px) calc(100vw - 2.5rem), 1200px"
-              className={`max-h-[82vh] w-auto max-w-full border border-(--color-poster-blue) object-contain shadow-[0_18px_64px_rgba(23,39,232,0.12)] transition-opacity duration-300 ${
+              className={`max-h-[82vh] w-auto max-w-full border border-(--color-poster-blue) object-contain shadow-[0_18px_64px_rgba(0,0,0,0.12)] transition-opacity duration-300 ${
                 imageLoaded ? "opacity-100" : "opacity-0"
               }`}
               onLoad={() => setImageLoaded(true)}

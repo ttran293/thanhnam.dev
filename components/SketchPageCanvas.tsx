@@ -34,7 +34,7 @@ export default function SketchPageCanvas({
     if (color === "yellow") return "#f6c945";
     if (color === "neutral") return themeName === "dark" ? "#ffffff" : "#000000";
 
-    return getThemeColor("--color-poster-blue", "#1727e8");
+    return getThemeColor("--color-poster-blue", "#171717");
   }, [themeName]);
 
   const setCanvasSize = useCallback(() => {

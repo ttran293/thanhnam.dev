@@ -2,15 +2,12 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import StarIcon from "../components/StarIcon";
 import {
   type Filter,
-  type StatusFilter,
   filterLabels,
   formatShowcaseDate,
   getItemHref,
   getSortedShowcaseItems,
-  statusFilterLabels,
 } from "../data/showcaseItems";
 import { useSoundDesign } from "../hooks/useSoundDesign";
 import { useTheme } from "../hooks/useTheme";
@@ -117,35 +114,20 @@ function useHomeMotion(reduceMotion: boolean | null) {
 
 const Home: NextPage = () => {
   const [activeFilter, setActiveFilter] = useState<Filter | "all">("all");
-  const [activeStatusFilter, setActiveStatusFilter] = useState<
-    StatusFilter | "all"
-  >("all");
   const { theme, toggleTheme } = useTheme();
   const { playSound, soundEnabled, toggleSound } = useSoundDesign();
   const reduceMotion = useReducedMotion();
   const { enabled, fadeUp, fadeIn, slideInRight, stagger, staggerFast } =
     useHomeMotion(reduceMotion);
   const allItems = getSortedShowcaseItems("all");
-  const visibleItems = getSortedShowcaseItems(activeFilter, activeStatusFilter);
+  const visibleItems = getSortedShowcaseItems(activeFilter);
   const activeFilterLabel =
     filters.find((filter) => filter.id === activeFilter)?.label ?? "All";
-  const activeStatusFilterLabel =
-    activeStatusFilter === "all"
-      ? null
-      : statusFilterLabels[activeStatusFilter];
-  const hasActiveFilters =
-    activeFilter !== "all" || activeStatusFilter !== "all";
+  const hasActiveFilters = activeFilter !== "all";
 
   const toggleFilter = (filter: Filter) => {
     playSound(activeFilter === filter ? "clear" : filter);
     setActiveFilter((current) => (current === filter ? "all" : filter));
-  };
-
-  const toggleStatusFilter = (statusFilter: StatusFilter) => {
-    playSound(activeStatusFilter === statusFilter ? "clear" : "hover");
-    setActiveStatusFilter((current) =>
-      current === statusFilter ? "all" : statusFilter
-    );
   };
 
   const clearFilter = () => {
@@ -154,17 +136,11 @@ const Home: NextPage = () => {
     }
 
     setActiveFilter("all");
-    setActiveStatusFilter("all");
   };
 
   const filterButtonClass = (filter: Filter) =>
     `interactive-link bg-transparent border-0 p-0 cursor-pointer text-left ${
       activeFilter === filter ? "filter-active" : ""
-    }`;
-
-  const statusFilterButtonClass = (statusFilter: StatusFilter) =>
-    `status-legend-item interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug ${
-      activeStatusFilter === statusFilter ? "filter-active" : ""
     }`;
 
   const themeToggle = (
@@ -206,60 +182,21 @@ const Home: NextPage = () => {
     </motion.div>
   );
 
-  const renderStatusSummary = (justifyClassName = "justify-end") => (
-    <p
-      className={`flex flex-wrap items-center ${justifyClassName} gap-x-4 gap-y-2`}
+  const itemCount = (
+    <motion.span
+      key={visibleItems.length}
+      initial={enabled ? { opacity: 0, y: 4 } : false}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.22, ease: easeOut }}
     >
-      <span
-        className="status-legend"
-        aria-label="Filter by project status"
-      >
-        <button
-          type="button"
-          aria-pressed={activeStatusFilter === "in-progress"}
-          onClick={() => toggleStatusFilter("in-progress")}
-          onMouseEnter={() => playSound("hover")}
-          className={statusFilterButtonClass("in-progress")}
-        >
-          <span className="status-square status-square-blue" />
-          <span>In-progress</span>
-        </button>
-        <button
-          type="button"
-          aria-pressed={activeStatusFilter === "done"}
-          onClick={() => toggleStatusFilter("done")}
-          onMouseEnter={() => playSound("hover")}
-          className={statusFilterButtonClass("done")}
-        >
-          <span className="status-square status-square-green" />
-          <span>Done</span>
-        </button>
-        <button
-          type="button"
-          aria-pressed={activeStatusFilter === "starred"}
-          onClick={() => toggleStatusFilter("starred")}
-          onMouseEnter={() => playSound("hover")}
-          className={statusFilterButtonClass("starred")}
-        >
-          <StarIcon />
-          <span>Starred</span>
-        </button>
-      </span>
-      <motion.span
-        key={visibleItems.length}
-        initial={enabled ? { opacity: 0, y: 4 } : false}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.22, ease: easeOut }}
-      >
-        {visibleItems.length} items
-      </motion.span>
-    </p>
+      {visibleItems.length} items
+    </motion.span>
   );
 
   const renderAnimatedFilterCrumb = () => (
     <AnimatePresence mode="wait" initial={false}>
       <motion.p
-        key={`${activeFilter}-${activeStatusFilter}`}
+        key={activeFilter}
         initial={enabled ? { opacity: 0, y: 6 } : false}
         animate={{ opacity: 1, y: 0 }}
         exit={enabled ? { opacity: 0, y: -4 } : undefined}
@@ -278,18 +215,8 @@ const Home: NextPage = () => {
             >
               All
             </button>
-            {activeFilter !== "all" && (
-              <>
-                <span>/</span>
-                <span>{activeFilterLabel}</span>
-              </>
-            )}
-            {activeStatusFilterLabel && (
-              <>
-                <span>/</span>
-                <span>{activeStatusFilterLabel}</span>
-              </>
-            )}
+            <span>/</span>
+            <span>{activeFilterLabel}</span>
             <span className="inline-flex items-baseline gap-2 whitespace-nowrap">
               <span>·</span>
               <button
@@ -309,7 +236,7 @@ const Home: NextPage = () => {
   const filterBar = (
     <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-start gap-x-6 gap-y-2">
       {renderAnimatedFilterCrumb()}
-      {renderStatusSummary()}
+      {itemCount}
     </div>
   );
 
@@ -484,12 +411,11 @@ const Home: NextPage = () => {
               <div className="theme-blue-muted text-sm sm:text-base font-medium leading-snug mb-8 sm:mb-10 lg:hidden">
                 <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-6">
                   {renderAnimatedFilterCrumb()}
-                  {renderStatusSummary()}
+                  {itemCount}
                 </div>
               </div>
               <nav>
-                {activeStatusFilter === "all" && (
-                  <motion.div
+                <motion.div
                     className="module-box mb-6 lg:mb-8 cursor-help"
                     title="What should I work on next?"
                     onMouseEnter={() => playSound("mystery")}
@@ -511,7 +437,6 @@ const Home: NextPage = () => {
                       </span>
                     </div>
                   </motion.div>
-                )}
 
                 <div className="space-y-0">
                   {visibleItems.length === 0 ? (
@@ -545,9 +470,7 @@ const Home: NextPage = () => {
                         const isLast = index === visibleItems.length - 1;
                         const rowColorClass = item.archived
                           ? "showcase-row-archived"
-                          : item.status === "done"
-                            ? "showcase-row-green"
-                            : "";
+                          : "";
 
                         return (
                           <motion.div
@@ -586,12 +509,6 @@ const Home: NextPage = () => {
                                 <span className="theme-blue-meta text-base sm:text-lg lg:text-xl font-semibold opacity-70 group-hover:opacity-100">
                                   {itemNumber}
                                 </span>
-                                {item.starred && (
-                                  <StarIcon
-                                    className="showcase-star-index shrink-0"
-                                    aria-label="Starred"
-                                  />
-                                )}
                               </span>
                               <span className="min-w-0">
                                 <span className="flex flex-wrap items-start gap-x-3 gap-y-2">
