@@ -250,29 +250,19 @@ const Home: NextPage = () => {
   return (
     <div className="home-page page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 lg:py-5 xl:px-28 2xl:px-36">
       <div className="relative z-10 mx-auto w-full max-w-[1700px] lg:min-h-[calc(100vh-2.5rem)]">
-        <div className="theme-blue-muted text-sm sm:text-base font-medium leading-snug lg:hidden">
-          <div className="flex justify-end pt-4">{topControls}</div>
-        </div>
-
         <div className="lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-0 lg:items-start">
-          <div className="hidden lg:flex lg:col-start-1 lg:justify-end lg:items-center lg:pr-12 xl:pr-16 2xl:pr-20 theme-blue-muted text-sm font-medium leading-snug pt-4">
-            {topControls}
-          </div>
-          <div className="hidden lg:flex lg:col-start-2 lg:items-center lg:pl-0 lg:pr-4 xl:pr-6 theme-blue-muted text-sm font-medium leading-snug pt-4 w-full">
-            <motion.div
-              className="w-full"
-              variants={slideInRight}
-              initial="hidden"
-              animate="visible"
-            >
-              {filterBar}
-            </motion.div>
-          </div>
+          {/* Left panel — sticky including Sound / Theme */}
+          <div className="lg:sticky lg:top-5 lg:col-start-1 lg:self-start lg:pr-12 xl:pr-16 2xl:pr-20">
+            <div className="hidden lg:flex lg:justify-end lg:items-center theme-blue-muted text-sm font-medium leading-snug pt-4">
+              {topControls}
+            </div>
 
-          {/* Left panel */}
-          <div className="lg:sticky lg:top-5 lg:col-start-1 lg:row-start-2 lg:self-start lg:pr-12 xl:pr-16 2xl:pr-20 pt-8 lg:pt-6">
+            <div className="theme-blue-muted text-sm sm:text-base font-medium leading-snug lg:hidden">
+              <div className="flex justify-end pt-4">{topControls}</div>
+            </div>
+
             <motion.div
-              className="max-w-2xl lg:max-w-none lg:pr-6 xl:pr-8"
+              className="max-w-2xl lg:max-w-none lg:pr-6 xl:pr-8 pt-8 lg:pt-6"
               variants={stagger}
               initial="hidden"
               animate="visible"
@@ -408,13 +398,16 @@ const Home: NextPage = () => {
 
           {/* Right panel */}
           <motion.div
-            className="mt-8 lg:mt-0 lg:col-start-2 lg:row-start-2 lg:flex lg:flex-col lg:pl-0 min-h-[40vh]"
+            className="mt-8 lg:mt-0 lg:col-start-2 lg:flex lg:flex-col lg:pl-0 min-h-[40vh]"
             variants={slideInRight}
             initial="hidden"
             animate="visible"
             transition={enabled ? { delay: 0.12 } : undefined}
           >
-            <div className="relative flex-1 min-h-[40vh] py-0 lg:pt-6 lg:pr-4 xl:pr-6">
+            <div className="relative flex-1 min-h-[40vh] py-0 lg:pt-4 lg:pr-4 xl:pr-6">
+              <div className="hidden lg:block theme-blue-muted text-sm font-medium leading-snug mb-6 w-full">
+                {filterBar}
+              </div>
               <div className="theme-blue-muted text-sm sm:text-base font-medium leading-snug mb-8 sm:mb-10 lg:hidden">
                 <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-6">
                   {renderAnimatedFilterCrumb()}
