@@ -1,0 +1,7 @@
+.wrap { position: relative; width: 100%; height: 100%; isolation: isolate; overflow: hidden; background: transparent; }
+.wrap::before { content: ""; position: absolute; left: 28%; right: 28%; bottom: 21%; height: 12%; border-radius: 50%; background: #00000024; filter: blur(20px); }
+.canvas, .fallback { display: block; width: 100%; height: 100%; position: relative; }
+.canvas { cursor: grab; touch-action: none; }
+.canvas:active { cursor: grabbing; }
+.canvas:focus-visible { outline: 2px solid var(--color-foreground); outline-offset: -5px; }
+.fallback { object-fit: contain; padding: 18%; }

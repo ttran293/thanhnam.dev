@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ReactNode, useEffect } from "react";
+import SiteHeader from "./SiteHeader";
 import { useSoundDesign } from "../hooks/useSoundDesign";
 import { useTheme } from "../hooks/useTheme";
 
@@ -12,12 +12,12 @@ type ItemPageLayoutProps = {
 
 export default function ItemPageLayout({
   children,
-  contentClassName = "relative z-10 mx-auto w-full max-w-[900px]",
+  contentClassName = "relative z-10 mx-auto w-full max-w-[780px]",
   enableSoundEffects = true,
   pageClassName = "",
 }: ItemPageLayoutProps) {
   const { theme, toggleTheme } = useTheme();
-  const { playSound, soundEnabled } = useSoundDesign();
+  const { playSound, soundEnabled, toggleSound } = useSoundDesign();
 
   useEffect(() => {
     if (enableSoundEffects && soundEnabled) {
@@ -27,39 +27,17 @@ export default function ItemPageLayout({
 
   return (
     <div
-      className={`item-page page-texture min-h-screen px-6 py-8 sm:px-10 sm:py-10 md:px-14 lg:px-20 xl:px-28 2xl:px-36 ${pageClassName}`}
+      className={`item-page page-texture min-h-screen ${pageClassName}`}
     >
-      <div className={contentClassName}>
-        <div className="flex justify-between items-center text-xs sm:text-sm font-medium tracking-tight leading-snug mb-8">
-          <Link
-            href="/"
-            onClick={() => {
-              if (enableSoundEffects) {
-                playSound("back");
-              }
-            }}
-            className="interactive-link no-underline"
-            style={{ textDecoration: "none" }}
-          >
-            ← Home
-          </Link>
-          <button
-            type="button"
-            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-            aria-pressed={theme === "dark"}
-            onClick={() => {
-              if (enableSoundEffects) {
-                playSound("theme");
-              }
-              toggleTheme();
-            }}
-            className="interactive-link bg-transparent border-0 p-0 cursor-pointer leading-snug"
-          >
-            {theme === "dark" ? "Light" : "Dark"}
-          </button>
-        </div>
-
-        {children}
+      <SiteHeader
+        theme={theme}
+        onBack={() => { if (enableSoundEffects) playSound("back"); }}
+        onToggleTheme={() => { if (enableSoundEffects) playSound("theme"); toggleTheme(); }}
+        soundEnabled={soundEnabled}
+        onToggleSound={enableSoundEffects ? toggleSound : undefined}
+      />
+      <div className="item-content-region px-6 sm:px-10 md:px-14 lg:px-20 xl:px-28 2xl:px-36">
+        <main className={contentClassName}>{children}</main>
       </div>
     </div>
   );

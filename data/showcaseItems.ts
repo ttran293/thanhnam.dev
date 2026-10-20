@@ -23,6 +23,25 @@ export const filterLabels: Record<Filter, string> = {
 
 export const showcaseItems: ShowcaseItem[] = [
   {
+    id: "jellys-lab",
+    name: "Jelly's Lab",
+    meta: "Recipe notebook with printable cards and a 3D preview",
+    tag: "Web App",
+    filter: "web-app",
+    createdAt: "2026-10-05",
+    externalUrl: "https://jelly-coffee-and-tea-one.vercel.app/",
+  },
+  {
+    id: "jelly",
+    name: "Jelly",
+    meta: "Gambling-awareness and support prototype",
+    tag: "Web App",
+    filter: "web-app",
+    createdAt: "2026-09-26",
+    status: "in-progress",
+    externalUrl: "https://www.myjelly.club/",
+  },
+  {
     id: "dearly",
     name: "dearly.blog",
     meta: "Community mailboxes",
@@ -232,10 +251,6 @@ export function getShowcaseItem(id: string): ShowcaseItem | undefined {
   return showcaseItems.find((item) => item.id === id);
 }
 
-export function formatShowcaseDate(createdAt: string): string {
-  return createdAt.replaceAll("-", ".");
-}
-
 export type ItemNeighbors = {
   prev: ShowcaseItem | null;
   next: ShowcaseItem | null;
@@ -265,7 +280,7 @@ export function getRelatedItems(id: string, limit = 2): ShowcaseItem[] {
 }
 
 export const itemTitleClassName =
-  "poster-blue text-[clamp(2rem,8vw,3.5rem)] font-semibold tracking-tight leading-[1.05] mb-6";
+  "poster-blue text-[clamp(1.75rem,4vw,2.25rem)] font-medium tracking-[-0.04em] leading-[1.2] mb-6";
 
 export const sketchItemTitleClassName =
   "display-font poster-blue text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.9] mb-6";

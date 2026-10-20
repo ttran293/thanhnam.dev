@@ -36,13 +36,14 @@ export default function SketchSoundtrackControl() {
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.35);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const volumeRef = useRef(volume);
   const activeTrack = tracks[activeTrackIndex];
 
   const play = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    void audio.play().then(() => setIsPlaying(true));
+    void audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
   }, []);
 
   const stop = useCallback(() => {
@@ -62,6 +63,7 @@ export default function SketchSoundtrackControl() {
   const updateVolume = useCallback((nextVolume: number) => {
     const audio = audioRef.current;
 
+    volumeRef.current = nextVolume;
     setVolume(nextVolume);
 
     if (audio) {
@@ -81,7 +83,7 @@ export default function SketchSoundtrackControl() {
 
   useEffect(() => {
     const audio = new Audio(activeTrack.src);
-    audio.volume = volume;
+    audio.volume = volumeRef.current;
     audio.loop = true;
     audio.preload = "auto";
     audioRef.current = audio;

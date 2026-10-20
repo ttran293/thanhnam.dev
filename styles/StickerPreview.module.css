@@ -1,0 +1,12 @@
+.stickers { position: relative; display: block; width: min(290px, 85%); height: 230px; }
+.sticker { position: absolute; display: block; width: 49%; filter: drop-shadow(0 3px 2px #00000018) drop-shadow(0 12px 9px #00000012); transition: transform 300ms cubic-bezier(.2, .7, .2, 1); }
+.sticker img { display: block; width: 100%; height: auto; object-fit: contain; }
+.dog { top: 0; left: 1%; transform: rotate(-12deg); }
+.buttercup { top: 14px; right: 0; transform: rotate(10deg); }
+.cat { bottom: -2px; left: 27%; transform: rotate(-5deg); }
+@media (prefers-reduced-motion: no-preference) {
+  a:hover .dog, a:focus-visible .dog { transform: translate(-4px, -5px) rotate(-16deg); }
+  a:hover .buttercup, a:focus-visible .buttercup { transform: translate(4px, -4px) rotate(14deg); }
+  a:hover .cat, a:focus-visible .cat { transform: translateY(3px) rotate(-2deg); }
+}
+@media (prefers-reduced-motion: reduce) { .sticker { transition: none; } }

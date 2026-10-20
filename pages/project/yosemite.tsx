@@ -228,7 +228,7 @@ export default function YosemitePage() {
       </Head>
       <ItemPageLayout
         contentClassName="relative z-10 mx-auto flex min-h-0 w-full max-w-none flex-1 flex-col"
-        pageClassName="flex h-screen min-h-0 flex-col overflow-hidden !py-4 sm:!py-5 [&>div>div:first-child]:mb-3"
+        pageClassName="item-page-compact flex h-screen min-h-0 flex-col overflow-hidden"
       >
         <article className="flex min-h-0 flex-1 flex-col">
           <header className="mb-2 flex shrink-0 flex-wrap items-end justify-between gap-x-4 gap-y-1 sm:mb-3">
