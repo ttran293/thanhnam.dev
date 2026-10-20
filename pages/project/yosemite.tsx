@@ -65,11 +65,8 @@ function YosemiteImageDialog({
   image: YosemiteImage | null;
   onClose: () => void;
 }) {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(false);
-  }, [image?.src]);
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+  const loaded = loadedSrc === image?.src;
 
   useEffect(() => {
     if (!image) return;
@@ -144,7 +141,7 @@ function YosemiteImageDialog({
                 className={`block max-h-[calc(100vh-6rem)] max-w-[calc(100vw-2.5rem)] object-contain transition-opacity duration-300 sm:max-h-[calc(100vh-8rem)] sm:max-w-[calc(100vw-5rem)] ${
                   loaded ? "opacity-100" : "opacity-0"
                 }`}
-                onLoad={() => setLoaded(true)}
+                onLoad={() => setLoadedSrc(image.src)}
               />
             </motion.div>
           </div>

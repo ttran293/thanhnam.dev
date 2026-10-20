@@ -56,9 +56,15 @@ export default function SketchSoundtrackControl() {
     setIsPlaying(false);
   }, []);
 
-  const nextTrack = useCallback(() => {
-    setActiveTrackIndex((current) => (current + 1) % tracks.length);
-  }, []);
+  const selectTrack = (index: number) => {
+    if (index === activeTrackIndex) return;
+    setCurrentTime(0);
+    setDuration(0);
+    setIsPlaying(false);
+    setActiveTrackIndex(index);
+  };
+
+  const nextTrack = () => selectTrack((activeTrackIndex + 1) % tracks.length);
 
   const updateVolume = useCallback((nextVolume: number) => {
     const audio = audioRef.current;
@@ -100,8 +106,6 @@ export default function SketchSoundtrackControl() {
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
     audio.addEventListener("timeupdate", handleTimeUpdate);
 
-    setCurrentTime(0);
-    setDuration(0);
     void audio.play().catch(() => setIsPlaying(false));
 
     return () => {
@@ -127,7 +131,7 @@ export default function SketchSoundtrackControl() {
           <button
             key={track.src}
             type="button"
-            onClick={() => setActiveTrackIndex(index)}
+            onClick={() => selectTrack(index)}
             className={`interactive-link bg-transparent border-0 p-0 cursor-pointer uppercase leading-none ${
               activeTrackIndex === index ? "filter-active" : "opacity-60"
             }`}

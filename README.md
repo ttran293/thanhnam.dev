@@ -5,7 +5,7 @@ Framer Motion, and Three.js.
 
 ## Development
 
-Use Node.js 20 (see `.nvmrc`), then:
+Use the latest Node.js 24 LTS patch (see `.nvmrc` and `package.json`), then:
 
 ```sh
 npm ci
@@ -20,7 +20,7 @@ the running development server's chunks. Both folders are ignored by Git.
 
 ```sh
 npm run lint
-npx tsc --noEmit
+npm run typecheck
 npm run build
 ```
 

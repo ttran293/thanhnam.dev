@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export type SketchDrawing = {
   id: string;
@@ -17,11 +17,8 @@ export default function SketchImageModal({
   drawing,
   onClose,
 }: SketchImageModalProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  useEffect(() => {
-    setImageLoaded(false);
-  }, [drawing?.src]);
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+  const imageLoaded = loadedSrc === drawing?.src;
 
   return (
     <AnimatePresence>
@@ -64,7 +61,7 @@ export default function SketchImageModal({
               className={`max-h-[82vh] w-auto max-w-full border border-(--color-poster-blue) object-contain shadow-[0_18px_64px_rgba(0,0,0,0.12)] transition-opacity duration-300 ${
                 imageLoaded ? "opacity-100" : "opacity-0"
               }`}
-              onLoad={() => setImageLoaded(true)}
+              onLoad={() => setLoadedSrc(drawing.src)}
               priority
             />
             <button
