@@ -14,6 +14,7 @@ import {
 import { useSoundDesign } from "../hooks/useSoundDesign";
 import { useTheme } from "../hooks/useTheme";
 import { useScrollReveal } from "../hooks/useScrollReveal";
+import { useHorizontalIndex } from "../hooks/useHorizontalIndex";
 import styles from "../styles/Home.module.css";
 
 const filters: { id: Filter | "all"; label: string }[] = [
@@ -30,8 +31,10 @@ export default function Home() {
   const { theme, toggleTheme } = useTheme();
   const { playSound, soundEnabled, toggleSound } = useSoundDesign();
   const reduceMotion = useReducedMotion();
-  const visibleItems = getSortedShowcaseItems(activeFilter);
+  const filteredItems = getSortedShowcaseItems(activeFilter);
   const revealRef = useScrollReveal(activeFilter);
+  const { listRef, position, scroll } = useHorizontalIndex(activeFilter, reduceMotion);
+  const hasOverflow = position.previous || position.next;
 
   const selectFilter = (filter: Filter | "all") => {
     const next = filter === activeFilter ? "all" : filter;
@@ -91,7 +94,7 @@ export default function Home() {
             <div className={styles.sectionHeading} data-reveal>
               <h2 id="projects-heading">The full index</h2>
               <span className={styles.count} role="status" aria-live="polite">
-                {visibleItems.length} {visibleItems.length === 1 ? "item" : "items"}
+                {filteredItems.length} {filteredItems.length === 1 ? "item" : "items"}
               </span>
             </div>
 
@@ -112,40 +115,66 @@ export default function Home() {
               </div>
             </div>
 
-            <motion.ul
-              key={activeFilter}
-              className={styles.list}
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              {visibleItems.map((item, index) => {
-                const content = (
-                  <span className={styles.itemBody}>
-                    <span className={styles.titleLine}>
-                      <span className={styles.itemTitle}>{item.name}</span>
-                      <span className={styles.arrow} aria-hidden="true">{item.externalUrl ? "↗" : "→"}</span>
-                      {item.archived && <span className={styles.archived}>Archived</span>}
+            <div className={styles.indexViewport} data-more={position.next} data-previous={position.previous}>
+              <motion.ul
+                id="project-index"
+                ref={listRef}
+                key={activeFilter}
+                className={styles.list}
+                tabIndex={0}
+                aria-label="Project index"
+                aria-describedby={hasOverflow ? "index-scroll-hint" : undefined}
+                data-lenis-prevent-touch
+                onKeyDown={(event) => {
+                  if (event.target !== event.currentTarget) return;
+                  const direction = { ArrowLeft: -1, ArrowRight: 1, Home: "start", End: "end" }[event.key];
+                  if (direction === undefined) return;
+                  event.preventDefault();
+                  scroll(direction as -1 | 1 | "start" | "end");
+                }}
+                initial={reduceMotion ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                {filteredItems.map((item, index) => {
+                  const content = (
+                    <span className={styles.itemBody}>
+                      <span className={styles.titleLine}>
+                        <span className={styles.itemTitle}>{item.name}</span>
+                        <span className={styles.arrow} aria-hidden="true">{item.externalUrl ? "↗" : "→"}</span>
+                        {item.archived && <span className={styles.archived}>Archived</span>}
+                      </span>
+                      <span className={styles.description}>{item.meta}<span className={styles.metaDivider}> · </span><span className={styles.tag}>{item.tag}</span></span>
                     </span>
-                    <span className={styles.description}>{item.meta}<span className={styles.metaDivider}> · </span><span className={styles.tag}>{item.tag}</span></span>
-                  </span>
-                );
+                  );
 
-                return (
-                  <li key={item.id} data-reveal data-reveal-delay={(index % 3) * 35}>
-                    {item.externalUrl ? (
-                      <a className={styles.row} href={item.externalUrl} target="_blank" rel="noopener noreferrer" onClick={() => playSound("external")}>
-                        {content}
-                      </a>
-                    ) : (
-                      <Link className={styles.row} href={getItemHref(item.id)} onClick={() => playSound("navigate")}>
-                        {content}
-                      </Link>
-                    )}
-                  </li>
-                );
-              })}
-            </motion.ul>
+                  return (
+                    <li key={item.id}>
+                      {item.externalUrl ? (
+                        <a className={styles.row} href={item.externalUrl} target="_blank" rel="noopener noreferrer" onClick={() => playSound("external")}>
+                          <span className={styles.itemNumber} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                          {content}
+                        </a>
+                      ) : (
+                        <Link className={styles.row} href={getItemHref(item.id)} onClick={() => playSound("navigate")}>
+                          <span className={styles.itemNumber} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                          {content}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
+              </motion.ul>
+            </div>
+
+            {hasOverflow && (
+              <div className={styles.indexNavigation}>
+                <span id="index-scroll-hint" className={styles.srOnly}>Scroll or swipe sideways to explore. When the list is focused, use Left, Right, Home or End.</span>
+                <div className={styles.indexProgress} aria-hidden="true">
+                  <span style={{ width: `${position.width}%`, left: `${position.left}%` }} />
+                </div>
+              </div>
+            )}
           </section>
 
           <footer className={styles.footer} data-reveal>
