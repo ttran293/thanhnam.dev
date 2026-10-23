@@ -102,14 +102,17 @@
 .indexViewport[data-previous="true"]::before { opacity: 1; }
 .indexViewport[data-more="true"]::after { opacity: 1; }
 .list {
+  --index-gap: 32px;
+  --index-end-space: 72px;
   display: grid;
   grid-auto-flow: column;
   grid-template-rows: repeat(5, minmax(88px, auto));
-  grid-auto-columns: calc((100% - 104px) / 2);
-  column-gap: 32px;
+  grid-auto-columns: calc((100% - var(--index-gap)) / 2);
+  column-gap: var(--index-gap);
   min-width: 0;
   margin: 0;
-  padding: 4px;
+  /* Leave room for the final snap while preserving the next-column preview. */
+  padding: 4px calc(4px + var(--index-end-space)) 4px 4px;
   list-style: none;
   overflow-x: auto;
   scrollbar-width: none;
@@ -161,7 +164,7 @@
 @media (max-width: 640px) {
   .introActions { align-items: flex-start; flex-direction: column; gap: 2px; }
   .utilities { margin-left: -4px; }
-  .list { grid-auto-columns: calc(100% - 36px); column-gap: 24px; grid-template-rows: repeat(5, minmax(94px, auto)); }
+  .list { --index-gap: 24px; --index-end-space: 36px; grid-auto-columns: 100%; grid-template-rows: repeat(5, minmax(94px, auto)); }
   .indexViewport::after { width: 24px; }
   .filters { gap: 4px; }
   .filter { gap: 7px; padding: 7px 9px; }
