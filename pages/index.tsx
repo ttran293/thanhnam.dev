@@ -52,12 +52,13 @@ export default function Home() {
         />
       </Head>
       <div id="top" className={styles.page}>
+        <div className={styles.grain} aria-hidden="true" />
         <a href="#projects" className={styles.skipLink}>Skip to projects</a>
         <main ref={revealRef} className={styles.shell}>
           <header className={styles.intro}>
             <div className={styles.identity}>
               <h1 className={styles.heading} title="/tʰajŋ nam/" onMouseEnter={() => playSound("name")}>
-                Thanh Nam
+                <span className={styles.headingText}>Thanh Nam</span>
               </h1>
               <p className={styles.introLine}>I like to build things that connect people.</p>
             </div>

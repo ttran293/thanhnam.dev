@@ -22,6 +22,7 @@
   --link-decoration: rgba(23, 23, 23, 0.35);
   --selection-bg: rgba(23, 23, 23, 0.12);
   --grain-opacity: 0.045;
+  --static-opacity: 0.055;
   --paper: color-mix(in srgb, var(--page-bg) 98%, var(--color-foreground));
   --hairline: color-mix(in srgb, var(--color-foreground) 10%, transparent);
   --secondary: color-mix(in srgb, var(--color-foreground) 76%, var(--page-bg));
@@ -42,6 +43,7 @@
     --link-decoration: rgba(240, 240, 240, 0.42);
     --selection-bg: rgba(240, 240, 240, 0.18);
     --grain-opacity: 0.025;
+    --static-opacity: 0.045;
     color-scheme: dark;
   }
 }
@@ -59,6 +61,7 @@
   --link-decoration: rgba(23, 23, 23, 0.35);
   --selection-bg: rgba(23, 23, 23, 0.12);
   --grain-opacity: 0.045;
+  --static-opacity: 0.055;
   color-scheme: light;
 }
 
@@ -75,6 +78,7 @@
   --link-decoration: rgba(240, 240, 240, 0.42);
   --selection-bg: rgba(240, 240, 240, 0.18);
   --grain-opacity: 0.025;
+  --static-opacity: 0.045;
   color-scheme: dark;
 }
 

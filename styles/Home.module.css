@@ -7,15 +7,22 @@
   letter-spacing: -0.018em;
 }
 
-.page::before {
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.grain::before {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: url('/images/grain.svg') repeat;
+  inset: -160px;
+  background: url('/images/static-grain.svg') repeat;
   background-size: 160px 160px;
-  opacity: var(--grain-opacity);
+  opacity: var(--static-opacity);
 }
 
 .shell { width: min(100% - 48px, 840px); margin: auto; }
@@ -27,15 +34,38 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes grainShift {
+  0%, 100% { transform: translate(0, 0); }
+  16% { transform: translate(-31px, 47px); }
+  33% { transform: translate(53px, -23px); }
+  50% { transform: translate(-67px, -41px); }
+  66% { transform: translate(29px, 61px); }
+  83% { transform: translate(-13px, -59px); }
+}
+
+@keyframes headingReveal {
+  from { transform: translateY(110%); }
+  to { transform: translateY(0); }
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .identity, .bio, .introActions {
+  .grain::before {
+    animation: grainShift 900ms steps(1, end) infinite;
+    will-change: transform;
+  }
+  .headingText {
+    animation: headingReveal 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .introLine, .bio, .introActions {
     animation: introEnter 650ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
-  .bio { animation-delay: 90ms; }
-  .introActions { animation-delay: 170ms; }
+  .introLine { animation-delay: 70ms; }
+  .bio { animation-delay: 130ms; }
+  .introActions { animation-delay: 210ms; }
 }
 
 .heading {
+  overflow: clip;
   margin: 0 0 12px;
   color: var(--color-foreground);
   font-size: 1.875rem;
@@ -43,6 +73,7 @@
   font-weight: 450;
   letter-spacing: -0.045em;
 }
+.headingText { display: block; }
 
 .introLine { max-width: 520px; margin: 0; font-size: 19px; line-height: 1.5; letter-spacing: -0.025em; color: var(--secondary); text-wrap: pretty; }
 .bio { max-width: 580px; margin-top: 16px; font-size: 13px; line-height: 1.8; color: var(--quiet); text-wrap: pretty; }
@@ -183,5 +214,5 @@
   .page *, .page *::before, .page *::after { transition: none; }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .page::before { display: none; }
+  .grain { display: none; }
 }
