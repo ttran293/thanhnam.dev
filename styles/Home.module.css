@@ -183,7 +183,7 @@
 .archived { color: var(--quiet); font-size: 0.625rem; }
 .arrow { position: absolute; top: 2px; right: 0; color: var(--quiet); font-size: 0.875rem; opacity: 0; transform: translate(-3px, 2px); transition: opacity 160ms ease, transform 160ms ease; }
 .row:hover .arrow, .row:focus-visible .arrow { opacity: 1; transform: translate(0); }
-.footer { display: flex; justify-content: space-between; gap: 20px; margin-top: 54px; padding: 24px 0 50px; border-top: 1px solid var(--hairline); color: var(--quiet); font-size: 0.6875rem; }
+.footer { display: flex; justify-content: space-between; gap: 20px; margin-top: 54px; padding: 24px 0 50px; color: var(--quiet); font-size: 0.6875rem; }
 .footer a { color: var(--quiet); text-decoration: none; }
 .skipLink { position: fixed; top: 8px; left: 8px; z-index: 100; padding: 12px; color: var(--page-bg); background: var(--color-foreground); transform: translateY(-200%); }
 .skipLink:focus { transform: translateY(0); }
